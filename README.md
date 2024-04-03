@@ -6,6 +6,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+STEPS
+1. npm install in both backend and frontend
+2. npm start in both backend and frontend
+3. in backend npm run reset
+
 ### `npm start`
 
 Runs the app in the development mode.\
