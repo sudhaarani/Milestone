@@ -4,13 +4,16 @@
   "description": "",
   "main": "src/index.js",
   "dependencies": {
-    "express": "^4.19.2"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.11.5"
   },
   "devDependencies": {},
   "scripts": {
     "start": "node ./src/index.js",
     "error": "TEST_ERROR=true node ./src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "reset": "psql -U labber -d final < ./src/db/schema/create.sql && psql -U development -d photolabs_development < ./src/db/seeds/insert.sql"
   },
   "author": "",
   "license": "ISC"
