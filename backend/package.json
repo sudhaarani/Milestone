@@ -13,7 +13,7 @@
     "start": "node ./src/index.js",
     "error": "TEST_ERROR=true node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "reset": "psql -U labber -d final < ./src/db/schema/create.sql && psql -U development -d photolabs_development < ./src/db/seeds/insert.sql"
+    "reset": "psql -U labber -d final < ./src/db/schema/create.sql && psql -U labber -d final < ./src/db/seeds/insert.sql"
   },
   "author": "",
   "license": "ISC"
