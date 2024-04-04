@@ -5,10 +5,8 @@ router.use(express.json());
 
 const db = require("../db/connection.js");
 
-router.get("/users", (request, response) => {
-  console.log("@@@@@@@@@@@@@@@@@@@@---------here");
-  
-  db.query(`SELECT * FROM users;`).then(({ rows: users }) => {
+router.get("/milestones", (request, response) => {  
+  db.query(`SELECT * FROM milestones;`).then(({ rows: users }) => {
     response.json(users);
   }).catch(err => {
     console.error(err);

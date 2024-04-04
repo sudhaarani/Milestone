@@ -15,9 +15,9 @@ const port = process.env.PORT || 8001;
  const milestonesRoutes = require('./routes/milestones');
  const timelinesRoutes = require('./routes/timelines');
 
-app.use('/', usersRoutes);
-app.use('/m', milestonesRoutes);
-app.use('/t', timelinesRoutes);
+app.use('/api', usersRoutes);
+app.use('/api', milestonesRoutes);
+app.use('/api', timelinesRoutes);
 
 app.listen(port, function (error) {
   if (error) {
