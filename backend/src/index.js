@@ -1,19 +1,23 @@
 // load .env data into process.env
 require('dotenv').config();
 
-const express = require("express"); 
+const express = require('express'); 
 const app = express();
 const morgan = require('morgan');
 const port = process.env.PORT || 8001; 
 
-//session-cookie is needed
+//////////////////////////////////////////////////
+// serves static files from public directory 
+const path = require('path'); 
+app.use(express.static(path.join(__dirname, 'public'))); 
+//////////////////////////////////////////////////
 
- app.use(morgan('dev')); //to log HTTP requests to your application's console
- app.use(express.urlencoded({ extended: true })); //parses the data and makes it available in the req.body object
+app.use(morgan('dev')); //to log HTTP requests to your application's console
+app.use(express.urlencoded({ extended: true })); //parses the data and makes it available in the req.body object
 
- const usersRoutes = require('./routes/users');
- const milestonesRoutes = require('./routes/milestones');
- const timelinesRoutes = require('./routes/timelines');
+const usersRoutes = require('./routes/users');
+const milestonesRoutes = require('./routes/milestones');
+const timelinesRoutes = require('./routes/timelines');
 
 app.use('/api', usersRoutes);
 app.use('/api', milestonesRoutes);
