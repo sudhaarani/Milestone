@@ -1,17 +1,45 @@
-
 const express = require('express');
 const router = express.Router();
 router.use(express.json());
+const db = require('../db/connection.js');
 
-const db = require("../db/connection.js");
+///////////// multer configuration ////////////////
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'src/public/uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
+///////////////////////////////////////////////////
 
-router.get("/timelines", (request, response) => {  
-  db.query(`SELECT * FROM timelines;`).then(({ rows: users }) => {
-    response.json(users);
-  }).catch(err => {
-    console.error(err);
-    response.status(500).send('Server Error');
-  });
+
+router.post('/timelines', upload.single('coverimage'), (req, res) => {
+  const { title } = req.body;
+  const { description } = req.body;
+  const image = req.file.filename;
+  const user_id = 1 //hardcoded for now
+  
+  db.query(`
+      INSERT INTO timelines (title, description, image, user_id)
+      VALUES ($1, $2, $3, $4)`, 
+      [title, description, image, user_id]
+    )
+    .then(({ rows: timelines }) => {
+      const updatedTimelinesObj = timelines.map(timeline => (
+        { ...timeline,
+          timelineImageUrl: `/uploads/${timeline.image}`
+        }
+      ));
+      res.json(updatedTimelinesObj);
+    })
+    .catch((error) => {
+      console.error('Error inserting timeline:', error);
+      res.status(500).send('Server Error');
+    });
 });
 
 
