@@ -42,5 +42,20 @@ router.post('/timelines', upload.single('coverimage'), (req, res) => {
     });
 });
 
+router.get('/timelines', (req, res) => {  
+  db.query(`SELECT * FROM timelines;`)
+    .then(({ rows: timelines }) => {
+      const updatedTimelinesObj = timelines.map(timeline => (
+        { ...timeline,
+          timelineImageUrl: `/uploads/${timeline.image}`
+        }
+      ));
+      res.json(updatedTimelinesObj);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).send('Server Error');
+    });
+});
 
 module.exports = router;
