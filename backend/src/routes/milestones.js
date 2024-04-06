@@ -13,14 +13,14 @@ const db = require('../db/connection.js');
 //                      routes                        //
 ////////////////////////////////////////////////////////
 
-router.get('/milestones', (request, response) => {  
+router.get('/milestones', (req, res) => {  
   db.query(`SELECT * FROM milestones;`)
     .then(({ rows: users }) => {
-      response.json(users);
+      res.json(users);
     })
-    .catch(err => {
-      console.error(err);
-      response.status(500).send('Server Error');
+    .catch(error => {
+      console.error(error);
+      res.status(500).send('Server Error');
     });
 });
 
