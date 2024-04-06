@@ -20,7 +20,7 @@ router.get('/users', (req, res) => {
     })
     .catch(error => {
       console.error(error);
-      response.status(500).send('Server Error');
+      res.status(500).send('Server Error');
     });
 });
 
