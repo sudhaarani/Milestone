@@ -2,10 +2,10 @@ import React from 'react';
 
 import ListOfTimelines from "./ListOfTimelines";
 
-const HomePage = ({state,setDisplayModal,handleModalTimeline}) => {
+const HomePage = ({state, handleToggle, handleSelectedTimeline}) => {
   return (
     <div>
-      <ListOfTimelines state={state} setDisplayModal={setDisplayModal} handleModalTimeline={handleModalTimeline} />
+      <ListOfTimelines state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline} />
     </div>
   );
 }
