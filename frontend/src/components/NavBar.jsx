@@ -1,21 +1,29 @@
+// File: NavBar.js
 import React, { useState } from 'react';
-import LoginModal from './LoginModal'; // Ensure the path matches where your LoginModal is located
+import LoginModal from './LoginModal'; // Ensure path is correct
+import RegistrationModal from './RegistrationModal'; // Ensure path is correct
 
 const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [username, setUsername] = useState('');
 
   const handleLogin = (username) => {
-    // Here you would usually validate against backend
     setIsLoggedIn(true);
     setUsername(username);
-    setShowModal(false);
+    setShowLoginModal(false);
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUsername('');
+  };
+
+  const handleRegister = (username) => {
+    setIsLoggedIn(true);  // Simulate login after registration
+    setUsername(username);
+    setShowRegistrationModal(false);
   };
 
   return (
@@ -38,12 +46,13 @@ const NavBar = () => {
           </>
         ) : (
           <>
-            <button onClick={() => setShowModal(true)}>Login</button>
-            <a href="/register">Register</a>
+            <button onClick={() => setShowLoginModal(true)}>Login</button>
+            <button onClick={() => setShowRegistrationModal(true)}>Register</button>
           </>
         )}
       </div>
-      <LoginModal isOpen={showModal} onClose={() => setShowModal(false)} onLogin={handleLogin} />
+      <LoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} onLogin={handleLogin} />
+      <RegistrationModal isOpen={showRegistrationModal} onClose={() => setShowRegistrationModal(false)} onRegister={handleRegister} />
     </nav>
   );
 };
