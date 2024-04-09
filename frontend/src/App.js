@@ -1,37 +1,27 @@
 import './App.css';
+import React from 'react';
+import HomePage from './components/HomePage';
+import TimelineEditModal from './components/TimelineEditModal';
 import NavBar from './components/NavBar';
 import NewTimelineForm from './components/NewTimelineForm';
+
+import useApplicationData from "../src/hooks/useApplicationData";
+import useToggle from "../src/hooks/useToggle";
 import { useEffect, useState } from 'react';
 
 function App() {
-  /////////// TEMP CODE TO DISPLAY TIMELINE INFO ////////// 
-  const [timelines, setTimelines] = useState([]);
-
-  useEffect(() => {
-    fetch('/api/timelines', {
-      method: 'GET'
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setTimelines(data)
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
-  ////////////////////////////////////////////////////////
+  const { state, handleSelectedTimeline } = useApplicationData();
+  const { toggleState, handleToggle } = useToggle();
 
   return (
     <div className="App">
-        <NavBar isLoggedIn={true} username={"Labber"} />
-        <NewTimelineForm />
-        { timelines.map((timeline) => (
-        <div key={timeline.id}>
-          <img src={timeline.timelineImageUrl} alt={timeline.title} />
-          <h1>{timeline.title}</h1>
-          <p>{timeline.description}</p>
-        </div>))
-      }
+      <NavBar isLoggedIn={true} username={"Labber"} />
+
+      <HomePage state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline} />
+
+      {toggleState && <TimelineEditModal handleToggle={handleToggle} state={state} />}
+
+      <NewTimelineForm />
     </div>
   );
 }
