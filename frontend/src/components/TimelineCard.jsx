@@ -2,13 +2,13 @@ import React from 'react';
 import '../styles/TimelineCard.css'
 import FavButton from "./FavButton";
 
-const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline,handleFavorite,favoritesState}) => {
+const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline,handleFavorites,state}) => {
   const { id, title, description, timelineImageUrl } = timelineList;
 
   return (
     <div className="card">
       {/* can add this favbutton whereever we needed once the flow is created */}
-      <FavButton id={id} favoritesState={favoritesState} handleFavorite={handleFavorite} />
+      <FavButton id={id} handleFavorites={handleFavorites} state={state} />
       <img src={timelineImageUrl} className="card-img-top" alt="Card image cap" />
       <div className="card-body">
         <h5 className="card-title">{title}</h5>

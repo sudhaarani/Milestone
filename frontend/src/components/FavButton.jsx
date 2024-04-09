@@ -3,15 +3,15 @@ import React from 'react';
 import FavIcon from './FavIcon';
 //import '../styles/FavButton.scss';
 
-function FavButton({handleFavorite, favoritesState, id }) {
+function FavButton({handleFavorites, state, id }) {
 
   return (
     <div className="photo-list__fav-icon" onClick={() => {
-      handleFavorite(id)
+      handleFavorites(id)
     }}>
       <div className="photo-list__fav-icon-svg">
         {/* Insert React */}
-        <FavIcon selected={favoritesState.includes(id)} />
+        <FavIcon selected={state.favTimelines.includes(id)} />
       </div>
     </div>
   );

@@ -9,13 +9,13 @@ import useToggle from "../src/hooks/useToggle";
 
 
 function App() {
-  const { state, handleSelectedTimeline } = useApplicationData();
-  const { toggleState,favoritesState, handleToggle, handleFavorite } = useToggle();
+  const { state, handleSelectedTimeline,handleFavorites } = useApplicationData();
+  const { toggleState, handleToggle} = useToggle();
 
   return (
     <div className="App">
       <HomePage state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline}
-        handleFavorite={handleFavorite} favoritesState={favoritesState} />
+        handleFavorites={handleFavorites} />
 
       {toggleState && <TimelineEditModal handleToggle={handleToggle} state={state} />}
 
