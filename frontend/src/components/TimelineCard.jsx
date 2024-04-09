@@ -10,14 +10,20 @@ const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline, stat
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
         <p className="card-text">{description}</p>
-        <button type="button" className="btn btn-primary" onClick={() => { 
-          handleToggle() 
-          handleSelectedTimeline(id)
-        }}> Edit </button>
-        <button type="button" className="btn btn-danger">Delete</button>
+      </div>
+      <div className="card-footer">
+        <p className="card-username">By insert_username</p>
+        <i class="fa-solid fa-pen" 
+          onClick={() => { 
+            handleToggle() 
+            handleSelectedTimeline(id)
+          }} 
+        />
+        <i class="fa-solid fa-trash"></i>
       </div>
     </div>
   );
 }
 
 export default TimelineCard;
+

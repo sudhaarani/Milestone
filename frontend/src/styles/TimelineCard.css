@@ -1,11 +1,39 @@
+.timelines-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+
 .card-img-top {
-  width: 300px;
-  height: 180px;
+  width: 400px;
+  height: 200px;
   object-fit: cover;
 }
 
 /* Style the card container */
 .card {
-  width: 300px;
-  margin: 10px;
+  width: 400px;
+  margin: 20px;
+}
+
+.card-footer {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+.fa-pen {
+  font-size: 20px;
+  &:hover {
+    color: rgb(63, 70, 129);
+  }
+}
+
+.fa-trash {
+  font-size: 20px;
+  &:hover {
+    color: rgb(136, 56, 56);
+  }
 }

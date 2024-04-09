@@ -6,7 +6,7 @@ const ListOfTimelines = ({state, handleToggle, handleSelectedTimeline}) => {
   console.log(state.timelines)
 
   const TimelineListArray = state.timelines.map((timelineList) => {
-    return (<div className="timelines-card-list">
+    return (<div>
               <TimelineCard 
                 key={timelineList.id}
                 timelineList={timelineList}
@@ -18,9 +18,9 @@ const ListOfTimelines = ({state, handleToggle, handleSelectedTimeline}) => {
   });
 
   return (
-    <ul>
+    <div className="timelines-card-list">
       {TimelineListArray}
-    </ul>
+    </div>
   );
 };
 
