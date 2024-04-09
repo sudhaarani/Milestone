@@ -3,7 +3,7 @@ import React from 'react';
 import '../styles/TimelineEditModal.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 
-const TimelineEditModal = ({ handleToggle, state }) => {
+const MainModal = ({ handleToggle, state }) => {
 
   return (
     <div className='timeline-edit-modal'>
@@ -14,4 +14,4 @@ const TimelineEditModal = ({ handleToggle, state }) => {
   )
 };
 
-export default TimelineEditModal;
+export default MainModal;
