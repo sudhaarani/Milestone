@@ -1,11 +1,3 @@
-.timelines-card-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 20px;
-}
-
-
 .card-img-top {
   width: 400px;
   height: 200px;

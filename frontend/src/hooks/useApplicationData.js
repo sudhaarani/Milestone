@@ -40,7 +40,7 @@ const useApplicationData = () => {
       .catch(error => {
         console.error('Error fetching topics:', error);
       })
-  }, []);
+  }, [ACTIONS.SET_TIMELINE]);
 
   const handleSelectedTimeline = (id) => {
     const selectedTimelineResult = state.timelines.find(timeline => timeline.id === id)

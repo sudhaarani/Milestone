@@ -6,9 +6,9 @@ import closeSymbol from '../assets/closeSymbol.svg';
 const TimelineEditModal = ({ handleToggle, state }) => {
 
   return (
-    <div className="timeline-edit-modal">
+    <div className='timeline-edit-modal'>
       <button onClick={() => { handleToggle() }}>
-        <img src={closeSymbol} alt="close symbol" />
+        <img src={closeSymbol} alt='close symbol' />
       </button>
     </div>
   )
