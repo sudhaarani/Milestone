@@ -10,14 +10,15 @@ import useToggle from "../src/hooks/useToggle";
 import { useEffect, useState } from 'react';
 
 function App() {
-  const { state, handleSelectedTimeline } = useApplicationData();
-  const { toggleState, handleToggle } = useToggle();
+  const { state, handleSelectedTimeline,handleFavorites } = useApplicationData();
+  const { toggleState, handleToggle} = useToggle();
 
   return (
     <div className="App">
       <NavBar isLoggedIn={true} username={"Labber"} />
 
-      <HomePage state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline} />
+      <HomePage state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline}
+        handleFavorites={handleFavorites} />
 
       {toggleState && <TimelineEditModal handleToggle={handleToggle} state={state} />}
 
