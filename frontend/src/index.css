@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Temporary styling for the navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 1em;
+  background-color: #333;
+  color: white;
+}
+
+.navbar-logo {
+  font-size: 1.5em;
+}
+
+.navbar-links a,
+.navbar-auth a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5em 1em;
+}
+
+.navbar-links a:hover,
+.navbar-auth a:hover {
+  text-decoration: underline;
+}
+
+.navbar-username {
+  margin-right: 1em;
+  font-weight: bold;
+  color: #fff;
+}

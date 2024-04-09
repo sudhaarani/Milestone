@@ -1,10 +1,13 @@
 import './App.css';
+import NavBar from './components/NavBar';
 import NewTimelineForm from './components/NewTimelineForm';
 import { useEffect, useState } from 'react';
 
 function App() {
   /////////// TEMP CODE TO DISPLAY TIMELINE INFO ////////// 
   const [timelines, setTimelines] = useState([]);
+
+
 
   useEffect(() => {
     fetch('/api/timelines', {
@@ -22,16 +25,15 @@ function App() {
 
   return (
     <div className="App">
-      <NewTimelineForm />
-
-      { timelines.map((timeline) => (
+        <NavBar isLoggedIn={true} username={"Labber"} />
+        <NewTimelineForm />
+        { timelines.map((timeline) => (
         <div key={timeline.id}>
           <img src={timeline.timelineImageUrl} alt={timeline.title} />
           <h1>{timeline.title}</h1>
           <p>{timeline.description}</p>
         </div>))
       }
-
     </div>
   );
 }
