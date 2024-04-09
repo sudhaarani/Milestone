@@ -7,8 +7,6 @@ function App() {
   /////////// TEMP CODE TO DISPLAY TIMELINE INFO ////////// 
   const [timelines, setTimelines] = useState([]);
 
-
-
   useEffect(() => {
     fetch('/api/timelines', {
       method: 'GET'
