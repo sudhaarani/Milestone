@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import HomePage from './components/HomePage';
-import TimelineEditModal from './components/TimelineEditModal';
+import MainModal from './components/MainModal';
 import NavBar from './components/NavBar';
 import NewTimelineForm from './components/NewTimelineForm';
 
@@ -20,7 +20,7 @@ function App() {
       <HomePage state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline}
         handleFavourites={handleFavourites} />
 
-      {toggleState && <TimelineEditModal handleToggle={handleToggle} state={state} />}
+      {toggleState && <MainModal handleToggle={handleToggle} state={state} />}
 
       <NewTimelineForm />
     </div>
