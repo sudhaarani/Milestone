@@ -20,7 +20,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2 style={{ color: 'black' }}>Login</h2>
+         <h2 style={{ color: 'black' }}>Login</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
