@@ -10,11 +10,12 @@ import useToggle from "../src/hooks/useToggle";
 
 function App() {
   const { state, handleSelectedTimeline } = useApplicationData();
-  const { toggleState, handleToggle } = useToggle();
+  const { toggleState,favoritesState, handleToggle, handleFavorite } = useToggle();
 
   return (
     <div className="App">
-      <HomePage state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline} />
+      <HomePage state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline}
+        handleFavorite={handleFavorite} favoritesState={favoritesState} />
 
       {toggleState && <TimelineEditModal handleToggle={handleToggle} state={state} />}
 
