@@ -49,21 +49,20 @@ const useApplicationData = () => {
 
   const handleSelectedTimeline = (id) => {
     const selectedTimelineResult = state.timelines.find(timeline => timeline.id === id)
-
     console.log("selectedTimelineResult: ", selectedTimelineResult);
-
     dispatch({ type: ACTIONS.SELECT_TIMELINE, result: selectedTimelineResult }); 
   }
 
-  const handleFavorites = (id) => {
-    const favoriteResult = state.favTimelines.includes(id) ? state.favTimelines.filter(_id =>
+  const handleFavourites = (id) => {
+    const favouriteResult = state.favTimelines.includes(id) ? state.favTimelines.filter(_id =>
       _id !== id
     ) : [...state.favTimelines, id]
-    dispatch({ type: ACTIONS.SET_FAV_TIMELINES, result: favoriteResult });
+    dispatch({ type: ACTIONS.SET_FAV_TIMELINES, result: favouriteResult });
   }
 
+  
   return {
-    state, handleSelectedTimeline, handleFavorites
+    state, handleSelectedTimeline, handleFavourites
   };
 }
 

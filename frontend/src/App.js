@@ -7,10 +7,10 @@ import NewTimelineForm from './components/NewTimelineForm';
 
 import useApplicationData from "../src/hooks/useApplicationData";
 import useToggle from "../src/hooks/useToggle";
-import { useEffect, useState } from 'react';
+
 
 function App() {
-  const { state, handleSelectedTimeline,handleFavorites } = useApplicationData();
+  const { state, handleSelectedTimeline, handleFavourites } = useApplicationData();
   const { toggleState, handleToggle} = useToggle();
 
   return (
@@ -18,7 +18,7 @@ function App() {
       <NavBar isLoggedIn={true} username={"Labber"} />
 
       <HomePage state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline}
-        handleFavorites={handleFavorites} />
+        handleFavourites={handleFavourites} />
 
       {toggleState && <TimelineEditModal handleToggle={handleToggle} state={state} />}
 

@@ -2,11 +2,15 @@ import React from 'react';
 
 import ListOfTimelines from "./ListOfTimelines";
 
-const HomePage = ({state, handleToggle, handleSelectedTimeline,handleFavorites}) => {
+const HomePage = ({ state, handleToggle, handleSelectedTimeline, handleFavourites }) => {
   return (
     <div>
-      <ListOfTimelines state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline}
-        handleFavorites={handleFavorites} />
+      <ListOfTimelines 
+        state={state}
+        handleToggle={handleToggle}
+        handleSelectedTimeline={handleSelectedTimeline}
+        handleFavourites={handleFavourites}
+      />
     </div>
   );
 }

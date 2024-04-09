@@ -2,13 +2,11 @@ import React from 'react';
 import '../styles/TimelineCard.css'
 import FavButton from "./FavButton";
 
-const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline,handleFavorites,state}) => {
+const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline, handleFavourites, state }) => {
   const { id, username, title, description, timelineImageUrl } = timelineList;
 
   return (
     <div className='card'>
-      {/* can add this favbutton whereever we needed once the flow is created */}
-      <FavButton id={id} handleFavorites={handleFavorites} state={state} />
       
       <img src={timelineImageUrl} className='card-img-top' alt={title} />
       <div className='card-body'>
@@ -24,7 +22,9 @@ const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline,handl
           }} 
         />
         <i className='fa-solid fa-trash'></i>
+        <FavButton id={id} handleFavourites={handleFavourites} state={state} />
       </div>
+
     </div>
   );
 }
