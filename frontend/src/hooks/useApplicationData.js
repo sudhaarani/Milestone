@@ -7,13 +7,15 @@ const useApplicationData = () => {
     timelines: [],
     selectedTimeline: null,
     favTimelines: [],
+    milestonesByTimeline: [],
   }
 
   const ACTIONS = {
-    SET_TIMELINE: 'SET_TIMELINE', // fetches timeline data from the backend
+    SET_TIMELINE: 'SET_TIMELINE', // fetches all timelines data from the backend
     SELECT_TIMELINE: 'SELECT_TIMELINE',
       // selects data pretaining to a timeline (eg. when clicking edit button, state updates to timline data associated with that edit button) 
     SET_FAV_TIMELINES: 'SET_FAV_TIMELINES',
+    GET_MILESTONES_BY_TIMELINE: 'GET_MILESTONES_BY_TIMELINE'
   }
   
   function reducer(state, action) {
@@ -26,6 +28,9 @@ const useApplicationData = () => {
         
       case ACTIONS.SET_FAV_TIMELINES:
         return { ...state, favTimelines: action.result }
+      
+      case ACTIONS.GET_MILESTONES_BY_TIMELINE:
+        return { ...state, milestonesByTimeline: action.result }
       
       default:
         throw new Error(
@@ -47,6 +52,23 @@ const useApplicationData = () => {
       })
   }, [ACTIONS.SET_TIMELINE]);
 
+  //to display milestones based on selected timeline in the homepage
+  const getMilestonesByTimeline = (timeline_id) => {
+    fetch(`/api/timelines/milestones/${timeline_id}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json()
+      })
+      .then(data => {
+        dispatch({ type: ACTIONS.GET_MILESTONES_BY_TIMELINE, result: data });
+      })
+      .catch(error => {
+        console.error('Error fetching topics:', error);
+      })
+  }
+
   const handleSelectedTimeline = (id) => {
     const selectedTimelineResult = state.timelines.find(timeline => timeline.id === id)
     console.log("selectedTimelineResult: ", selectedTimelineResult);
@@ -62,7 +84,7 @@ const useApplicationData = () => {
 
   
   return {
-    state, handleSelectedTimeline, handleFavourites
+    state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline
   };
 }
 
