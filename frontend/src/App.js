@@ -25,7 +25,7 @@ function App() {
             handleSelectedTimeline={handleSelectedTimeline}
             handleFavourites={handleFavourites} 
           />} />
-          <Route path="/new-timeline" element={<NewTimelineForm />} />
+          <Route path="/create-new" element={<NewTimelineForm />} />
           {/* You can add more routes here for other components */}
         </Routes>
 
