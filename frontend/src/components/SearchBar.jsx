@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchBar = ({ keyword, searchKeyword,setKeyword }) => {
+const SearchBar = ({ keyword, searchKeyword,setKeyword,selectedTimeline }) => {
   const BarStyle = {width:"20rem",background:"#F0F0F0", border:"none", padding:"0.5rem"};
   return (
     <input 
@@ -10,7 +10,7 @@ const SearchBar = ({ keyword, searchKeyword,setKeyword }) => {
       value={keyword}
       placeholder={"search bar"}
       onChange={(e) => {
-        searchKeyword(e.target.value)
+        searchKeyword(selectedTimeline.id,e.target.value)
         setKeyword(e.target.value)
       }}
     />
