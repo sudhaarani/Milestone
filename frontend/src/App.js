@@ -11,7 +11,7 @@ import useToggle from "../src/hooks/useToggle";
 
 
 function App() {
-  const { state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline } = useApplicationData();
+  const { state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline,searchKeyword } = useApplicationData();
   const { toggleState, handleToggle} = useToggle();
 
   return (
@@ -21,7 +21,7 @@ function App() {
       <HomePage state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline}
         handleFavourites={handleFavourites} getMilestonesByTimeline={getMilestonesByTimeline} />
 
-      {toggleState && <TimelineViewModal handleToggle={handleToggle} state={state} />}
+      {toggleState && <TimelineViewModal handleToggle={handleToggle} state={state} searchKeyword={searchKeyword} />}
       {/* {toggleState && <MainModal handleToggle={handleToggle} state={state} />} */}
       <NewTimelineForm />
     </div>
