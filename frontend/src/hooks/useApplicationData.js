@@ -8,7 +8,8 @@ const useApplicationData = () => {
     selectedTimeline: null,
     favTimelines: [],
     milestonesByTimeline: [],
-    searchedMilestones: []
+    searchedMilestones: [],
+
   }
 
   const ACTIONS = {
@@ -75,8 +76,8 @@ const useApplicationData = () => {
   }
 
   //to display searched milestones 
-  const searchKeyword = (keyword) => {
-    fetch(`/api/milestones/search/${keyword}`)
+  const searchKeyword = (timeline_id,keyword) => {
+    fetch(`/api/milestones/search/${timeline_id}/${keyword}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
