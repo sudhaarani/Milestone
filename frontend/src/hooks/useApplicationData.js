@@ -8,6 +8,7 @@ const useApplicationData = () => {
     selectedTimeline: null,
     favTimelines: [],
     milestonesByTimeline: [],
+    searchedMilestones: []
   }
 
   const ACTIONS = {
@@ -15,7 +16,8 @@ const useApplicationData = () => {
     SELECT_TIMELINE: 'SELECT_TIMELINE',
       // selects data pretaining to a timeline (eg. when clicking edit button, state updates to timline data associated with that edit button) 
     SET_FAV_TIMELINES: 'SET_FAV_TIMELINES',
-    GET_MILESTONES_BY_TIMELINE: 'GET_MILESTONES_BY_TIMELINE'
+    GET_MILESTONES_BY_TIMELINE: 'GET_MILESTONES_BY_TIMELINE',
+    SEARCHED_MILESTONES: 'SEARCHED_MILESTONES',
   }
   
   function reducer(state, action) {
@@ -31,7 +33,10 @@ const useApplicationData = () => {
       
       case ACTIONS.GET_MILESTONES_BY_TIMELINE:
         return { ...state, milestonesByTimeline: action.result }
-      
+    
+      case ACTIONS.SEARCHED_MILESTONES:
+        return { ...state, searchedMilestones: action.result }
+        
       default:
         throw new Error(
           `Tried to reduce with unsupported action type: ${action.type}`
@@ -69,6 +74,24 @@ const useApplicationData = () => {
       })
   }
 
+  //to display searched milestones 
+  const searchKeyword = (keyword) => {
+    fetch(`/api/milestones/search/${keyword}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json()
+      })
+      .then(data => {
+        console.log("searched data:", data);
+        dispatch({ type: ACTIONS.SEARCHED_MILESTONES, result: data });
+      })
+      .catch(error => {
+        console.error('Error fetching topics:', error);
+      })
+  }
+
   const handleSelectedTimeline = (id) => {
     const selectedTimelineResult = state.timelines.find(timeline => timeline.id === id)
     console.log("selectedTimelineResult: ", selectedTimelineResult);
@@ -84,7 +107,7 @@ const useApplicationData = () => {
 
   
   return {
-    state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline
+    state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline, searchKeyword
   };
 }
 
