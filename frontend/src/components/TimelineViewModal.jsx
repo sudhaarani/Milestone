@@ -8,14 +8,17 @@ import SearchBar from '../components/SearchBar';
 const TimelineViewModal = ({ handleToggle, state ,searchKeyword}) => {
   const { selectedTimeline } = state;
   const [keyword, setKeyword] = useState('');
-// console.log({ selectedTimeline })
+  if (keyword && state.searchedMilestones) {
+    state = { ...state, milestonesByTimeline: state.searchedMilestones }
+    console.log(state.searchedMilestones);
+  }
   // console.log(state.milestonesByTimeline)
   return (
     <div className='timeline-edit-modal'>
+      <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
       <button className="close-button" onClick={() => { handleToggle() }}>
         <img src={closeSymbol} alt='close symbol' />
       </button>
-      <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword}  />
       {selectedTimeline &&
         (<div>
             {/* < PhotoFavButton id={selectedPhoto.id} favPhotos={state.favPhotos} favPhotosClick={favPhotosClick} /> */}
