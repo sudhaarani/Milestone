@@ -1,4 +1,4 @@
-.timeline-edit-modal {
+.timeline-view-modal {
   background-color: white;
   box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
   position: absolute;
@@ -6,7 +6,7 @@
   left: 50%;
   transform: translate(-50%, -40%);
   height: 100%;
-  width: 75%;
+  width: 35%;
   overflow-y: scroll;
   border-radius: 12px;
 }
