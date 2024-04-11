@@ -2,7 +2,8 @@ import React from 'react';
 import '../styles/TimelineCard.css'
 //import FavButton from "./FavButton";
 
-const MilestoneListItem = ({ milestoneList,getClickedMilestone,handleMilestoneClicked}) => {
+const MilestoneListItem = ({ milestoneList, getClickedMilestone, handleMilestoneClicked,
+  isTimelineEditClicked}) => {
   const { milestone_id, milestone_title, milestone_date  } = milestoneList;
   const isoDate = new Date(milestone_date).toISOString();
   const formattedDate = isoDate.substring(0, 10); // Extracting YYYY-MM-DD
@@ -11,11 +12,14 @@ const MilestoneListItem = ({ milestoneList,getClickedMilestone,handleMilestoneCl
     <div className='card' onClick={() => {
       getClickedMilestone(milestone_id)
       handleMilestoneClicked()
-    }}> 
+      }}> 
       <div className='card-body'>
         <p className='card-title'>{milestone_title}</p>
         <p className='card-text'>{formattedDate}</p>
-      </div>
+        </div>
+        {isTimelineEditClicked && <div>
+        <button>Edit</button><button>Delete</button>
+      </div>}
     </div>
   );
 }
