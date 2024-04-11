@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom'; // Add this line
 import LoginModal from './LoginModal';
 import RegistrationModal from './RegistrationModal';
@@ -8,16 +8,49 @@ const NavBar = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [username, setUsername] = useState('');
+  const [loginError, setLoginError] = useState(null);
+  
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setIsLoggedIn(true);
+      setUsername(user.username);
+    }
+  }, []);
 
-  const handleLogin = (username) => {
-    setIsLoggedIn(true);
-    setUsername(username);
-    setShowLoginModal(false);
+  const handleLogin = async (username, password) => {
+    try {
+      const response = await fetch('http://localhost:8001/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+  
+      const message = await response.text();
+  
+      if (response.ok) {
+        setIsLoggedIn(true);
+        setUsername(username);
+        setLoginError(null);
+        localStorage.setItem('user', JSON.stringify({ username })); // Store user's information in local storage
+        return true; // Login was successful
+      } else {
+        setLoginError(message);
+        return false; // Login was not successful
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      setLoginError('Network error');
+      return false; // Login was not successful
+    }
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('user');
     setIsLoggedIn(false);
-    setUsername('');
+    setUsername(null);
   };
 
   const handleRegister = (username) => {
@@ -30,7 +63,7 @@ const NavBar = () => {
     <nav className="navbar">
       <div className="navbar-logo">LOGO</div>
       <div className="navbar-links">
-        <NavLink exact to="/">Home</NavLink> {/* Change this */}
+        <NavLink exact to="/">Home</NavLink> 
         {isLoggedIn && <>
           <NavLink to="/following">Following</NavLink>
           <NavLink to="/timelines">My Timeline</NavLink>
@@ -51,7 +84,7 @@ const NavBar = () => {
           </>
         )}
       </div>
-      <LoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} onLogin={handleLogin} />
+      <LoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} onLogin={handleLogin} error={loginError}/>
       <RegistrationModal isOpen={showRegistrationModal} onClose={() => setShowRegistrationModal(false)} onRegister={handleRegister} />
     </nav>
   );

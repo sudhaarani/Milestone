@@ -7,7 +7,8 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 8001; 
 
-
+const cors = require('cors'); // Import the cors module
+app.use(cors()); // Use cors as middleware
 
 ////////////////////////////////////////////////////////
 //                     middleware                     //
@@ -33,10 +34,12 @@ app.use(express.urlencoded({ extended: true }));
 const usersRoutes = require('./routes/users');
 const milestonesRoutes = require('./routes/milestones');
 const timelinesRoutes = require('./routes/timelines');
+const loginRoutes = require('./routes/login'); // Import the login route
 
 app.use('/api', usersRoutes);
 app.use('/api', milestonesRoutes);
 app.use('/api', timelinesRoutes);
+app.use('/login', loginRoutes); // Use the login route with the express app
 
 
 
