@@ -1,10 +1,10 @@
 import './App.css';
 import React,{useState} from 'react';
 import HomePage from './components/HomePage';
-import MainModal from './components/MainModal';
 import TimelineViewModal from './components/TimelineViewModal';
-
+import TimelineEditModal from './components/TimelineEditModal';
 import MilestoneViewModal from './components/MilestoneViewModal';
+import MilestoneEditModal from './components/MilestoneEditModal';
 import NavBar from './components/NavBar';
 import NewTimelineForm from './components/NewTimelineForm';
 
@@ -16,8 +16,17 @@ function App() {
   const { state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline,searchKeyword,getClickedMilestone } = useApplicationData();
   const { toggleState, handleToggle } = useToggle();
   const [isMilestoneClicked, setIsMilestoneClicked] = useState(false);
+  const [isTimelineEditClicked, setIsTimelineEditClicked] = useState(false);
+  const [isMilestoneEditClicked, setIsMilestoneEditClicked] = useState(false);
   const handleMilestoneClicked= () => {
     setIsMilestoneClicked(!isMilestoneClicked);  
+  };
+
+  const handleMilestoneEditClicked= () => {
+    setIsMilestoneEditClicked(!isMilestoneEditClicked);  
+  };
+  const handleTimelineEditClicked= () => {
+    setIsTimelineEditClicked(!isTimelineEditClicked);  
   };
 
   return (
@@ -29,8 +38,9 @@ function App() {
 
       {toggleState && <TimelineViewModal handleToggle={handleToggle} state={state} searchKeyword={searchKeyword}
         getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked} />}
-      {/* {toggleState && <MainModal handleToggle={handleToggle} state={state} />} */}
+      {isTimelineEditClicked && <TimelineEditModal handleTimelineEditClicked={handleTimelineEditClicked} state={state} />}
       {isMilestoneClicked && <MilestoneViewModal handleMilestoneClicked={handleMilestoneClicked} state={state} />}
+      {isMilestoneEditClicked && <MilestoneEditModal handleMilestoneEditClicked={handleMilestoneEditClicked} state={state} />}
       <NewTimelineForm />
     </div>
   );
