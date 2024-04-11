@@ -9,7 +9,7 @@ const useApplicationData = () => {
     favTimelines: [],
     milestonesByTimeline: [],
     searchedMilestones: [],
-
+    selectedMilestone: null,
   }
 
   const ACTIONS = {
@@ -19,6 +19,7 @@ const useApplicationData = () => {
     SET_FAV_TIMELINES: 'SET_FAV_TIMELINES',
     GET_MILESTONES_BY_TIMELINE: 'GET_MILESTONES_BY_TIMELINE',
     SEARCHED_MILESTONES: 'SEARCHED_MILESTONES',
+    SELECT_MILESTONE: 'SELECT_MILESTONE',
   }
   
   function reducer(state, action) {
@@ -37,6 +38,8 @@ const useApplicationData = () => {
     
       case ACTIONS.SEARCHED_MILESTONES:
         return { ...state, searchedMilestones: action.result }
+      case ACTIONS.SELECT_MILESTONE:
+        return { ...state, selectedMilestone: action.result }
         
       default:
         throw new Error(
@@ -106,9 +109,15 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.SET_FAV_TIMELINES, result: favouriteResult });
   }
 
+  const getClickedMilestone = (milestone_id) => {
+    console.log("state.milestonesByTimeline: ", state.milestonesByTimeline);
+    const Result = state.milestonesByTimeline.find(milestone => milestone.milestone_id === milestone_id)
+    console.log("getClickedMilestone:Result: ", Result);
+    dispatch({ type: ACTIONS.SELECT_MILESTONE, result: Result });
+  }
   
   return {
-    state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline, searchKeyword
+    state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline, searchKeyword, getClickedMilestone
   };
 }
 
