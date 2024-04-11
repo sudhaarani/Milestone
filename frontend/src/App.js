@@ -34,11 +34,15 @@ function App() {
       <NavBar isLoggedIn={true} username={"Labber"} />
 
       <HomePage state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline}
-        handleFavourites={handleFavourites} getMilestonesByTimeline={getMilestonesByTimeline} />
+        handleFavourites={handleFavourites} getMilestonesByTimeline={getMilestonesByTimeline}
+        handleTimelineEditClicked={handleTimelineEditClicked} />
 
       {toggleState && <TimelineViewModal handleToggle={handleToggle} state={state} searchKeyword={searchKeyword}
-        getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked} />}
-      {isTimelineEditClicked && <TimelineEditModal handleTimelineEditClicked={handleTimelineEditClicked} state={state} />}
+        getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked}
+        handleTimelineEditClicked={handleTimelineEditClicked} />}
+      {isTimelineEditClicked && <TimelineEditModal handleTimelineEditClicked={handleTimelineEditClicked} state={state}
+        isTimelineEditClicked={isTimelineEditClicked} searchKeyword={searchKeyword}
+        getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked}/>}
       {isMilestoneClicked && <MilestoneViewModal handleMilestoneClicked={handleMilestoneClicked} state={state} />}
       {isMilestoneEditClicked && <MilestoneEditModal handleMilestoneEditClicked={handleMilestoneEditClicked} state={state} />}
       <NewTimelineForm />
