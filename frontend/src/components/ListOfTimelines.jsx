@@ -2,7 +2,8 @@ import React from 'react';
 import TimelineCard from './TimelineCard';
 import '../styles/ListOfTimelines.css'
 
-const ListOfTimelines = ({ state, handleToggle, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline }) => {
+const ListOfTimelines = ({ state, handleToggle, handleSelectedTimeline, handleFavourites,
+  getMilestonesByTimeline,handleTimelineEditClicked }) => {
   const TimelineListArray = state.timelines.map((timelineList) => {
     return (<TimelineCard 
               key={timelineList.id}
@@ -12,6 +13,7 @@ const ListOfTimelines = ({ state, handleToggle, handleSelectedTimeline, handleFa
               state={state}
               handleFavourites={handleFavourites}
               getMilestonesByTimeline={getMilestonesByTimeline}
+              handleTimelineEditClicked={handleTimelineEditClicked}
             />)
   });
 
