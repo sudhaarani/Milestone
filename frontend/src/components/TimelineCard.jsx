@@ -2,7 +2,8 @@ import React from 'react';
 import '../styles/TimelineCard.css'
 import FavButton from "./FavButton";
 
-const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline, handleFavourites, state,getMilestonesByTimeline }) => {
+const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline, handleFavourites,
+  state, getMilestonesByTimeline,handleTimelineEditClicked }) => {
   const { id, username, title, description, timelineImageUrl } = timelineList;
 
   return (
@@ -20,10 +21,11 @@ const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline, hand
       <div className='card-footer'>
         <p className='card-username'>By {username}</p>
         <i className='fa-solid fa-pen' 
-          // onClick={() => { 
-          //   handleToggle() 
-          //   handleSelectedTimeline(id)
-          // }} 
+          onClick={() => { 
+            handleTimelineEditClicked() 
+            handleSelectedTimeline(id)
+            getMilestonesByTimeline(id)
+          }} 
         />
         <i className='fa-solid fa-trash'></i>
         <FavButton id={id} handleFavourites={handleFavourites} state={state} />
