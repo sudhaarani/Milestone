@@ -1,28 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useImageInput from '../hooks/useImageInput';
+import useTextInput from '../hooks/useTextInput';
 
 function NewTimelineForm() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [coverImage, setCoverImage] = useState(null);
-
-  const handleTitle = (event) => {
-    setTitle(event.target.value); // selects the value inputted into textfield
-  };
-
-  const handleDescription = (event) => {
-    setDescription(event.target.value); 
-  };
-
-  const handleCoverImage = (event) => {
-    setCoverImage(event.target.files[0]) // selects the image
-  }
+  const title = useTextInput('');
+  const description = useTextInput('');
+  const coverImage = useImageInput(null);
 
   const handleNewTimelineSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('coverimage', coverImage);
+      formData.append('title', title.textInput);
+      formData.append('description', description.textInput);
+      formData.append('coverimage', coverImage.imageInput);
 
     fetch('/api/timelines', {
       method: 'POST',
@@ -32,9 +22,9 @@ function NewTimelineForm() {
       if (response.ok) {
         console.log("Submitted Timeline Form")
         // Reset form fields after successful submission
-        setTitle('');
-        setDescription('');
-        setCoverImage(null);
+        title.reset();
+        description.reset();
+        coverImage.reset();
       } else {
         console.error('Failed to submit form');
       }
@@ -48,15 +38,15 @@ function NewTimelineForm() {
     <form onSubmit={handleNewTimelineSubmit}>
       <div>
         <label>Title:</label>
-        <input type="text" id="title" value={title} onChange={handleTitle} />
+        <input type="text" id="title" value={title.textInput} onChange={title.handleTextInput} />
       </div>
       <div>
         <label>Description:</label>
-        <input type="text" id="description" value={description} onChange={handleDescription} />
+        <input type="text" id="description" value={description.textInput} onChange={description.handleTextInput} />
       </div>
 
       <div>
-        <input type="file" id="cover_image" onChange={handleCoverImage} />
+        <input type="file" id="cover_image" onChange={coverImage.handleImageInput} />
       </div>
 
       <button type="submit">Submit</button>
