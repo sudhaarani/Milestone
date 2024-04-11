@@ -5,7 +5,8 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import MilestoneList from '../components/MilestoneList';
 import SearchBar from '../components/SearchBar';
 
-const TimelineViewModal = ({ handleToggle, state ,searchKeyword, getClickedMilestone,handleMilestoneClicked}) => {
+const TimelineViewModal = ({ handleToggle, state, searchKeyword, getClickedMilestone,
+  handleMilestoneClicked,handleTimelineEditClicked }) => {
   const { selectedTimeline } = state;
   const [keyword, setKeyword] = useState('');
   if (keyword && state.searchedMilestones) {
@@ -14,7 +15,7 @@ const TimelineViewModal = ({ handleToggle, state ,searchKeyword, getClickedMiles
   }
   // console.log(state.milestonesByTimeline)
   return (
-    <div className='timeline-edit-modal'>
+    <div className='timeline-view-modal'>
       <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
       <button className="close-button" onClick={() => { handleToggle() }} >
         <img src={closeSymbol} alt='close symbol' />
@@ -22,14 +23,15 @@ const TimelineViewModal = ({ handleToggle, state ,searchKeyword, getClickedMiles
       {selectedTimeline &&
         (<div>
             {/* < PhotoFavButton id={selectedPhoto.id} favPhotos={state.favPhotos} favPhotosClick={favPhotosClick} /> */}
-            {/* <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} /> */}
-          <p>{selectedTimeline.title}</p>
-          <p>{selectedTimeline.description}</p>
+            <p>{selectedTimeline.title}</p>
+            <p>{selectedTimeline.description}</p>
           <div className="photo-details-modal__image">
               <MilestoneList state={state} getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked}
               />
           </div>
-          <button>Edit Timeline</button>
+          <button onClick={() => { 
+            handleTimelineEditClicked() 
+          }}>Edit Timeline</button>
         </div>)}
     </div>
   )
