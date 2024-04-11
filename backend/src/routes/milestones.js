@@ -28,6 +28,8 @@ router.get('/milestones', (req, res) => {
 router.get('/milestones/search/:timeline_id/:searchText', (req, res) => {  
   let searchText = req.params.searchText;
   let timeline_id = req.params.timeline_id;
+  // const spliting = searchText.split(" ");
+  // searchText = spliting.join("%");
   console.log("searchText:",searchText)
   searchText=searchText.toLowerCase();
   db.query(`SELECT id as milestone_id,timeline_id, title as milestone_title, date as milestone_date, image1,image2,image3,image4 FROM milestones
