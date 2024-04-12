@@ -1,6 +1,8 @@
 import React from 'react';
 import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
+import '../styles/Forms.css';
+
 
 function NewTimelineForm() {
   const title = useTextInput('');
@@ -38,15 +40,15 @@ function NewTimelineForm() {
     <form onSubmit={handleNewTimelineSubmit}>
       <div>
         <label>Title:</label>
-        <input type="text" id="title" value={title.textInput} onChange={title.handleTextInput} />
+        <input type="text" id="timeline_title" value={title.textInput} onChange={title.handleTextInput} />
       </div>
       <div>
         <label>Description:</label>
-        <input type="text" id="description" value={description.textInput} onChange={description.handleTextInput} />
+        <input type="text" id="timeline_description" value={description.textInput} onChange={description.handleTextInput} />
       </div>
 
       <div>
-        <input type="file" id="cover_image" onChange={coverImage.handleImageInput} />
+        <input type="file" id="timeline_cover" onChange={coverImage.handleImageInput} />
       </div>
 
       <button type="submit">Submit</button>
