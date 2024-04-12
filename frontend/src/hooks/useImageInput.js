@@ -7,9 +7,14 @@ const useImageInput = (initialValue) => {
     setImageInput(event.target.files[0]);
   };
 
+  const handleMultiImageInput = (event) => {
+    setImageInput(event.target.files);
+  };
+
   return {
     imageInput,
     handleImageInput,
+    handleMultiImageInput,
     reset: () => setImageInput(initialValue)
   };
 };
