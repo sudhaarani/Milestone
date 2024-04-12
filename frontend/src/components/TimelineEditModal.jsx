@@ -4,32 +4,18 @@ import '../styles/TimelineEditModal.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 import MilestoneList from '../components/MilestoneList';
 import SearchBar from '../components/SearchBar';
+import useImageInput from '../hooks/useImageInput';
+import useTextInput from '../hooks/useTextInput';
+
 //milestoneToggle} milestoneEditToggle
 const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
   milestoneToggle,timelineEditToggle,milestoneEditToggle }) => {
   const { selectedTimeline } = state;
   const [keyword, setKeyword] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [coverImage, setCoverImage] = useState(null);
+  const title = useTextInput(selectedTimeline.title);
+  const description = useTextInput(selectedTimeline.description);
+  const coverImage = useImageInput(null);
   
-  useEffect(() => {
-    setTitle(selectedTimeline.title);
-    setDescription(selectedTimeline.description)
-  }, []);
-
-  const handleTitle = (event) => {
-    setTitle(event.target.value); // selects the value inputted into textfield
-  };
-
-  const handleDescription = (event) => {
-    setDescription(event.target.value); 
-  };
-
-  const handleCoverImage = (event) => {
-    setCoverImage(event.target.files[0]) // selects the image
-  }
-
   //to close the modal once save btn is clicked and form has submitted(form has to be 
   //submitted before it closes so delaying one sec)
   const handleSaveClose = () => { 
@@ -41,13 +27,13 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
   const handleTimelineSave = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('coverimage', coverImage);
+    formData.append('title', title.textInput);
+    formData.append('description', description.textInput);
+    formData.append('coverimage', coverImage.imageInput);
     formData.append('timeline_id', selectedTimeline.id);
     //throws error when we save without editing image ---> have to look
     //implement post req update query in milestones.js //upload multiple images
-    fetch('/api/milestones/update', {
+    fetch('/api/timelines/update', {
       method: 'POST',
       body: formData
     })
@@ -82,17 +68,17 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
           <form onSubmit={handleTimelineSave}>
             <div>
               <label>Title:</label>
-              <input type="text" name="title" id="title" value={title} onChange={handleTitle} placeholder=""/>
+              <input type="text" name="title" id="title" value={title.textInput} onChange={title.handleTextInput} placeholder=""/>
             </div>
             <div>
               <label>Description:</label>
-              <input type="text" name="description" id="description" value={description} onChange={handleDescription} placeholder=""/>
+              <input type="text" name="description" id="description" value={description.textInput} onChange={description.handleTextInput} placeholder=""/>
             </div>
             <div>
               <label>Cover Image:</label>
               <img src={selectedTimeline.timelineImageUrl} className='card-img-top' alt={selectedTimeline.image} />
               <div>
-                <input type="file" name="cover_image" id="cover_image" onChange={handleCoverImage} />
+                <input type="file" id="cover_image" onChange={coverImage.handleImageInput} />
               </div>  
             </div>
             <button type="submit" onClick={() => { handleSaveClose() }}>Save</button>
