@@ -4,15 +4,15 @@ import React from 'react';
 import '../styles/MilestoneViewModal.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 
-const MilestoneViewModal = (props) => {
-  const { state, handleMilestoneClicked } = props;
-  console.log("state.selectedMilestone::",state.selectedMilestone);
+const MilestoneViewModal = ({ state, milestoneToggle }) => {
+
+  console.log("state.selectedMilestone: ",state.selectedMilestone);
   const isoDate = new Date(state.selectedMilestone.milestone_date).toISOString();
   const formattedDate = isoDate.substring(0, 10); // Extracting YYYY-MM-DD
   
   return (
     <div className='milestone-view-modal'> 
-      <button className="close-button" onClick={() => { handleMilestoneClicked() }}>
+      <button className="close-button" onClick={() => { milestoneToggle.handleToggle() }}>
         <img src={closeSymbol} alt='close symbol' />
       </button>
       <div className='card-body'>
