@@ -1,16 +1,24 @@
-// File: LoginModal.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const LoginModal = ({ isOpen, onClose, onLogin }) => {
+const LoginModal = ({ isOpen, onClose, onLogin, error }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent form from submitting traditionally
-    onLogin(username, password);
-    setUsername(''); // Clear username
-    setPassword(''); // Clear password
-    onClose(); // Close the modal after logging in
+  useEffect(() => {
+    if (!isOpen) {
+      setUsername('');
+      setPassword('');
+    }
+  }, [isOpen]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const loginSuccessful = await onLogin(username, password);
+    if (loginSuccessful) {
+      setUsername(''); // Clear username
+      setPassword(''); // Clear password
+      onClose(); // Close the modal after logging in
+    }
   };
 
   if (!isOpen) {
@@ -20,7 +28,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
   return (
     <div className="modal">
       <div className="modal-content">
-         <h2 style={{ color: 'black' }}>Login</h2>
+        <h2 style={{ color: 'black' }}>Login</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -36,6 +44,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
             placeholder="Password"
             required
           />
+          {error && <p style={{ color: 'red' }}>{error}</p>}
           <div className="button-group">
             <button type="submit">Login</button>
             <button type="button" onClick={onClose}>Cancel</button>
