@@ -1,7 +1,7 @@
 import React from 'react';
 import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
-import '../styles/Forms.css';
+import '../styles/forms.css';
 
 
 function NewTimelineForm() {
