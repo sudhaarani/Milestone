@@ -6,7 +6,7 @@
   left: 50%;
   transform: translate(-50%, -40%);
   height: 100%;
-  width: 35%;
+  width: 50%;
   overflow-y: scroll;
   border-radius: 12px;
 }
