@@ -4,7 +4,7 @@ import React,{useState,useEffect} from 'react';
 import '../styles/MilestoneEditModal.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 
-const MilestoneEditModal = ({ state,handleMilestoneEditClicked }) => {
+const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
   const { selectedMilestone } = state;
   console.log("selectedMilestone:", selectedMilestone);
   const [title, setTitle] = useState('');
@@ -57,7 +57,7 @@ const MilestoneEditModal = ({ state,handleMilestoneEditClicked }) => {
   //submitted before it closes so delaying one sec)
   const handleSaveClose = () => {
     setTimeout(() => {
-      handleMilestoneEditClicked();
+      milestoneEditToggle.handleToggle();
     }, 1000); // Delay of 1 second (1000 milliseconds)
   };
 
@@ -92,7 +92,7 @@ const MilestoneEditModal = ({ state,handleMilestoneEditClicked }) => {
   // console.log(state.milestonesByTimeline)
   return (
     <div className='milestone-edit-modal'>
-      <button className="close-button" onClick={() => { handleMilestoneEditClicked() }} >
+      <button className="close-button" onClick={() => { milestoneEditToggle.handleToggle() }} >
         <img src={closeSymbol} alt='close symbol' />
       </button>
       

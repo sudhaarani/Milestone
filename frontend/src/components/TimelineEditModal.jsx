@@ -4,9 +4,9 @@ import '../styles/TimelineEditModal.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 import MilestoneList from '../components/MilestoneList';
 import SearchBar from '../components/SearchBar';
-
+//milestoneToggle} milestoneEditToggle
 const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
-  handleMilestoneClicked,handleTimelineEditClicked,isTimelineEditClicked,handleMilestoneEditClicked }) => {
+  milestoneToggle,timelineEditToggle,milestoneEditToggle }) => {
   const { selectedTimeline } = state;
   const [keyword, setKeyword] = useState('');
   const [title, setTitle] = useState('');
@@ -34,7 +34,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
   //submitted before it closes so delaying one sec)
   const handleSaveClose = () => { 
     setTimeout(() => {
-      handleTimelineEditClicked();
+      timelineEditToggle.handleToggle();
     }, 1000); // Delay of 1 second (1000 milliseconds)
   };
 
@@ -46,8 +46,8 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
     formData.append('coverimage', coverImage);
     formData.append('timeline_id', selectedTimeline.id);
     //throws error when we save without editing image ---> have to look
-
-    fetch('/api/timelines/update', {
+    //implement post req update query in milestones.js //upload multiple images
+    fetch('/api/milestones/update', {
       method: 'POST',
       body: formData
     })
@@ -71,7 +71,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
   return (
     <div className='timeline-edit-modal'>
       <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
-      <button className="close-button" onClick={() => { handleTimelineEditClicked() }} >
+      <button className="close-button" onClick={() => { timelineEditToggle.handleToggle() }} >
         <img src={closeSymbol} alt='close symbol' />
       </button>
       
@@ -99,8 +99,8 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
           </form>
           <div className="photo-details-modal__image">
             <MilestoneList state={state} getClickedMilestone={getClickedMilestone}
-                handleMilestoneClicked={handleMilestoneClicked} isTimelineEditClicked={isTimelineEditClicked}
-                handleMilestoneEditClicked={handleMilestoneEditClicked}
+                milestoneToggle={milestoneToggle} timelineEditToggle={timelineEditToggle}
+                milestoneEditToggle={milestoneEditToggle}
             />
           </div>
         

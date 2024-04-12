@@ -2,15 +2,15 @@ import React from 'react';
 import '../styles/TimelineCard.css'
 import FavButton from "./FavButton";
 
-const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline, handleFavourites,
-  state, getMilestonesByTimeline,handleTimelineEditClicked }) => {
+const TimelineCard = ({ timelineList, timelineToggle, handleSelectedTimeline, handleFavourites,
+  state, getMilestonesByTimeline,timelineEditToggle }) => {
   const { id, username, title, description, timelineImageUrl } = timelineList;
 
   return (
     <div className='card'>
       
       <img src={timelineImageUrl} className='card-img-top' alt={title} onClick={() => { 
-            handleToggle() 
+            timelineToggle.handleToggle() 
             handleSelectedTimeline(id)
             getMilestonesByTimeline(id)
           }} />
@@ -22,7 +22,7 @@ const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline, hand
         <p className='card-username'>By {username}</p>
         <i className='fa-solid fa-pen' 
           onClick={() => { 
-            handleTimelineEditClicked() 
+            timelineEditToggle.handleToggle() 
             handleSelectedTimeline(id)
             getMilestonesByTimeline(id)
           }} 

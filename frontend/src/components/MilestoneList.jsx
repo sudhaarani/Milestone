@@ -1,17 +1,17 @@
 import React from 'react';
 import MilestoneListItem from './MilestoneListItem';
-//import '../styles/ListOfTimelines.css'
+//import '../styles/MilestoneList.css'
 
-const MilestoneList = ({ state, handleMilestoneClicked, getClickedMilestone,
-  isTimelineEditClicked ,handleMilestoneEditClicked}) => {
+const MilestoneList = ({ state, milestoneToggle, getClickedMilestone,
+  milestoneEditToggle,timelineEditToggle}) => {
   const MilestoneListArray = state.milestonesByTimeline.map((milestoneList) => {
     return (<MilestoneListItem
               key={milestoneList.milestone_id}
               milestoneList={milestoneList}
               getClickedMilestone={getClickedMilestone}
-              handleMilestoneClicked={handleMilestoneClicked}
-              isTimelineEditClicked={isTimelineEditClicked}
-              handleMilestoneEditClicked={handleMilestoneEditClicked}
+              milestoneToggle={milestoneToggle}
+              milestoneEditToggle={milestoneEditToggle}
+              timelineEditToggle={timelineEditToggle}
             />)
   });
 
