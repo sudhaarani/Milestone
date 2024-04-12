@@ -39,14 +39,20 @@ function App() {
 
       {toggleState && <TimelineViewModal handleToggle={handleToggle} state={state} searchKeyword={searchKeyword}
         getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked}
-        handleTimelineEditClicked={handleTimelineEditClicked} />}
+        handleTimelineEditClicked={handleTimelineEditClicked} handleMilestoneEditClicked={handleMilestoneEditClicked} />}
+      
       {isTimelineEditClicked && <TimelineEditModal handleTimelineEditClicked={handleTimelineEditClicked} state={state}
         isTimelineEditClicked={isTimelineEditClicked} searchKeyword={searchKeyword}
-        getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked}/>}
+        getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked}
+        handleMilestoneEditClicked={handleMilestoneEditClicked}
+      />}
+      
       {isMilestoneClicked && <MilestoneViewModal handleMilestoneClicked={handleMilestoneClicked} state={state} />}
+      
       {isMilestoneEditClicked && <MilestoneEditModal handleMilestoneEditClicked={handleMilestoneEditClicked} state={state} />}
+      
       <NewTimelineForm />
-    </div>
+    </div>  
   );
 }
 
