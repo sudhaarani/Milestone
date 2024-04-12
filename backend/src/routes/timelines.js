@@ -56,7 +56,7 @@ router.get('/timelines', (req, res) => {
   db.query(`
     SELECT timelines.*, users.username
     FROM timelines
-    JOIN users ON timelines.user_id = users.id;
+    JOIN users ON timelines.user_id = users.id order by timelines.id;
   `)
     .then(({ rows: timelines }) => {
       const updatedTimelinesObj = timelines.map(timeline => ({
