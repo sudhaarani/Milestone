@@ -1,0 +1,32 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  display: block; 
+  padding-top: 8px;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+  padding: 10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#diary_entry {
+  width: 500px; 
+  height: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+#milestone_images, #timeline_cover {
+  padding: 10px;
+}
