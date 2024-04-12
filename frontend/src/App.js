@@ -13,43 +13,34 @@ import useToggle from "../src/hooks/useToggle";
 
 
 function App() {
-  const { state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline,searchKeyword,getClickedMilestone } = useApplicationData();
-  const { toggleState, handleToggle } = useToggle();
-  const [isMilestoneClicked, setIsMilestoneClicked] = useState(false);
-  const [isTimelineEditClicked, setIsTimelineEditClicked] = useState(false);
-  const [isMilestoneEditClicked, setIsMilestoneEditClicked] = useState(false);
-  const handleMilestoneClicked= () => {
-    setIsMilestoneClicked(!isMilestoneClicked);  
-  };
-
-  const handleMilestoneEditClicked= () => {
-    setIsMilestoneEditClicked(!isMilestoneEditClicked);  
-  };
-  const handleTimelineEditClicked= () => {
-    setIsTimelineEditClicked(!isTimelineEditClicked);  
-  };
+  const { state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline,
+    searchKeyword, getClickedMilestone } = useApplicationData();
+  const timelineToggle = useToggle();
+  const milestoneToggle = useToggle(); 
+  const timelineEditToggle = useToggle();
+  const milestoneEditToggle = useToggle(); 
 
   return (
     <div className="App">
       <NavBar isLoggedIn={true} username={"Labber"} />
 
-      <HomePage state={state} handleToggle={handleToggle} handleSelectedTimeline={handleSelectedTimeline}
+      <HomePage state={state} timelineToggle={timelineToggle} handleSelectedTimeline={handleSelectedTimeline}
         handleFavourites={handleFavourites} getMilestonesByTimeline={getMilestonesByTimeline}
-        handleTimelineEditClicked={handleTimelineEditClicked} />
+        timelineEditToggle={timelineEditToggle} />
 
-      {toggleState && <TimelineViewModal handleToggle={handleToggle} state={state} searchKeyword={searchKeyword}
-        getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked}
-        handleTimelineEditClicked={handleTimelineEditClicked} handleMilestoneEditClicked={handleMilestoneEditClicked} />}
+      {timelineToggle.toggleState && <TimelineViewModal timelineToggle={timelineToggle} state={state}
+        searchKeyword={searchKeyword} getClickedMilestone={getClickedMilestone}
+        milestoneToggle={milestoneToggle} timelineEditToggle={timelineEditToggle}
+        milestoneEditToggle={milestoneEditToggle} />}
       
-      {isTimelineEditClicked && <TimelineEditModal handleTimelineEditClicked={handleTimelineEditClicked} state={state}
-        isTimelineEditClicked={isTimelineEditClicked} searchKeyword={searchKeyword}
-        getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked}
-        handleMilestoneEditClicked={handleMilestoneEditClicked}
+      {timelineEditToggle.toggleState && <TimelineEditModal timelineEditToggle={timelineEditToggle}
+        state={state} searchKeyword={searchKeyword} getClickedMilestone={getClickedMilestone}
+        milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle}
       />}
       
-      {isMilestoneClicked && <MilestoneViewModal handleMilestoneClicked={handleMilestoneClicked} state={state} />}
+      {milestoneToggle.toggleState && <MilestoneViewModal milestoneToggle={milestoneToggle} state={state} />}
       
-      {isMilestoneEditClicked && <MilestoneEditModal handleMilestoneEditClicked={handleMilestoneEditClicked} state={state} />}
+      {milestoneEditToggle.toggleState && <MilestoneEditModal milestoneEditToggle={milestoneEditToggle} state={state} />}
       
       <NewTimelineForm />
     </div>  
