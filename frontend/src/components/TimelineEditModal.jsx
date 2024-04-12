@@ -6,7 +6,7 @@ import MilestoneList from '../components/MilestoneList';
 import SearchBar from '../components/SearchBar';
 
 const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
-  handleMilestoneClicked,handleTimelineEditClicked,isTimelineEditClicked }) => {
+  handleMilestoneClicked,handleTimelineEditClicked,isTimelineEditClicked,handleMilestoneEditClicked }) => {
   const { selectedTimeline } = state;
   const [keyword, setKeyword] = useState('');
   const [title, setTitle] = useState('');
@@ -14,12 +14,8 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
   const [coverImage, setCoverImage] = useState(null);
   
   useEffect(() => {
-    // Fetch the old value from your data source (e.g., database) based on the edit page's ID
-    // Example: fetchOldValue(editPageId).then(value => setOldValue(value));
-
     setTitle(selectedTimeline.title);
     setDescription(selectedTimeline.description)
-    setCoverImage(selectedTimeline.image)
   }, []);
 
   const handleTitle = (event) => {
@@ -34,6 +30,14 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
     setCoverImage(event.target.files[0]) // selects the image
   }
 
+  //to close the modal once save btn is clicked and form has submitted(form has to be 
+  //submitted before it closes so delaying one sec)
+  const handleSaveClose = () => { 
+    setTimeout(() => {
+      handleTimelineEditClicked();
+    }, 1000); // Delay of 1 second (1000 milliseconds)
+  };
+
   const handleTimelineSave = (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -41,6 +45,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
     formData.append('description', description);
     formData.append('coverimage', coverImage);
     formData.append('timeline_id', selectedTimeline.id);
+    //throws error when we save without editing image ---> have to look
 
     fetch('/api/timelines/update', {
       method: 'POST',
@@ -49,10 +54,6 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
     .then(response => {
       if (response.ok) {
         console.log("Saved Timeline Edit Form")
-        // Reset form fields after successful submission
-        // setTitle('');
-        // setDescription('');
-        // setCoverImage(null);
       } else {
         console.error('Failed to submit form');
       }
@@ -73,11 +74,12 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
       <button className="close-button" onClick={() => { handleTimelineEditClicked() }} >
         <img src={closeSymbol} alt='close symbol' />
       </button>
-      <form onSubmit={handleTimelineSave}>
+      
       {selectedTimeline &&
         (<div>
             {/* < PhotoFavButton id={selectedPhoto.id} favPhotos={state.favPhotos} favPhotosClick={favPhotosClick} /> */}
             {/* <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} /> */}
+          <form onSubmit={handleTimelineSave}>
             <div>
               <label>Title:</label>
               <input type="text" name="title" id="title" value={title} onChange={handleTitle} placeholder=""/>
@@ -88,21 +90,24 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
             </div>
             <div>
               <label>Cover Image:</label>
-              <img src={`/uploads/${coverImage}`} className='card-img-top' alt={selectedTimeline.image} />
+              <img src={selectedTimeline.timelineImageUrl} className='card-img-top' alt={selectedTimeline.image} />
               <div>
                 <input type="file" name="cover_image" id="cover_image" onChange={handleCoverImage} />
               </div>  
             </div>
+            <button type="submit" onClick={() => { handleSaveClose() }}>Save</button>
+          </form>
           <div className="photo-details-modal__image">
-          <MilestoneList state={state} getClickedMilestone={getClickedMilestone}
-            handleMilestoneClicked={handleMilestoneClicked} isTimelineEditClicked={isTimelineEditClicked}
-              />
+            <MilestoneList state={state} getClickedMilestone={getClickedMilestone}
+                handleMilestoneClicked={handleMilestoneClicked} isTimelineEditClicked={isTimelineEditClicked}
+                handleMilestoneEditClicked={handleMilestoneEditClicked}
+            />
           </div>
+        
+          {/* This button should open new-milestone-form modal */}
           <button>Add New Milestone</button>
-          <button type="submit">Save</button>
-          {/* once save clicked - go to the home page to see edited timeline */}
         </div>)}
-      </form>
+      
     </div>
   )
 };
