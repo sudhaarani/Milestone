@@ -49,13 +49,20 @@ function App() {
       <HomePage state={state} timelineToggle={timelineToggle} handleSelectedTimeline={handleSelectedTimeline}
         handleFavourites={handleFavourites} getMilestonesByTimeline={getMilestonesByTimeline} />
 
-      {toggleState && <TimelineViewModal handleToggle={handleToggle} state={state} searchKeyword={searchKeyword}
-        getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked} />}
-      {/* {toggleState && <MainModal handleToggle={handleToggle} state={state} />} */}
-      {isMilestoneClicked && <MilestoneViewModal handleMilestoneClicked={handleMilestoneClicked} state={state} />}
+      {timelineToggle.toggleState && <TimelineViewModal timelineToggle={timelineToggle} state={state} searchKeyword={searchKeyword} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} />}
+
+      {milestoneToggle.toggleState && <MilestoneViewModal milestoneToggle={milestoneToggle} state={state} />}
+
+      {isTimelineEditClicked && <TimelineEditModal handleTimelineEditClicked={handleTimelineEditClicked} state={state} />}
+      
+      {isMilestoneEditClicked && <MilestoneEditModal handleMilestoneEditClicked={handleMilestoneEditClicked} state={state} />}
+
       <NewTimelineForm />
 
     </div>
+
+
+
   );
 }
 
