@@ -1,10 +1,10 @@
 import './App.css';
 import React,{useState} from 'react';
 import HomePage from './components/HomePage';
-import MainModal from './components/MainModal';
 import TimelineViewModal from './components/TimelineViewModal';
-
+import TimelineEditModal from './components/TimelineEditModal';
 import MilestoneViewModal from './components/MilestoneViewModal';
+import MilestoneEditModal from './components/MilestoneEditModal';
 import NavBar from './components/NavBar';
 import NewTimelineForm from './components/NewTimelineForm';
 
@@ -24,13 +24,23 @@ function App() {
     //   setIsMilestoneClicked(!isMilestoneClicked);  
     // };
     
-
   /* New code for opening/closing TIMELINE AND MILESTONE MODAL (passed down these 2 variables) */
   const timelineToggle = useToggle();
   const milestoneToggle = useToggle(); 
       // eg. get the state: milestoneToggle.toggleState
       // eg. get the function to set state: milestoneToggle.handleToggle();
 
+
+
+  const [isTimelineEditClicked, setIsTimelineEditClicked] = useState(false);
+  const [isMilestoneEditClicked, setIsMilestoneEditClicked] = useState(false);
+    
+  const handleMilestoneEditClicked= () => {
+    setIsMilestoneEditClicked(!isMilestoneEditClicked);  
+  };
+  const handleTimelineEditClicked= () => {
+    setIsTimelineEditClicked(!isTimelineEditClicked);  
+  };
 
   return (
     <div className="App">
@@ -39,12 +49,10 @@ function App() {
       <HomePage state={state} timelineToggle={timelineToggle} handleSelectedTimeline={handleSelectedTimeline}
         handleFavourites={handleFavourites} getMilestonesByTimeline={getMilestonesByTimeline} />
 
-      {timelineToggle.toggleState && <TimelineViewModal timelineToggle={timelineToggle} state={state} searchKeyword={searchKeyword} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} />}
-
+      {toggleState && <TimelineViewModal handleToggle={handleToggle} state={state} searchKeyword={searchKeyword}
+        getClickedMilestone={getClickedMilestone} handleMilestoneClicked={handleMilestoneClicked} />}
       {/* {toggleState && <MainModal handleToggle={handleToggle} state={state} />} */}
-
-      {milestoneToggle.toggleState && <MilestoneViewModal milestoneToggle={milestoneToggle} state={state} />}
-
+      {isMilestoneClicked && <MilestoneViewModal handleMilestoneClicked={handleMilestoneClicked} state={state} />}
       <NewTimelineForm />
 
     </div>
