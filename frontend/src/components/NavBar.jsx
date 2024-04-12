@@ -1,7 +1,7 @@
-// File: NavBar.js
 import React, { useState } from 'react';
-import LoginModal from './LoginModal'; // Ensure path is correct
-import RegistrationModal from './RegistrationModal'; // Ensure path is correct
+import { NavLink } from 'react-router-dom'; // Add this line
+import LoginModal from './LoginModal';
+import RegistrationModal from './RegistrationModal';
 
 const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,7 +21,7 @@ const NavBar = () => {
   };
 
   const handleRegister = (username) => {
-    setIsLoggedIn(true);  // Simulate login after registration
+    setIsLoggedIn(true);
     setUsername(username);
     setShowRegistrationModal(false);
   };
@@ -30,12 +30,12 @@ const NavBar = () => {
     <nav className="navbar">
       <div className="navbar-logo">LOGO</div>
       <div className="navbar-links">
-        <a href="/">Home</a>
+        <NavLink exact to="/">Home</NavLink> {/* Change this */}
         {isLoggedIn && <>
-          <a href="/following">Following</a>
-          <a href="/timelines">My Timeline</a>
-          <a href="/favourites">Favourites</a>
-          <a href="/create-new">Create New</a>
+          <NavLink to="/following">Following</NavLink>
+          <NavLink to="/timelines">My Timeline</NavLink>
+          <NavLink to="/favourites">Favourites</NavLink>
+          <NavLink to="/create-new">Create New</NavLink>
         </>}
       </div>
       <div className="navbar-auth">
