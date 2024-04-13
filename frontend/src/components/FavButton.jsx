@@ -1,7 +1,7 @@
 import React from 'react';
 
 import FavIcon from './FavIcon';
-//import '../styles/FavButton.scss';
+//import '../styles/FavButton.scss';  
 
 function FavButton({ handleFavourites, state, id }) {
 

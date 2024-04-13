@@ -9,44 +9,46 @@ const NavBar = () => {
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [username, setUsername] = useState('');
   const [loginError, setLoginError] = useState(null);
+  const [userId, setUserId] = useState(null);
   
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      setIsLoggedIn(true);
-      setUsername(user.username);
-    }
-  }, []);
+ useEffect(() => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user) {
+    setIsLoggedIn(true);
+    setUsername(user.username);
+    setUserId(user.id); // Set the user's ID
+  }
+}, []);
 
   const handleLogin = async (username, password) => {
-    try {
-      const response = await fetch('http://localhost:8001/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-  
-      const message = await response.text();
-  
-      if (response.ok) {
-        setIsLoggedIn(true);
-        setUsername(username);
-        setLoginError(null);
-        localStorage.setItem('user', JSON.stringify({ username })); // Store user's information in local storage
-        return true; // Login was successful
-      } else {
-        setLoginError(message);
-        return false; // Login was not successful
-      }
-    } catch (error) {
-      console.error('Network error:', error);
-      setLoginError('Network error');
+  try {
+    const response = await fetch('http://localhost:8001/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const user = await response.json();
+
+    if (response.ok) {
+      setIsLoggedIn(true);
+      setUsername(user.username);
+      setUserId(user.id); // Store the user's ID in the state
+      setLoginError(null);
+      localStorage.setItem('user', JSON.stringify(user)); // Store user's information in local storage
+      return true; // Login was successful
+    } else {
+      setLoginError(user.message);
       return false; // Login was not successful
     }
-  };
-
+  } catch (error) {
+    console.error('Network error:', error);
+    setLoginError('Network error');
+    return false; // Login was not successful
+  }
+};
   const handleLogout = () => {
     localStorage.removeItem('user');
     setIsLoggedIn(false);
@@ -66,7 +68,7 @@ const NavBar = () => {
         <NavLink exact to="/">Home</NavLink> 
         {isLoggedIn && <>
           <NavLink to="/following">Following</NavLink>
-          <NavLink to="/timelines">My Timeline</NavLink>
+          <NavLink to={`/timelines/${userId}`}>My Timeline</NavLink>
           <NavLink to="/favourites">Favourites</NavLink>
           <NavLink to="/create-new">Create New</NavLink>
         </>}
