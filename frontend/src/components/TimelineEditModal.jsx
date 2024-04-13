@@ -7,15 +7,13 @@ import SearchBar from '../components/SearchBar';
 import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
 
-//milestoneToggle} milestoneEditToggle
 const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
   milestoneToggle,timelineEditToggle,milestoneEditToggle }) => {
   const { selectedTimeline } = state;
   const [keyword, setKeyword] = useState('');
   const title = useTextInput(selectedTimeline.title);
   const description = useTextInput(selectedTimeline.description);
-  const coverImage = useImageInput(null);
-  
+  const coverImage = useImageInput(selectedTimeline.image);
   //to close the modal once save btn is clicked and form has submitted(form has to be 
   //submitted before it closes so delaying one sec)
   const handleSaveClose = () => { 
@@ -29,8 +27,9 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
     const formData = new FormData();
     formData.append('title', title.textInput);
     formData.append('description', description.textInput);
-    formData.append('coverimage', coverImage.imageInput);
+    formData.append('coverimage', coverImage.imageInput.name || coverImage.imageInput);
     formData.append('timeline_id', selectedTimeline.id);
+    //console.log("coverImage.imageInput.name:", coverImage.imageInput.name);
     //throws error when we save without editing image ---> have to look
     //implement post req update query in milestones.js //upload multiple images
     fetch('/api/timelines/update', {
@@ -53,7 +52,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
     state = { ...state, milestonesByTimeline: state.searchedMilestones }
     console.log(state.searchedMilestones);
   }
-  // console.log(state.milestonesByTimeline)
+
   return (
     <div className='timeline-edit-modal'>
       <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
@@ -63,8 +62,6 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
       
       {selectedTimeline &&
         (<div>
-            {/* < PhotoFavButton id={selectedPhoto.id} favPhotos={state.favPhotos} favPhotosClick={favPhotosClick} /> */}
-            {/* <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} /> */}
           <form onSubmit={handleTimelineSave}>
             <div>
               <label>Title:</label>
@@ -93,7 +90,6 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
           {/* This button should open new-milestone-form modal */}
           <button>Add New Milestone</button>
         </div>)}
-      
     </div>
   )
 };
