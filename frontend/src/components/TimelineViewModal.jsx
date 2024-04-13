@@ -15,18 +15,21 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
   // console.log(state.milestonesByTimeline)
 
   return (
-    <div className='timeline-edit-modal'>
-      <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
+    <div className='timeline-milestone-modal'>
 
-      <button className="close-button" onClick={() => { timelineToggle.handleToggle(); }} >
-        <img src={closeSymbol} alt='close symbol' />
-      </button>
+      <div className="close-button-wrap">
+        <button className="close-button" onClick={() => { timelineToggle.handleToggle(); }} >
+          <img src={closeSymbol} alt='close symbol' />
+        </button>
+      </div>
+
+      <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
 
       {selectedTimeline &&
         (<div>
           {/* < PhotoFavButton id={selectedPhoto.id} favPhotos={state.favPhotos} favPhotosClick={favPhotosClick} />
           <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} /> */ }
-          <p>{selectedTimeline.title}</p>
+          <h3>{selectedTimeline.title}</h3>
           <p>{selectedTimeline.description}</p>
           <div className="photo-details-modal__image">
               <MilestoneList state={state} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} />
