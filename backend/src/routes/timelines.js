@@ -90,16 +90,12 @@ router.get('/timelines/milestones/:id', (req, res) => {
 router.post('/timelines/update', upload.single('coverimage'), (req, res) => {
   const { title } = req.body;
   const { description } = req.body;
-  const image = req.file.filename;
+  const {coverimage}  = req.body;
   const user_id = 1 //hardcoded for now
   const { timeline_id } = req.body;
-  console.log("save: timeline id:", timeline_id);
-  console.log("save: title :", title);
-  console.log("save: description:", description);
-  console.log("save: image:", image);
 
   db.query(`UPDATE timelines SET title =$1 , description=$2, image=$3
-  WHERE id = $4 and user_id=$5 RETURNING *;`, [title, description, image,timeline_id ,user_id])
+  WHERE id = $4 and user_id=$5 RETURNING *;`, [title, description, coverimage,timeline_id ,user_id])
     .then(({ rows: timelines }) => {
       const updatedTimelinesObj = timelines.map(timeline => (
         { ...timeline,
