@@ -90,9 +90,10 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
           </div>
         
           {/* This button should open new-milestone-form modal */}
-          <button>Add New Milestone</button>
+        <button onClick={event =>  window.location.href='/create-new'}>Add New Milestone</button>
         </div>)}
     </div>
+    
   )
 };
 
