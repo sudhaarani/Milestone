@@ -3,7 +3,7 @@ import React from 'react';
 import ListOfTimelines from "./ListOfTimelines";
 
 const HomePage = ({ state, timelineToggle, handleSelectedTimeline, handleFavourites,
-  getMilestonesByTimeline,timelineEditToggle }) => {
+  getMilestonesByTimeline,timelineEditToggle,handleDeleteTimeline }) => {
   return (
     <div>
       <ListOfTimelines 
@@ -13,6 +13,7 @@ const HomePage = ({ state, timelineToggle, handleSelectedTimeline, handleFavouri
         handleFavourites={handleFavourites}
         getMilestonesByTimeline={getMilestonesByTimeline}
         timelineEditToggle={timelineEditToggle}
+        handleDeleteTimeline={handleDeleteTimeline}
       />
     </div>
   );
