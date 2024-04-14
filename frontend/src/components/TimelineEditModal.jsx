@@ -10,6 +10,8 @@ import useTextInput from '../hooks/useTextInput';
 const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
   milestoneToggle,timelineEditToggle,milestoneEditToggle }) => {
   const { selectedTimeline } = state;
+  console.log("selectedTimeline:", selectedTimeline);
+
   const [keyword, setKeyword] = useState('');
   const title = useTextInput(selectedTimeline.title);
   const description = useTextInput(selectedTimeline.description);
