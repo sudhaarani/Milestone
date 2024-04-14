@@ -94,11 +94,8 @@ router.get('/timelines/milestones/:id', (req, res) => {
 //for timeline-edit save form
 //-------have to  implement deleting the previous image in the upload folder
 router.post('/timelines/update', upload.single('coverimage'), (req, res) => {
-  const { title } = req.body;
-  const { description } = req.body;
-  const {coverimage}  = req.body;
+  const { title,description,coverimage,timeline_id } = req.body;
   const user_id = 1 //hardcoded for now
-  const { timeline_id } = req.body;
 
   db.query(`UPDATE timelines SET title =$1 , description=$2, image=$3
   WHERE id = $4 and user_id=$5 RETURNING *;`, [title, description, coverimage,timeline_id ,user_id])
@@ -110,6 +107,5 @@ router.post('/timelines/update', upload.single('coverimage'), (req, res) => {
       res.status(500).send('Server Error');
     });
 });
-
 
 module.exports = router;
