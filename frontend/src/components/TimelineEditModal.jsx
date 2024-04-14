@@ -8,7 +8,7 @@ import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
 
 const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
-  milestoneToggle,timelineEditToggle,milestoneEditToggle }) => {
+  milestoneToggle,timelineEditToggle,milestoneEditToggle,handleDeleteMilestone }) => {
   const { selectedTimeline } = state;
   console.log("selectedTimeline:", selectedTimeline);
 
@@ -85,7 +85,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
           <div className="photo-details-modal__image">
             <MilestoneList state={state} getClickedMilestone={getClickedMilestone}
                 milestoneToggle={milestoneToggle} timelineEditToggle={timelineEditToggle}
-                milestoneEditToggle={milestoneEditToggle}
+                milestoneEditToggle={milestoneEditToggle} handleDeleteMilestone={handleDeleteMilestone}
             />
           </div>
         
