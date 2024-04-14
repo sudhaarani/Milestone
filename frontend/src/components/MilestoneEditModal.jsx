@@ -3,55 +3,19 @@ import React,{useState,useEffect} from 'react';
 
 import '../styles/MilestoneEditModal.css';
 import closeSymbol from '../assets/closeSymbol.svg';
+import useImageInput from '../hooks/useImageInput';
+import useTextInput from '../hooks/useTextInput';
 
 const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
   const { selectedMilestone } = state;
   console.log("selectedMilestone:", selectedMilestone);
-  const [title, setTitle] = useState('');
-  const [date, setDate] = useState('');
-  const [diary_entry, setDiary_entry] = useState('');
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
-  const [image3, setImage3] = useState(null);
-  const [image4, setImage4] = useState(null);
   const isoDate = new Date(selectedMilestone.milestone_date).toISOString();
   const formattedDate = isoDate.substring(0, 10); // Extracting YYYY-MM-DD
  
-  
-  useEffect(() => {
-    setTitle(selectedMilestone.milestone_title);
-    setDate(formattedDate);
-    setDiary_entry(selectedMilestone.diary_entry);
-    setImage1(selectedMilestone.image1);
-    setImage2(selectedMilestone.image2);
-    setImage3(selectedMilestone.image3);
-    setImage4(selectedMilestone.image4);
-  }, []);
-
-  const handleTitle = (event) => {
-    setTitle(event.target.value); // selects the value inputted into textfield
-  };
-
-  const handleDate = (event) => {
-    setDate(event.target.value);
-  };
-
-  const handleDiary_entry= (event) => {
-    setDiary_entry(event.target.value);
-  };
-
-  const handleImage1 = (event) => {
-    setImage1(event.target.files[0]) // selects the image
-  }
-  const handleImage2 = (event) => {
-    setImage1(event.target.files[0]) // selects the image
-  }
-  const handleImage3 = (event) => {
-    setImage1(event.target.files[0]) // selects the image
-  }
-  const handleImage4 = (event) => {
-    setImage1(event.target.files[0]) // selects the image
-  }
+  const title = useTextInput(selectedMilestone.milestone_title);
+  const date = useTextInput(formattedDate);
+  const diary_entry = useTextInput(selectedMilestone.diary_entry);
+  const images = useImageInput([selectedMilestone.image1,selectedMilestone.image2,selectedMilestone.image3,selectedMilestone.image4]);
 
   //to close the modal once save btn is clicked and form has submitted(form has to be
   //submitted before it closes so delaying one sec)
@@ -64,14 +28,21 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
   const handleTimelineSave = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('date', date);
-    formData.append('diary_entry', diary_entry);
-    formData.append('image1', image1);
-    formData.append('image2', image2);
-    formData.append('image3', image3);
-    formData.append('image4', image4);
-    formData.append('Milestone_id', selectedMilestone.milestone_id);
+    formData.append('title', title.textInput);  
+    formData.append('date', date.textInput);
+    formData.append('diary_entry', diary_entry.textInput);
+    for (let i = 0; i < images.imageInput.length; i++) {
+      console.log("images.imageInput i:", images.imageInput[i]);
+      console.log("images.imageInput i:", images.imageInput[i].name);
+      formData.append(`images`, images.imageInput[i].name || images.imageInput[i]);
+    }
+    console.log("images.imageInput:", images.imageInput);
+    console.log("milestone_id:", selectedMilestone.milestone_id);
+    console.log("timeline.id:", selectedMilestone.id);
+    console.log("images:", selectedMilestone.milestoneImageUrl);
+    //console.log("images:", selectedMilestone.milestoneImageUrl);
+    formData.append('milestone_id', selectedMilestone.milestone_id);
+    formData.append('timeline_id', selectedMilestone.id);//this is timeline's id
     //throws error when we save without editing image ---> have to look
 
     fetch('/api/milestones/update', {
@@ -98,26 +69,29 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
       
       {selectedMilestone &&
         (<div>
-            {/* < PhotoFavButton id={selectedPhoto.id} favPhotos={state.favPhotos} favPhotosClick={favPhotosClick} /> */}
-            {/* <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} /> */}
           <form onSubmit={handleTimelineSave}>
             <div>
               <label>Title:</label>
-              <input type="text" name="title" id="title" value={title} onChange={handleTitle} placeholder=""/>
+              <input type="text" name="title" id="title" value={title.textInput} onChange={title.handleTextInput} />
             </div>
             <div>
               <label>Date:</label>
-              <input type="date" name="date" id="date" value={date} onChange={handleDate} placeholder=""/>
+              <input type="date" name="date" id="date" value={date.textInput} onChange={date.handleTextInput} />
             </div>
             <div>
               <label>Diary Entry:</label>
-              <input type="text" name="diary_entry" id="diary_entry" value={diary_entry} onChange={handleDiary_entry} placeholder=""/>
+              <input type="text" name="diary_entry" id="diary_entry" value={diary_entry.textInput} onChange={diary_entry.handleTextInput}/>
             </div>
             <div>
               <label>Images:</label>
-              <img src={selectedMilestone.image1} className='card-img-top' alt={selectedMilestone.image1} />
-            <div>
-                <input type="file" name="image1" id="image1" onChange={handleImage1} />
+              <img src={selectedMilestone.milestoneImageUrl[0]} className='card-img-top' alt={selectedMilestone.image1} />
+              <img src={selectedMilestone.milestoneImageUrl[1]} className='card-img-top' alt={selectedMilestone.image2} />
+              <img src={selectedMilestone.milestoneImageUrl[2]} className='card-img-top' alt={selectedMilestone.image3} />
+              <img src={selectedMilestone.milestoneImageUrl[3]} className='card-img-top' alt={selectedMilestone.image4} />
+              <div>
+              <input type="file" name="images" id="images" onChange={() => {
+                images.handleMultiEditImageInput(images.imageInput)
+              } } multiple />
               </div>
             </div>
             <button type="submit" onClick={() => { handleSaveClose() }}>Save</button>
