@@ -6,7 +6,7 @@ import MilestoneList from '../components/MilestoneList';
 import SearchBar from '../components/SearchBar';
 
 const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMilestone,
-  milestoneToggle,timelineEditToggle,milestoneEditToggle }) => {
+  milestoneToggle,timelineEditToggle,milestoneEditToggle,handleDeleteMilestone }) => {
   const { selectedTimeline } = state;
   const [keyword, setKeyword] = useState('');
   if (keyword && state.searchedMilestones) {
@@ -28,7 +28,7 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
           <div className="photo-details-modal__image">
           <MilestoneList state={state} getClickedMilestone={getClickedMilestone}
             milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle}
-            timelineEditToggle={timelineEditToggle}
+            timelineEditToggle={timelineEditToggle} handleDeleteMilestone={handleDeleteMilestone}
               />  
           </div>
           <button onClick={() => { 
