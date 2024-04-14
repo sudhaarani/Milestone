@@ -75,9 +75,15 @@ router.get('/timelines/milestones/:id', (req, res) => {
   db.query(`SELECT timelines.*,milestones.id as milestone_id,milestones.title as milestone_title, milestones.date as milestone_date,
   diary_entry,image1,image2,image3,image4 
   FROM timelines JOIN milestones ON milestones.timeline_id = timelines.id
-  WHERE timelines.id = ${req.params.id};`)
-    .then(({ rows: users }) => {
-      res.json(users);
+  WHERE timelines.id = ${req.params.id} order by milestone_id;`)
+    .then(({ rows: milestonesbytimeline }) => {
+      const updatedMilestonesObj = milestonesbytimeline.map(milestone => {
+        return  {...milestone,
+          milestoneImageUrl: [`/uploads/${milestone.image1}`, `/uploads/${milestone.image2}`,
+          `/uploads/${milestone.image3}`,`/uploads/${milestone.image4}`]
+          }  
+      });
+      res.json(updatedMilestonesObj);
     })
     .catch(error => {
       console.error(error);
@@ -97,12 +103,7 @@ router.post('/timelines/update', upload.single('coverimage'), (req, res) => {
   db.query(`UPDATE timelines SET title =$1 , description=$2, image=$3
   WHERE id = $4 and user_id=$5 RETURNING *;`, [title, description, coverimage,timeline_id ,user_id])
     .then(({ rows: timelines }) => {
-      const updatedTimelinesObj = timelines.map(timeline => (
-        { ...timeline,
-          timelineImageUrl: `/uploads/${timeline.image}`
-        }
-      ));
-      res.json(updatedTimelinesObj);
+      res.json(timelines);
     })
     .catch((error) => {
       console.error('Error updating timeline:', error);
