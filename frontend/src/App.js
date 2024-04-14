@@ -14,7 +14,7 @@ import useToggle from "../src/hooks/useToggle";
 
 function App() {
   const { state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline,
-    searchKeyword, getClickedMilestone } = useApplicationData();
+    searchKeyword, getClickedMilestone,handleDeleteTimeline,handleDeleteMilestone } = useApplicationData();
   const timelineToggle = useToggle();
   const milestoneToggle = useToggle(); 
   const timelineEditToggle = useToggle();
@@ -26,16 +26,16 @@ function App() {
 
       <HomePage state={state} timelineToggle={timelineToggle} handleSelectedTimeline={handleSelectedTimeline}
         handleFavourites={handleFavourites} getMilestonesByTimeline={getMilestonesByTimeline}
-        timelineEditToggle={timelineEditToggle} />
+        timelineEditToggle={timelineEditToggle} handleDeleteTimeline={handleDeleteTimeline} />
 
       {timelineToggle.toggleState && <TimelineViewModal timelineToggle={timelineToggle} state={state}
         searchKeyword={searchKeyword} getClickedMilestone={getClickedMilestone}
         milestoneToggle={milestoneToggle} timelineEditToggle={timelineEditToggle}
-        milestoneEditToggle={milestoneEditToggle} />}
+        milestoneEditToggle={milestoneEditToggle} handleDeleteMilestone={handleDeleteMilestone} />}
       
       {timelineEditToggle.toggleState && <TimelineEditModal timelineEditToggle={timelineEditToggle}
         state={state} searchKeyword={searchKeyword} getClickedMilestone={getClickedMilestone}
-        milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle}
+        milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle} handleDeleteMilestone={handleDeleteMilestone}
       />}
       
       {milestoneToggle.toggleState && <MilestoneViewModal milestoneToggle={milestoneToggle} state={state} />}
