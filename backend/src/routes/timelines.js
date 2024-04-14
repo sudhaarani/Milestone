@@ -108,4 +108,18 @@ router.post('/timelines/update', upload.single('coverimage'), (req, res) => {
     });
 });
 
+router.delete('/timelines/delete/:id', (req, res) => {  
+  const user_id = 4 //hardcoded for now
+  console.log("router post")
+  db.query(`DELETE FROM timelines WHERE id = $1 and user_id=$2;`,[req.params.id,user_id])
+    .then(() => {
+      console.log("Deleted timeline successfully");
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      console.error("Error deleting timeline:",error);
+      res.status(500).send('Server Error');
+    });
+});
+
 module.exports = router;
