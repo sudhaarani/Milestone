@@ -3,7 +3,7 @@ import MilestoneListItem from './MilestoneListItem';
 //import '../styles/MilestoneList.css'
 
 const MilestoneList = ({ state, milestoneToggle, getClickedMilestone,
-  milestoneEditToggle,timelineEditToggle}) => {
+  milestoneEditToggle,timelineEditToggle,handleDeleteMilestone}) => {
   const MilestoneListArray = state.milestonesByTimeline.map((milestoneList) => {
     return (<MilestoneListItem
               key={milestoneList.milestone_id}
@@ -12,6 +12,7 @@ const MilestoneList = ({ state, milestoneToggle, getClickedMilestone,
               milestoneToggle={milestoneToggle}
               milestoneEditToggle={milestoneEditToggle}
               timelineEditToggle={timelineEditToggle}
+              handleDeleteMilestone={handleDeleteMilestone}
             />)
   });
 
