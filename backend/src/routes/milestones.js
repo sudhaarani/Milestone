@@ -73,5 +73,19 @@ router.post('/milestones/update', upload.array('images', 4), (req, res) => {
     });
 });
 
+router.delete('/milestones/delete/:timeline_id/:id', (req, res) => {  
+  console.log("router delete");
+  db.query(`DELETE FROM milestones WHERE id = $1 and timeline_id=$2;`,[req.params.id,req.params.timeline_id])
+    .then(() => {
+      console.log("Deleted milestone successfully");
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      console.error("Error deleting milestone:",error);
+      res.status(500).send('Server Error');
+    });
+});
+
+
 
 module.exports = router;
