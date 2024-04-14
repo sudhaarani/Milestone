@@ -3,7 +3,7 @@ import '../styles/TimelineCard.css'
 import FavButton from "./FavButton";
 
 const TimelineCard = ({ timelineList, timelineToggle, handleSelectedTimeline, handleFavourites,
-  state, getMilestonesByTimeline,timelineEditToggle }) => {
+  state, getMilestonesByTimeline,timelineEditToggle,handleDeleteTimeline }) => {
   const { id, username, title, description, timelineImageUrl } = timelineList;
 
   return (
@@ -27,7 +27,11 @@ const TimelineCard = ({ timelineList, timelineToggle, handleSelectedTimeline, ha
             getMilestonesByTimeline(id)
           }} 
         />
-        <i className='fa-solid fa-trash'></i>
+        <i className='fa-solid fa-trash'
+          onClick={() => { 
+            handleDeleteTimeline(id)
+          }}
+        ></i>
         <FavButton id={id} handleFavourites={handleFavourites} state={state} />
       </div>
 
