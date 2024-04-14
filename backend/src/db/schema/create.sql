@@ -15,7 +15,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE timelines (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id),
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   title TEXT NOT NULL,
   description TEXT,
   image TEXT
@@ -24,7 +24,7 @@ CREATE TABLE timelines (
 
 CREATE TABLE "milestones" (
   id SERIAL PRIMARY KEY NOT NULL,
-  timeline_id INTEGER REFERENCES timelines(id),
+  timeline_id INTEGER REFERENCES timelines(id) ON DELETE CASCADE,
   title TEXT NOT NULL,
   date DATE NOT NULL,
   diary_entry TEXT,
@@ -37,13 +37,12 @@ CREATE TABLE "milestones" (
 
 CREATE TABLE favourites (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id),
-  milestone_id INTEGER REFERENCES milestones(id)
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  milestone_id INTEGER REFERENCES milestones(id) ON DELETE CASCADE
 );
-
 
 CREATE TABLE "followings" (
   id SERIAL PRIMARY KEY NOT NULL,
-  user1_id INTEGER REFERENCES users(id), /* user1 is the one clicking 'follow' */
-  user2_id INTEGER REFERENCES users(id) /* user2 is who is being followed */
+  user1_id INTEGER REFERENCES users(id) ON DELETE CASCADE, /* user1 is the one clicking 'follow' */
+  user2_id INTEGER REFERENCES users(id) ON DELETE CASCADE /* user2 is who is being followed */
 );
