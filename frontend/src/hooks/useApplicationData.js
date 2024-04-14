@@ -115,9 +115,41 @@ const useApplicationData = () => {
     console.log("getClickedMilestone:Result: ", Result);
     dispatch({ type: ACTIONS.SELECT_MILESTONE, result: Result });
   }
+
+  const handleDeleteTimeline = (timeline_id) => {
+    fetch(`/api/timelines/delete/${timeline_id}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      console.log('Timeline deleted successfully');
+    })
+    .catch(error => {
+      console.error('Error deleting timeline:', error);
+    });
+  } 
+
+  const handleDeleteMilestone = (timeline_id,milestone_id) => {
+    ///milestones/delete/:timeline_id/:id
+    fetch(`/api/milestones/delete/${timeline_id}/${milestone_id}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      console.log('Milestone deleted successfully');
+    })
+    .catch(error => {
+      console.error('Error deleting milestone:', error);
+    });
+  } 
   
   return {
-    state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline, searchKeyword, getClickedMilestone
+    state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline, searchKeyword,
+    getClickedMilestone,handleDeleteTimeline,handleDeleteMilestone
   };
 }
 
