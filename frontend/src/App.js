@@ -1,5 +1,5 @@
 import './App.css';
-import React,{useState} from 'react';
+import React from 'react';
 import HomePage from './components/HomePage';
 import TimelineViewModal from './components/TimelineViewModal';
 import TimelineEditModal from './components/TimelineEditModal';
