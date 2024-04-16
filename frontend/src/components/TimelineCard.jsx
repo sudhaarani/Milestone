@@ -20,12 +20,6 @@ const TimelineCard = ({ timelineList, timelineToggle, handleSelectedTimeline, ha
       
       <div className='card-footer'>
         <p className='card-username'>By {username}</p>
-        <i className='fa-solid fa-pen' 
-          // onClick={() => { 
-          //   handleToggle() 
-          //   handleSelectedTimeline(id)
-          // }} 
-        />
         <i className='fa-solid fa-trash'></i>
         <FavButton id={id} handleFavourites={handleFavourites} state={state} />
       </div>

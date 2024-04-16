@@ -12,29 +12,30 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
     state = { ...state, milestonesByTimeline: state.searchedMilestones }
     console.log(state.searchedMilestones);
   }
-  // console.log(state.milestonesByTimeline)
 
   return (
     <div className='timeline-milestone-modal'>
+      <div className='timeline-top'>
+        <div className="search-bar-wrap">
+        <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
+        </div>
 
-      <div className="close-button-wrap">
-        <button className="close-button" onClick={() => { timelineToggle.handleToggle(); }} >
-          <img src={closeSymbol} alt='close symbol' />
-        </button>
+        <div className="close-button-wrap">
+            <button className="close-button" onClick={() => { timelineToggle.handleToggle(); }} >
+              <img src={closeSymbol} alt='close symbol' />
+            </button>
+        </div>
+
       </div>
 
-      <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
+
 
       {selectedTimeline &&
         (<div>
-          {/* < PhotoFavButton id={selectedPhoto.id} favPhotos={state.favPhotos} favPhotosClick={favPhotosClick} />
-          <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} /> */ }
-          <h3>{selectedTimeline.title}</h3>
+          <h2>{selectedTimeline.title}</h2>
           <p>{selectedTimeline.description}</p>
-          <div className="photo-details-modal__image">
-              <MilestoneList state={state} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} />
-          </div>
-          <button>Edit Timeline</button>
+          <MilestoneList state={state} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} />
+          <button className="btn btn-dark">Edit Timeline</button>
         </div>)}
 
     </div>

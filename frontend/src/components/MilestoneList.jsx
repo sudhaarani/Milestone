@@ -17,13 +17,11 @@ const MilestoneList = ({ state, milestoneToggle, getClickedMilestone }) => {
   });
 
   return (
-    <div section style={{backgroundColor: "#F0F2F5"}}>
-      <div className="container py-5" > 
-        <div className="main-timeline">
+      <div className="timeline-container"> 
+        <div className="main-timeline" >
           {MilestoneListArray}
         </div>
       </div>
-    </div>
   );
 };
 
