@@ -9,28 +9,32 @@ INSERT INTO users (username, email, password) VALUES
 
 -- Timelines
 INSERT INTO timelines (title, description, image, user_id) VALUES
-('Programming Journey', 'Timeline tracking my journey into programming and software development.', 'programming_journey_image.jpg', 1),
 ('Family Adventures', 'Timeline capturing memorable family trips and events.', 'family_adventures_image.jpg', 1),
+('Programming Journey', 'Timeline tracking my journey into programming and software development.', 'programming_journey_image.jpg', 1),
 ('Career Transitions', 'Timeline documenting key career transitions and milestones.', 'career_transitions_image.jpg', 2),
 ('Wellness and Fitness', 'Timeline focusing on health, fitness, and personal wellness goals.', 'wellness_fitness_image.jpg', 3),
 ('Social Gatherings', 'Timeline highlighting social events and gatherings with friends and family.', 'social_gatherings_image.jpg', 4);
 
 -- Milestones
 INSERT INTO milestones (timeline_id, title, date, diary_entry, image1, image2, image3, image4) VALUES
-(1, 'Started Learning Programming', '2021-01-10', 'Today marks the beginning of my journey into programming.', NULL, NULL, NULL, NULL),
-(1, 'First Coding Challenge Completed', '2021-03-20', 'Completed my first coding challenge today.', NULL, NULL, NULL, NULL),
-(1, 'First Programming Project', '2021-04-05', 'Completed my first programming project. It was challenging but rewarding.', NULL, NULL, NULL, NULL),
-(2, 'Family Trip to the Mountains', '2021-07-10', 'Spent a week with family in the mountains. Enjoyed the beautiful scenery and quality time together.', 'mountain_trip_image1.jpg', 'mountain_trip_image2.jpg', NULL, NULL),
-(2, 'Beach Vacation with Family', '2021-09-05', 'Had a fantastic beach vacation with family. Lots of sun, sand, and laughter!', 'beach_vacation_image1.jpg', 'beach_vacation_image2.jpg', NULL, NULL),
-(2, 'Celebrated Parents'' Anniversary', '2021-11-12', 'Celebrated my parents'' anniversary with a special dinner. Grateful for their love and support.', 'parents_anniversary_image1.jpg', NULL, NULL, NULL),
-(3, 'Changed Job', '2022-01-15', 'Started a new job as a software engineer.', NULL, NULL, NULL, NULL),
-(3, 'Promotion', '2022-05-01', 'Got promoted to a senior developer position. Hard work pays off!', NULL, NULL, NULL, NULL),
+(1, 'Family Trip to the Mountains', '2021-07-10', 'Spent a week with family in the mountains. Enjoyed the beautiful scenery and quality time together.', 'mountaintrip1.jpg', 'mountaintrip2.jpg', 'mountaintrip3.jpg', 'mountaintrip4.jpg'),
+(1, 'Beach Vacation with Family', '2021-09-05', 'Had a fantastic beach vacation with family. Lots of sun, sand, and laughter!', 'beachtrip1.jpg', 'beachtrip2.jpg', 'beachtrip3.jpg', NULL),
+(1, 'Celebrated Parents'' Anniversary', '2021-11-12', 'Celebrated my parents'' anniversary with a special dinner. Grateful for their love and support.', 'anniversary1.jpg', 'anniversary2.jpg', NULL, NULL),
+
+(2, 'Started Learning Programming', '2021-01-10', 'Today marks the beginning of my journey into programming.', 'programmingimage1.jpg', 'programmingimage2.jpg', 'programmingimage3.jpg', 'programmingimage4.jpg'),
+(2, 'First Coding Challenge Completed', '2021-03-20', 'Completed my first coding challenge today.', 'programmingimage1.jpg', 'programmingimage2.jpg', NULL, NULL),
+(2, 'First Programming Project', '2021-04-05', 'Completed my first programming project. It was challenging but rewarding.', 'programmingimage3.jpg', NULL, NULL, NULL),
+
+(3, 'Changed Job', '2022-01-15', 'Started a new job as a software engineer.', 'newjob1.jpg', NULL, NULL, NULL),
+(3, 'Promotion', '2022-05-01', 'Got promoted to a senior developer position. Hard work pays off!', 'promotion1.jpg', NULL, NULL, NULL),
 (3, 'Completed Certification', '2022-07-20', 'Successfully completed a certification course in software development.', NULL, NULL, NULL, NULL),
-(4, 'Started Yoga Classes', '2023-01-10', 'Began attending yoga classes for physical and mental well-being.', NULL, NULL, NULL, NULL),
-(4, 'Completed First 10K Run', '2023-03-20', 'Successfully completed my first 10K run.', '10k_run_image.jpg', NULL, NULL, NULL),
-(4, 'Improved Diet', '2023-05-05', 'Adopted a healthier diet and lifestyle.', NULL, NULL, NULL, NULL),
-(5, 'Hosted Dinner Party', '2023-09-10', 'Hosted a dinner party for friends. It was a success, and everyone enjoyed the food and company.', 'dinner_party_image1.jpg', 'dinner_party_image2.jpg', NULL, NULL),
-(5, 'Attended Wedding', '2023-12-25', 'Attended a friend''s wedding. It was a beautiful ceremony.', 'wedding_image1.jpg', 'wedding_image2.jpg', NULL, NULL);
+
+(4, 'Improved Diet', '2023-01-02', 'Adopted a healthier diet and lifestyle.', 'diet1.jpg', 'diet2.jpg', 'diet3.jpg', 'diet4.jpg'),
+(4, 'Started Yoga Classes', '2023-01-10', 'Began attending yoga classes for physical and mental well-being.', 'yoga1.jpg', 'yoga2.jpg', 'yoga3.jpg', NULL),
+(4, 'Completed First 10K Run', '2023-03-20', 'Successfully completed my first 10K run.', 'running1.jpg', 'running2.jpg', NULL, NULL),
+
+(5, 'Hosted Dinner Party', '2023-09-10', 'Hosted a dinner party for friends. It was a success, and everyone enjoyed the food and company.', 'dinnerparty1.jpg', 'dinnerparty2.jpg', NULL, NULL),
+(5, 'Attended Wedding', '2023-12-25', 'Attended a friend''s wedding. It was a beautiful ceremony.', 'wedding1.jpg', 'wedding2.jpg', NULL, NULL);
 
 -- Favourites
 INSERT INTO favourites (user_id, milestone_id) VALUES
