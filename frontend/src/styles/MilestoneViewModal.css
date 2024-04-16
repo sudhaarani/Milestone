@@ -9,18 +9,52 @@
   overflow-y: scroll;
   border-radius: 12px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
+.fa-arrow-left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
 
 .close-button {
-  background-color: white;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
   border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
   cursor: pointer;
-  margin-left: 16px;
-  margin-top: 16px;
+}
+
+.card-body {
+  flex: 1;
+}
+
+.diary-entry {
+  margin-top: 20px;
+}
+
+.diary-entry p {
+  text-align: left; /* Ensure text is left-aligned */
+}
+
+.diary-entry h5, .photos h5 {
+  text-align: left;
+}
+
+.photos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.photos img {
+  width: 450px;
+  height: 250px;
+  border-radius: 8px;
+  object-fit: cover; 
 }
