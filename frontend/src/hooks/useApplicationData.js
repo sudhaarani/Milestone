@@ -96,6 +96,23 @@ const useApplicationData = () => {
       })
   }
 
+  const handleSearchByDate = (timeline_id,fromDate,toDate) => {
+    fetch(`/api/milestones/search/${timeline_id}/${fromDate}/${toDate}`)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`HTTP error! Status: ${res.status}`);
+          }
+          return res.json()
+        })
+        .then(data => {
+          console.log("searched by date data:", data);
+          dispatch({ type: ACTIONS.SEARCHED_MILESTONES, result: data });
+        })
+        .catch(error => {
+          console.error('Error fetching topics:', error);
+        })
+    }
+
   const handleSelectedTimeline = (id) => {
     const selectedTimelineResult = state.timelines.find(timeline => timeline.id === id)
     console.log("selectedTimelineResult: ", selectedTimelineResult);
@@ -117,7 +134,8 @@ const useApplicationData = () => {
   }
   
   return {
-    state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline, searchKeyword, getClickedMilestone
+    state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline, searchKeyword,
+    getClickedMilestone,handleSearchByDate
   };
 }
 
