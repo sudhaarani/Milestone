@@ -18,7 +18,9 @@ router.post('/', async (req, res) => {
         res.status(401).send('Password is incorrect');
       } else {
         // User is authenticated
-        res.status(200).send('Logged in');
+        const user = passwordResult.rows[0];
+        console.log(user); // Log the user's data
+        res.status(200).json({ id: user.id, username: user.username }); // Send back user's ID and username
       }
     }
   } catch (err) {

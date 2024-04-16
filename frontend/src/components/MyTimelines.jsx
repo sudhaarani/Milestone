@@ -7,6 +7,18 @@ const MyTimelines = ({ handleToggle, handleSelectedTimeline, handleFavourites })
   const [state, setState] = useState({ timelines: [] });
   const { id: userId } = useParams();
 
+  // useEffect(() => {
+  //   fetch(`http://localhost:8001/api/timelines/${userId}`)
+  //     .then((response) => {
+  //       return response.json()
+  //     })
+  //     .then((data) => {
+  //       console.log("DATA ",data)
+  //       setState({ timelines: data })
+  //     })
+  //     .catch(error => console.error('Error:', error));
+  // }, [userId]);
+
   useEffect(() => {
     fetch(`http://localhost:8001/api/timelines/${userId}`)
       .then((response) => {
@@ -19,15 +31,17 @@ const MyTimelines = ({ handleToggle, handleSelectedTimeline, handleFavourites })
       .catch(error => console.error('Error:', error));
   }, [userId]);
 
+  
+
 
   return (
     <div>
-      {/* <ListOfTimelines 
+      <ListOfTimelines 
         state={state}
         handleToggle={handleToggle}
         handleSelectedTimeline={handleSelectedTimeline}
         handleFavourites={handleFavourites}
-      /> */}
+      />
     </div>
   );
 }

@@ -68,7 +68,7 @@ const NavBar = () => {
         <NavLink exact to="/">Home</NavLink> 
         {isLoggedIn && <>
           <NavLink to="/following">Following</NavLink>
-          <NavLink to={`/timelines/${userId}`}>My Timeline</NavLink>
+          <NavLink to={`/timelines/${userId}`}>My Timelines</NavLink>
           <NavLink to="/favourites">Favourites</NavLink>
           <NavLink to="/create-new">Create New</NavLink>
         </>}

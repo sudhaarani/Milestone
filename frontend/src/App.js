@@ -6,6 +6,7 @@ import MainModal from './components/MainModal';
 import NavBar from './components/NavBar';
 import NewTimelineForm from './components/NewTimelineForm';
 import NewMilestoneForm from './components/NewMilestoneForm';
+import MyTimelines from './components/MyTimelines';
 
 import useApplicationData from "./hooks/useApplicationData"; // Adjusted the path for hooks
 import useToggle from "./hooks/useToggle";
@@ -28,6 +29,12 @@ function App() {
           />} />
           <Route path="/create-new" element={<NewTimelineForm />} />
           {/* You can add more routes here for other components */}
+          <Route path="/timelines/:id" element={<MyTimelines 
+            state={state} 
+            handleToggle={handleToggle} 
+            handleSelectedTimeline={handleSelectedTimeline}
+            handleFavourites={handleFavourites} 
+          />} />
         </Routes>
 
         {toggleState && <MainModal handleToggle={handleToggle} state={state} />}
