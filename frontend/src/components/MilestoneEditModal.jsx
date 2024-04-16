@@ -84,12 +84,16 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
             </div>
             <div>
               <label>Images:</label>
-              <img src={selectedMilestone.milestoneImageUrl[0]} className='card-img-top' alt={selectedMilestone.image1} />
-              <img src={selectedMilestone.milestoneImageUrl[1]} className='card-img-top' alt={selectedMilestone.image2} />
-              <img src={selectedMilestone.milestoneImageUrl[2]} className='card-img-top' alt={selectedMilestone.image3} />
-              <img src={selectedMilestone.milestoneImageUrl[3]} className='card-img-top' alt={selectedMilestone.image4} />
+              {selectedMilestone.image1 &&
+                <img src={selectedMilestone.milestoneImageUrl[0]} className='card-img-top' alt={selectedMilestone.image1} />}
+              {selectedMilestone.image2 &&
+                <img src={selectedMilestone.milestoneImageUrl[1]} className='card-img-top' alt={selectedMilestone.image2} />}
+              {selectedMilestone.image3 &&
+                <img src={selectedMilestone.milestoneImageUrl[2]} className='card-img-top' alt={selectedMilestone.image3} />}
+              {selectedMilestone.image4 &&
+                <img src={selectedMilestone.milestoneImageUrl[3]} className='card-img-top' alt={selectedMilestone.image4} />}
               <div>
-              <input type="file" name="images" id="images" onChange={handleMultiEditImageInput} multiple />
+                <input type="file" name="images" id="images" onChange={handleMultiEditImageInput} multiple />
               </div>
             </div>
             <button type="submit" onClick={() => { handleSaveClose() }}>Save</button>
