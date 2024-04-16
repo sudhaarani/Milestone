@@ -13,7 +13,7 @@ import useToggle from "../src/hooks/useToggle";
 
 
 function App() {
-  const { state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline,searchKeyword,getClickedMilestone } = useApplicationData();
+  const { state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline,searchKeyword,getClickedMilestone,handleSearchByDate } = useApplicationData();
 
   /* Old code for opening/closing TIMELINE MODAL */
     // const { toggleState, handleToggle } = useToggle(); 
@@ -49,7 +49,8 @@ function App() {
       <HomePage state={state} timelineToggle={timelineToggle} handleSelectedTimeline={handleSelectedTimeline}
         handleFavourites={handleFavourites} getMilestonesByTimeline={getMilestonesByTimeline} />
 
-      {timelineToggle.toggleState && <TimelineViewModal timelineToggle={timelineToggle} state={state} searchKeyword={searchKeyword} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} />}
+      {timelineToggle.toggleState && <TimelineViewModal timelineToggle={timelineToggle} state={state} searchKeyword={searchKeyword}
+        getClickedMilestone={getClickedMilestone} handleSearchByDate={handleSearchByDate} milestoneToggle={milestoneToggle} />}
 
       {milestoneToggle.toggleState && <MilestoneViewModal milestoneToggle={milestoneToggle} state={state} />}
 
