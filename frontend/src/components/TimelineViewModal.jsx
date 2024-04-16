@@ -1,6 +1,8 @@
 import React,{useState} from 'react';
 
 import '../styles/TimelineViewModal.css';
+import '../styles/SearchBar.css';
+
 import closeSymbol from '../assets/closeSymbol.svg';
 import MilestoneList from '../components/MilestoneList';
 import SearchBar from '../components/SearchBar';
@@ -23,17 +25,18 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword,handleSearchBy
 
   return (
     <div className='timeline-milestone-modal'>
-
       <div className='timeline-top'>
+
+        <SearchBar keyword={keyword} setKeyword={setKeyword} searchKeyword={searchKeyword}
+        selectedTimeline={selectedTimeline} fromDate={fromDate} setFromDate={setFromDate}
+        toDate={toDate} setToDate={setToDate} handleSearchByDate={handleSearchByDate} />
+
         <div className="close-button-wrap">
           <button className="close-button" onClick={() => { timelineToggle.handleToggle(); }} >
             <img src={closeSymbol} alt='close symbol' />
           </button>
         </div>
 
-        <SearchBar keyword={keyword} setKeyword={setKeyword} searchKeyword={searchKeyword}
-        selectedTimeline={selectedTimeline} fromDate={fromDate} setFromDate={setFromDate}
-        toDate={toDate} setToDate={setToDate} handleSearchByDate={handleSearchByDate} />
       </div>
 
       {selectedTimeline &&

@@ -30,16 +30,8 @@
   margin-left: 16px;
 }
 
-.search-bar-wrap {
-  padding: 12px;
-  margin: 10px;
-}
-#search-bar {
-  width: 12rem;
-  background: #F0F2F5;
-  border: 1px solid #939597;
-  padding: 0.5rem;
-  border-radius: 4px;
+.radio-label {
+  margin-right: 1rem;
 }
 
 /* The actual timeline (the vertical ruler) */
@@ -62,6 +54,7 @@
 /* Container around all content */
 .timeline-container {
   background-color: #F0F2F5; /* MIGHT WANT TO CUSTOMIZE */
+  border-radius: 8px;
   margin: 20px;
   padding: 20px
 }
