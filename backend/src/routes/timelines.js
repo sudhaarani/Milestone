@@ -101,7 +101,7 @@ router.post('/timelines/update', upload.single('image'), (req, res) => {
   }
   
   const user_id = 1 //hardcoded for now
- // console.log("coverimage::in req:", image);
+  console.log("image::in req:", image);
 
   const queryParams = [];
   let queryText = `UPDATE timelines SET`;
