@@ -29,7 +29,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
     const formData = new FormData();
     formData.append('title', title.textInput);
     formData.append('description', description.textInput);
-    formData.append('coverimage', coverImage.imageInput.name || coverImage.imageInput);
+    formData.append('coverimage', coverImage.imageInput);
     formData.append('timeline_id', selectedTimeline.id);
     //console.log("coverImage.imageInput.name:", coverImage.imageInput.name);
     //throws error when we save without editing image ---> have to look
