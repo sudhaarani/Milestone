@@ -60,10 +60,60 @@ router.get('/milestones/search/:timeline_id/:searchText', (req, res) => {
 //for milestone-edit save form
 //-------have to  implement deleting the previous image in the upload folder
 router.post('/milestones/update', upload.array('images', 4), (req, res) => {
-  const { title,date,diary_entry,images,milestone_id,timeline_id } = req.body;
+  const { title, date, diary_entry, milestone_id, timeline_id } = req.body;
+  
+  let image1, image2, image3, image4;
+  console.log("req.files:", req.files);
 
-  db.query(`UPDATE milestones SET title =$1 , date=$2,diary_entry=$3, image1=$4,image2=$5,image3=$6,image4=$7
-  WHERE id = $8 and timeline_id=$9 RETURNING *;`, [title, date, diary_entry, images[0],images[1],images[2],images[3],milestone_id ,timeline_id])
+  if (req.files.length == 1) { 
+    image1=req.files[0].originalname;
+  }
+  if (req.files.length == 2) { 
+    image1=req.files[0].originalname;
+    image2=req.files[1].originalname;
+  }
+  if (req.files.length == 3) { 
+    image1=req.files[0].originalname;
+    image2=req.files[1].originalname;
+    image3=req.files[2].originalname;
+  }
+  if (req.files.length == 4) { 
+    image1 = req.files[0].originalname;
+    image2 = req.files[1].originalname;
+    image3=req.files[2].originalname;
+    image4=req.files[3].originalname;
+  }
+
+  const queryParams = [];
+  let queryText = `UPDATE milestones SET`;
+
+  const propertiesToUpdate = {
+    title,
+    date,
+    diary_entry,
+    image1,
+    image2,
+    image3,
+    image4
+  };
+  
+  // Iterate over the properties and dynamically construct the query
+  Object.entries(propertiesToUpdate).forEach(([key, value], index) => {
+    if (value) {
+      queryText += ` ${key} = $${queryParams.length + 1},`;
+      queryParams.push(value);
+    }
+  });
+  
+  // Remove the trailing comma if any additional columns were added to the query
+  if (queryText.endsWith(',')) {
+    queryText = queryText.slice(0, -1);
+  }
+  
+  queryText += ` WHERE id = $${queryParams.length + 1} AND timeline_id = $${queryParams.length + 2} RETURNING *;`;
+  queryParams.push(milestone_id,timeline_id);
+  
+  db.query(queryText, queryParams)
     .then(({ rows: milestones }) => {
       res.json(milestones);
     })
