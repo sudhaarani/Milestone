@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom'; // Add this line
+import { NavLink, useNavigate} from 'react-router-dom'; // Add this line
 import LoginModal from './LoginModal';
 import RegistrationModal from './RegistrationModal';
 
@@ -10,6 +10,9 @@ const NavBar = () => {
   const [username, setUsername] = useState('');
   const [loginError, setLoginError] = useState(null);
   const [userId, setUserId] = useState(null);
+
+  const navigate = useNavigate(); // Add this line
+
   
  useEffect(() => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -38,6 +41,7 @@ const NavBar = () => {
       setUserId(user.id); // Store the user's ID in the state
       setLoginError(null);
       localStorage.setItem('user', JSON.stringify(user)); // Store user's information in local storage
+      navigate('/'); // Change this line
       return true; // Login was successful
     } else {
       setLoginError(user.message);
@@ -53,6 +57,7 @@ const NavBar = () => {
     localStorage.removeItem('user');
     setIsLoggedIn(false);
     setUsername(null);
+    navigate('/'); // Change this line
   };
 
   const handleRegister = (username) => {
