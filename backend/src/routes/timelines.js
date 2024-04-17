@@ -94,11 +94,42 @@ router.get('/timelines/milestones/:id', (req, res) => {
 //for timeline-edit save form
 //-------have to  implement deleting the previous image in the upload folder
 router.post('/timelines/update', upload.single('coverimage'), (req, res) => {
-  const { title,description,coverimage,timeline_id } = req.body;
+  const { title, description, timeline_id } = req.body;
+  let coverimage;
+  if (req.file) { 
+    coverimage=req.file.filename;
+  }
+  
   const user_id = 1 //hardcoded for now
+  console.log("coverimage::in req:", coverimage);
 
-  db.query(`UPDATE timelines SET title =$1 , description=$2, image=$3
-  WHERE id = $4 and user_id=$5 RETURNING *;`, [title, description, coverimage,timeline_id ,user_id])
+  const queryParams = [];
+  let queryText = `UPDATE timelines SET`;
+
+  if (title) {
+    queryText += ` title = $${queryParams.length + 1},`;
+    queryParams.push(title);
+  }
+
+  if (description) {
+    queryText += ` description = $${queryParams.length + 1},`;
+    queryParams.push(description);
+  }
+  
+  if (coverimage) {
+    queryText += ` image = $${queryParams.length + 1},`;
+    queryParams.push(coverimage);
+  }
+  
+  // Remove the trailing comma if any additional columns were added to the query
+  if (queryText.endsWith(',')) {
+    queryText = queryText.slice(0, -1);
+  }
+  
+  queryText += ` WHERE id = $${queryParams.length + 1} AND user_id = $${queryParams.length + 2} RETURNING *;`;
+  queryParams.push(timeline_id, user_id);
+  
+  db.query(queryText, queryParams)
     .then(({ rows: timelines }) => {
       res.json(timelines);
     })
