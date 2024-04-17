@@ -37,12 +37,12 @@ INSERT INTO milestones (timeline_id, title, date, diary_entry, image1, image2, i
 (5, 'Attended Wedding', '2023-12-25', 'Attended a friend''s wedding. It was a beautiful ceremony.', 'wedding1.jpg', 'wedding2.jpg', NULL, NULL);
 
 -- Favourites
-INSERT INTO favourites (user_id, milestone_id) VALUES
-(1, 2), -- John Doe (user_id: 1) favorites the milestone with id 2
-(1, 5), -- John Doe (user_id: 1) favorites the milestone with id 5
-(2, 7), -- Jane Smith (user_id: 2) favorites the milestone with id 7
-(3, 10), -- Mike Jackson (user_id: 3) favorites the milestone with id 10
-(4, 13); -- Sara Williams (user_id: 4) favorites the milestone with id 13
+INSERT INTO favourites (user_id, timeline_id) VALUES
+(1, 2), -- John Doe (user_id: 1) favorites the timeline with id 2
+(1, 5), -- John Doe (user_id: 1) favorites the timeline with id 5
+(2, 1), -- Jane Smith (user_id: 2) favorites the timeline with id 1
+(3, 1), -- Mike Jackson (user_id: 3) favorites the timeline with id 1
+(4, 1); -- Sara Williams (user_id: 4) favorites the timeline with id 1
 
 -- Followings
 INSERT INTO followings (user1_id, user2_id) VALUES
@@ -50,4 +50,4 @@ INSERT INTO followings (user1_id, user2_id) VALUES
 (1, 3), -- John Doe (user1_id: 1) follows Mike Jackson (user2_id: 3)
 (2, 4), -- Jane Smith (user1_id: 2) follows Sara Williams (user2_id: 4)
 (3, 1), -- Mike Jackson (user1_id: 3) follows John Doe (user2_id: 1)
-(4, 2); -- Sara Williams (
+(4, 2); -- Sara Williams (user1_id: 3) follows Jane Smith (user2_id: 1)
