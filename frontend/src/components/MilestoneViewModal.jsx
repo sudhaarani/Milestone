@@ -31,12 +31,17 @@ const MilestoneViewModal = ({ state, milestoneToggle }) => {
         </div>
 
         <div className="photos">
-          <h5>Photos</h5>
-          <div className="photos-container">
-            <img src={`/uploads/${state.selectedMilestone.image1}`} alt='image1' onClick={() => handleFullImageModal(`/uploads/${state.selectedMilestone.image1}`)} />
-            <img src={`/uploads/${state.selectedMilestone.image2}`} alt='image2' onClick={() => handleFullImageModal(`/uploads/${state.selectedMilestone.image2}`)}/>
-            <img src={`/uploads/${state.selectedMilestone.image3}`} alt='image3' onClick={() => handleFullImageModal(`/uploads/${state.selectedMilestone.image3}`)}/>
-            <img src={`/uploads/${state.selectedMilestone.image4}`} alt='image4' onClick={() => handleFullImageModal(`/uploads/${state.selectedMilestone.image4}`)} />
+          <h5>Photo(s)</h5>
+          <div className="photos-container"> 
+            {/* map through the 4 images for a milestone entry if they're not null */}
+            {[1, 2, 3, 4].map((num) => {
+              const imageKey = `image${num}`;
+              const imageName = state.selectedMilestone[imageKey];
+              return imageName && (
+                <img key={num} src={`/uploads/${imageName}`} alt={`image${num}`}
+                  onClick={() => handleFullImageModal(`/uploads/${imageName}`)} />
+              );
+            })}
           </div>
         </div>
 
