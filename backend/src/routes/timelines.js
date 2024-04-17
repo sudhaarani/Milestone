@@ -94,4 +94,58 @@ router.get('/timelines/:id', (req, res) => {
 });
 
 
+router.get('/timelines/favourites/:id', (req, res) => {
+  const userId = req.params.id;
+
+  db.query(`
+    SELECT timeline_id
+    FROM favourites
+    WHERE user_id = $1;
+  `, [userId])
+    .then(({ rows: favourites }) => {
+      res.json(favourites);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).send('Server Error');
+    });
+});
+
+
+router.post('/timelines/favourites/:id', (req, res) => {
+  const userId = req.params.id;
+  const timelineId = req.body.timelineId; // Assuming the timelineId is sent in the request body
+
+  db.query(`
+    INSERT INTO favourites (user_id, timeline_id)
+    VALUES ($1, $2)
+  `, [userId, timelineId])
+  .then(() => {
+    res.status(201).send('Favorite added successfully');
+  })
+  .catch(error => {
+    console.error(error);
+    res.status(500).send('Server Error');
+  });
+});
+
+
+router.delete('/timelines/favourites/:id', (req, res) => {
+  const userId = req.params.id;
+  const timelineId = req.body.timelineId; // Assuming the timelineId is sent in the request body
+
+  db.query(`
+    DELETE FROM favourites
+    WHERE user_id = $1 AND timeline_id = $2
+  `, [userId, timelineId])
+  .then(() => {
+    res.status(204).send(); // No content sent back since the favorite is removed
+  })
+  .catch(error => {
+    console.error(error);
+    res.status(500).send('Server Error');
+  });
+});
+
+
 module.exports = router;

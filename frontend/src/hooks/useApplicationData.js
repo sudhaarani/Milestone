@@ -47,20 +47,54 @@ const useApplicationData = () => {
       })
   }, [ACTIONS.SET_TIMELINE]);
 
+
   const handleSelectedTimeline = (id) => {
     const selectedTimelineResult = state.timelines.find(timeline => timeline.id === id)
     console.log("selectedTimelineResult: ", selectedTimelineResult);
     dispatch({ type: ACTIONS.SELECT_TIMELINE, result: selectedTimelineResult }); 
   }
 
+
+  useEffect(() => {
+    fetch('/api/timelines/favourites/1') // HARDCODE user id as 1 (john_doe) for now
+      .then(res => res.json())
+      .then(data => {
+        const likedTimelineIds = data.map(item => item.timeline_id);
+        dispatch({ type: ACTIONS.SET_FAV_TIMELINES, result: likedTimelineIds });
+      })
+      .catch(error => {
+        console.error('Error fetching favorites:', error);
+      })
+  }, [ACTIONS.SET_FAV_TIMELINES]);
+
+
   const handleFavourites = (id) => {
-    const favouriteResult = state.favTimelines.includes(id) ? state.favTimelines.filter(_id =>
+    const updatedFavTimelines = state.favTimelines.includes(id) ? state.favTimelines.filter(_id =>
       _id !== id
     ) : [...state.favTimelines, id]
-    dispatch({ type: ACTIONS.SET_FAV_TIMELINES, result: favouriteResult });
+
+    // Update favTimelines state locally (temporary -> need to still update database)
+    dispatch({ type: ACTIONS.SET_FAV_TIMELINES, result: updatedFavTimelines });
+
+    // Determine whether to send a POST or DELETE request to backend, based on whether timeline_id is already in favTimelines state or not:
+    const method = state.favTimelines.includes(id) ? 'DELETE' : 'POST';
+
+    // Send a request that will either add or remove a timeline from the favs table
+    fetch(`/api/timelines/favourites/1`, { // HARDCODE user id as 1 for now
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ timelineId: id }),
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(method === 'DELETE' ? 'Failed to remove previously favourited timeline' : 'Failed to add timeline to favourites');
+      }
+    });
   }
 
-  
+
   return {
     state, handleSelectedTimeline, handleFavourites
   };
