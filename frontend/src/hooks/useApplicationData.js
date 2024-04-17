@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from 'react';
+import { useReducer, useEffect, setState } from 'react';
 
 const useApplicationData = () => {
 
@@ -60,9 +60,12 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.SET_FAV_TIMELINES, result: favouriteResult });
   }
 
-  
+  const resetSelectedUser = () => {
+    setState(prev => ({ ...prev, selectedUser: null }));
+  };
+
   return {
-    state, handleSelectedTimeline, handleFavourites
+    state, handleSelectedTimeline, handleFavourites, resetSelectedUser
   };
 }
 

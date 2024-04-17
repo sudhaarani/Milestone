@@ -3,7 +3,7 @@ import { NavLink, useNavigate} from 'react-router-dom'; // Add this line
 import LoginModal from './LoginModal';
 import RegistrationModal from './RegistrationModal';
 
-const NavBar = () => {
+const NavBar = ({ resetSelectedUser }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
@@ -70,7 +70,7 @@ const NavBar = () => {
     <nav className="navbar">
       <div className="navbar-logo">LOGO</div>
       <div className="navbar-links">
-        <NavLink exact to="/">Home</NavLink> 
+      <NavLink exact to="/" onClick={resetSelectedUser}>Home</NavLink> 
         {isLoggedIn && <>
           <NavLink to="/following">Following</NavLink>
           <NavLink to={`/timelines/${userId}`}>My Timelines</NavLink>
