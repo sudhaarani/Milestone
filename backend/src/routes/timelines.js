@@ -93,33 +93,30 @@ router.get('/timelines/milestones/:id', (req, res) => {
 
 //for timeline-edit save form
 //-------have to  implement deleting the previous image in the upload folder
-router.post('/timelines/update', upload.single('coverimage'), (req, res) => {
+router.post('/timelines/update', upload.single('image'), (req, res) => {
   const { title, description, timeline_id } = req.body;
-  let coverimage;
+  let image;
   if (req.file) { 
-    coverimage=req.file.filename;
+    image=req.file.filename;
   }
   
   const user_id = 1 //hardcoded for now
-  console.log("coverimage::in req:", coverimage);
+ // console.log("coverimage::in req:", image);
 
   const queryParams = [];
   let queryText = `UPDATE timelines SET`;
 
-  if (title) {
-    queryText += ` title = $${queryParams.length + 1},`;
-    queryParams.push(title);
-  }
-
-  if (description) {
-    queryText += ` description = $${queryParams.length + 1},`;
-    queryParams.push(description);
-  }
-  
-  if (coverimage) {
-    queryText += ` image = $${queryParams.length + 1},`;
-    queryParams.push(coverimage);
-  }
+  const update = {
+    title,
+    description,
+    image,
+  };
+  Object.entries(update).forEach(([key, value], index) => {
+    if (value) {
+      queryText += ` ${key} = $${queryParams.length + 1},`;
+      queryParams.push(value);
+    }
+  });
   
   // Remove the trailing comma if any additional columns were added to the query
   if (queryText.endsWith(',')) {
