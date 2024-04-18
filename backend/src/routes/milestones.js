@@ -55,8 +55,21 @@ router.get('/milestones/search/:timeline_id/:searchText', (req, res) => {
   searchText=searchText.toLowerCase();
   db.query(`SELECT id as milestone_id,timeline_id, title as milestone_title, date as milestone_date, image1,image2,image3,image4 FROM milestones
    where (LOWER(title) LIKE $1) and timeline_id= $2;`, [`%${searchText}%`,timeline_id])
-    .then(({ rows: users }) => {
-      res.json(users);
+    .then(({ rows: milestones }) => {
+      const updatedMilestonesObj = milestones.map(milestone => {
+        let milestoneImageUrl = []
+        for (let i = 1; i <= 4; i++) { 
+          let fileName = milestone['image' + `${i}`]
+          if (fileName) { 
+            milestoneImageUrl.push(`/uploads/${fileName}`)
+          }   
+        }
+
+        return  {...milestone,
+          milestoneImageUrl: milestoneImageUrl
+          }  
+      });
+      res.json(updatedMilestonesObj);
     })
     .catch(error => {
       console.error(error);
@@ -66,36 +79,24 @@ router.get('/milestones/search/:timeline_id/:searchText', (req, res) => {
 
 //for milestone-edit save form
 //-------have to  implement deleting the previous image in the upload folder
-router.post('/milestones/update', upload.array('images', 4), (req, res) => {
+router.post('/milestones/update',  upload.fields([
+  { name: 'image1' },
+  { name: 'image2' },
+  { name: 'image3' },
+  { name: 'image4' }
+]), (req, res) => {
   const { title, date, diary_entry, milestone_id, timeline_id } = req.body;
-  
-  //let image1, image2, image3, image4;
-  console.log("req.files:: imageCount::", req.files);
-  //let image = [];
-   
-  const image1 = req.files.length > 0 ? req.files[0].originalname : null;
-  const image2 = req.files.length > 1 ? req.files[1].originalname : null;
-  const image3 = req.files.length > 2 ? req.files[2].originalname : null;
-  const image4 = req.files.length > 3 ? req.files[3].originalname : null;
-  
-    // let startCount;
-  // changingImageCount = req.files.length;
-  // startCount = imageCount - changingImageCount
-  // if (startCount < 0) {
-  //   startCount = 0
-  // }
-  // console.log("length ::startCount:", length, " ", startCount);
-  
-  // while (startCount < 4 && changingImageCount > 0) {
-  //   console.log("inside 1:");
-  //   image.push(req.files[changingImageCount - 1].originalname);
-  //   startCount += 1;
-  //   changingImageCount -= 1;
-  // }
+  // const image1 = req.files['image1'][0].filename; // Array of files uploaded with field name 'file1'
+  // const image2 = req.files['image2'][0].filename; // Array of files uploaded with field name 'file2'
+  // const image3 = req.files['image3'][0].filename;
+  // const image4 = req.files['image4'][0].filename;
+  let { image1, image2, image3, image4 }=req.files;
+  console.log("req.files::", req.files);
+   image1 = req.files.image1 ? req.files.image1[0].filename : null;
+   image2 = req.files.image2 ? req.files.image2[0].filename : null;
+   image3 = req.files.image3 ? req.files.image3[0].filename : null;
+   image4 = req.files.image4 ? req.files.image4[0].filename : null;
 
-  // while (startCount < 4) {
-  //   image.push(null)
-  // }
   console.log("title:", title);
   console.log("date:", date);
   console.log("diary_entry:", diary_entry);
