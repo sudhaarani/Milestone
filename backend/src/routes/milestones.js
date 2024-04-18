@@ -28,9 +28,16 @@ router.get('/milestones', (req, res) => {
   db.query(`SELECT * FROM milestones order by id;`)
     .then(({ rows: milestones }) => {
       const updatedMilestonesObj = milestones.map(milestone => {
+        let milestoneImageUrl = []
+        for (let i = 1; i <= 4; i++) { 
+          let fileName = milestone['image' + `${i}`]
+          if (fileName) { 
+            milestoneImageUrl.push(`/uploads/${fileName}`)
+          }   
+        }
+
         return  {...milestone,
-          milestoneImageUrl: [`/uploads/${milestone.image1}`, `/uploads/${milestone.image2}`,
-          `/uploads/${milestone.image3}`,`/uploads/${milestone.image4}`]
+          milestoneImageUrl: milestoneImageUrl
           }  
       });
       res.json(updatedMilestonesObj);
@@ -62,28 +69,41 @@ router.get('/milestones/search/:timeline_id/:searchText', (req, res) => {
 router.post('/milestones/update', upload.array('images', 4), (req, res) => {
   const { title, date, diary_entry, milestone_id, timeline_id } = req.body;
   
-  let image1, image2, image3, image4;
-  console.log("req.files:", req.files);
+  //let image1, image2, image3, image4;
+  console.log("req.files:: imageCount::", req.files);
+  //let image = [];
+   
+  const image1 = req.files.length > 0 ? req.files[0].originalname : null;
+  const image2 = req.files.length > 1 ? req.files[1].originalname : null;
+  const image3 = req.files.length > 2 ? req.files[2].originalname : null;
+  const image4 = req.files.length > 3 ? req.files[3].originalname : null;
+  
+    // let startCount;
+  // changingImageCount = req.files.length;
+  // startCount = imageCount - changingImageCount
+  // if (startCount < 0) {
+  //   startCount = 0
+  // }
+  // console.log("length ::startCount:", length, " ", startCount);
+  
+  // while (startCount < 4 && changingImageCount > 0) {
+  //   console.log("inside 1:");
+  //   image.push(req.files[changingImageCount - 1].originalname);
+  //   startCount += 1;
+  //   changingImageCount -= 1;
+  // }
 
-  if (req.files.length == 1) { 
-    image1=req.files[0].originalname;
-  }
-  if (req.files.length == 2) { 
-    image1=req.files[0].originalname;
-    image2=req.files[1].originalname;
-  }
-  if (req.files.length == 3) { 
-    image1=req.files[0].originalname;
-    image2=req.files[1].originalname;
-    image3=req.files[2].originalname;
-  }
-  if (req.files.length == 4) { 
-    image1 = req.files[0].originalname;
-    image2 = req.files[1].originalname;
-    image3=req.files[2].originalname;
-    image4=req.files[3].originalname;
-  }
-
+  // while (startCount < 4) {
+  //   image.push(null)
+  // }
+  console.log("title:", title);
+  console.log("date:", date);
+  console.log("diary_entry:", diary_entry);
+  console.log("image1:", image1);
+  console.log("image2:", image2);
+  console.log("image3:",image3);
+  console.log("image4:", image4);
+  
   const queryParams = [];
   let queryText = `UPDATE milestones SET`;
 
@@ -112,6 +132,8 @@ router.post('/milestones/update', upload.array('images', 4), (req, res) => {
   
   queryText += ` WHERE id = $${queryParams.length + 1} AND timeline_id = $${queryParams.length + 2} RETURNING *;`;
   queryParams.push(milestone_id,timeline_id);
+  console.log("queryText::", queryText);
+  console.log("queryParams::", queryParams);
   
   db.query(queryText, queryParams)
     .then(({ rows: milestones }) => {
