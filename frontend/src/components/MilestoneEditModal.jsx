@@ -1,5 +1,5 @@
 
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 
 import '../styles/MilestoneEditModal.css';
 import closeSymbol from '../assets/closeSymbol.svg';
@@ -11,10 +11,42 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
   const isoDate = new Date(selectedMilestone.milestone_date).toISOString();
   const formattedDate = isoDate.substring(0, 10); // Extracting YYYY-MM-DD
  
-  const title = useTextInput(selectedMilestone.milestone_title);
-  const date = useTextInput(formattedDate);
-  const diary_entry = useTextInput(selectedMilestone.diary_entry);
-  const images = useImageInput(null);
+  // const title = useTextInput(selectedMilestone.milestone_title);
+  // const date = useTextInput(formattedDate);
+  // const diary_entry = useTextInput(selectedMilestone.diary_entry);
+   const images = useImageInput(null);
+
+  const [oldValues, setOldValues] = useState({
+    title: '',
+    date: '',
+    diary_entry: ''
+  });
+  const [editedValues, setEditedValues] = useState({
+    title: '',
+    date: '',
+    diary_entry: ''
+  });
+
+  // Simulated function to fetch old values from the database
+  const fetchOldValues = () => {
+    // Replace this with actual API call to fetch old values
+    const oldValuesFromDatabase = {
+      title: selectedMilestone.milestone_title,
+      date: formattedDate,
+      diary_entry: selectedMilestone.diary_entry
+    };
+    setOldValues(oldValuesFromDatabase);
+    setEditedValues(oldValuesFromDatabase); // Populate edited values with old values initially
+  };
+
+  useEffect(() => {
+    fetchOldValues(); // Fetch old values when the component mounts
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditedValues({ ...editedValues, [name]: value });
+  };
 
   //to close the modal once save btn is clicked and form has submitted(form has to be
   //submitted before it closes so delaying one sec)
@@ -27,15 +59,21 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
   const handleTimelineSave = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('title', title.textInput);  
-    formData.append('date', date.textInput);
-    formData.append('diary_entry', diary_entry.textInput);
-    for (let i = 0; i < images.imageInput.length; i++) {
-      formData.append(`images`, images.imageInput[i]);
+    // console.log("title.textInput:", title.textInput);
+    // console.log("date.textInput:", date.textInput);
+    
+    formData.append('title', oldValues.title === editedValues.title ? '' :editedValues.title);  
+    formData.append('date', oldValues.date === editedValues.date ? '' :editedValues.date);
+    formData.append('diary_entry', oldValues.diary_entry === editedValues.diary_entry ? '' :editedValues.diary_entry);
+    if(images.imageInput){
+      for (let i = 0; i < images.imageInput.length; i++) {
+        formData.append(`images`, images.imageInput[i]);
+      }
     }
     formData.append('milestone_id', selectedMilestone.milestone_id);
     formData.append('timeline_id', selectedMilestone.id);//this is timeline's id
-
+    //formData.append('imageCount', selectedMilestone.milestoneImageUrl.length);
+    
     fetch('/api/milestones/update', {
       method: 'POST',
       body: formData
@@ -62,15 +100,15 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
           <form onSubmit={handleTimelineSave} encType="multipart/form-data">
             <div>
               <label>Title:</label>
-              <input type="text" name="title" id="title" value={title.textInput} onChange={title.handleTextInput} />
+              <input type="text" name="title" id="title" value={editedValues.title} onChange={handleChange} />
             </div>
             <div>
               <label>Date:</label>
-              <input type="date" name="date" id="date" value={date.textInput} onChange={date.handleTextInput} />
+              <input type="date" name="date" id="date" value={editedValues.date} onChange={handleChange} />
             </div>
             <div>
               <label>Diary Entry:</label>
-              <input type="text" name="diary_entry" id="diary_entry" value={diary_entry.textInput} onChange={diary_entry.handleTextInput}/>
+              <input type="text" name="diary_entry" id="diary_entry" value={editedValues.diary_entry} onChange={handleChange}/>
             </div>
             <div>
               <label>Images:</label>
