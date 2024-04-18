@@ -78,9 +78,16 @@ router.get('/timelines/milestones/:id', (req, res) => {
   WHERE timelines.id = ${req.params.id} order by milestone_id;`)
     .then(({ rows: milestonesbytimeline }) => {
       const updatedMilestonesObj = milestonesbytimeline.map(milestone => {
+        let milestoneImageUrl = []
+        for (let i = 1; i <= 4; i++) { 
+          let fileName = milestone['image' + `${i}`]
+          if (fileName) { 
+            milestoneImageUrl.push(`/uploads/${fileName}`)
+          }   
+        }
+
         return  {...milestone,
-          milestoneImageUrl: [`/uploads/${milestone.image1}`, `/uploads/${milestone.image2}`,
-          `/uploads/${milestone.image3}`,`/uploads/${milestone.image4}`]
+          milestoneImageUrl: milestoneImageUrl
           }  
       });
       res.json(updatedMilestonesObj);
