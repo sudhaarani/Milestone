@@ -36,17 +36,31 @@ const useApplicationData = () => {
 
   const [state, dispatch] = useReducer(reducer, stateDeclare);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   fetch('/api/timelines')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       dispatch({ type: ACTIONS.SET_TIMELINE, result: data });
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching topics:', error);
+  //     })
+  // }, [ACTIONS.SET_TIMELINE]);
+
+  const handleHomePage = () => {
     fetch('/api/timelines')
       .then(res => res.json())
       .then(data => {
         dispatch({ type: ACTIONS.SET_TIMELINE, result: data });
       })
       .catch(error => {
-        console.error('Error fetching topics:', error);
+        console.error('Error fetching timelines:', error);
       })
-  }, [ACTIONS.SET_TIMELINE]);
+  };
 
+  useEffect(() => {
+    handleHomePage();
+  }, []);
 
   const handleSelectedTimeline = (id) => {
     const selectedTimelineResult = state.timelines.find(timeline => timeline.id === id)
@@ -94,9 +108,14 @@ const useApplicationData = () => {
     });
   }
 
+  const handleFavouritesPage = () => {
+    const idsOfFavTimelines = state.favTimelines
+    const favouritedTimelines = state.timelines.filter(timeline => idsOfFavTimelines.includes(timeline.id));
+    dispatch({ type: ACTIONS.SET_TIMELINE, result: favouritedTimelines }); 
+  }
 
   return {
-    state, handleSelectedTimeline, handleFavourites
+    state, handleHomePage, handleSelectedTimeline, handleFavourites, handleFavouritesPage
   };
 }
 
