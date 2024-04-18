@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/TimelineCard.css'
 import FavButton from "./FavButton";
 
-const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline, handleFavourites, state }) => {
+const TimelineCard = ({ isLoggedIn, timelineList, handleToggle, handleSelectedTimeline, handleFavourites, state }) => {
   const { id, username, title, description, timelineImageUrl } = timelineList;
 
   return (
@@ -22,7 +22,7 @@ const TimelineCard = ({ timelineList, handleToggle, handleSelectedTimeline, hand
           }} 
         />
         <i className='fa-solid fa-trash'></i>
-        <FavButton id={id} handleFavourites={handleFavourites} state={state} />
+        {isLoggedIn && <FavButton id={id} handleFavourites={handleFavourites} state={state} />}
       </div>
 
     </div>
