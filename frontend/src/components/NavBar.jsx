@@ -70,7 +70,7 @@ const NavBar = ({ resetSelectedUser, handleFavouritesPage, handleHomePage, isLog
     <nav className="navbar">
       <div className="navbar-logo">LOGO</div>
       <div className="navbar-links">
-      <NavLink exact to="/" onClick={resetSelectedUser} onClick={handleHomePage}>Home</NavLink> 
+      <NavLink exact to="/" onClick={resetSelectedUser}>Home</NavLink> 
         {isLoggedIn && <>
           <NavLink to="/following">Following</NavLink>
           <NavLink to={`/timelines/${userId}`}>My Timelines</NavLink>
