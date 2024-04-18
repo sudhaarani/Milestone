@@ -1,0 +1,39 @@
+.full-search-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px
+}
+
+.date-search-container {
+  margin: 10px;
+}
+
+.radio-container {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-container label {
+  margin-right: 30px;
+  margin-top: 10px 
+}
+
+.search-input-container {
+  margin-top: 10px;
+}
+
+.date-input {
+  margin-right: 10px;
+}
+
+.date-search-button {
+  margin-top: 0px;
+  height: 40px;
+  padding: 5px
+}
+
+
+.search-bar {
+  background-color: #F0F2F5;
+  height: 40px;
+}

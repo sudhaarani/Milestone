@@ -71,6 +71,20 @@ router.get('/timelines', (req, res) => {
     });
 });
 
+router.get('/timelines/milestones/:id', (req, res) => {  
+  db.query(`SELECT timelines.*,milestones.id as milestone_id,milestones.title as milestone_title, milestones.date as milestone_date,
+  diary_entry,image1,image2,image3,image4 
+  FROM timelines JOIN milestones ON milestones.timeline_id = timelines.id
+  WHERE timelines.id = ${req.params.id};`)
+    .then(({ rows: users }) => {
+      res.json(users);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).send('Server Error');
+    });
+});
+
 router.get('/timelines/:id', (req, res) => {
   const userId = req.params.id;
 

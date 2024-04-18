@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../styles/TimelineEditModal.css';
+//import '../styles/MainModal.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 
 const MainModal = ({ handleToggle, state }) => {

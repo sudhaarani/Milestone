@@ -126,7 +126,7 @@ import React, { useState, useEffect } from 'react';
 import TimelineCard from './TimelineCard';
 import '../styles/ListOfTimelines.css'
 
-const ListOfTimelines = ({ state, isLoggedIn, handleToggle, handleSelectedTimeline, handleFavourites }) => {
+const ListOfTimelines = ({ state, isLoggedIn, handleToggle, timelineToggle, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline }) => {
   const [usernameToId, setUsernameToId] = useState({});
   const [userTimelines, setUserTimelines] = useState(null);
 
@@ -168,11 +168,12 @@ const ListOfTimelines = ({ state, isLoggedIn, handleToggle, handleSelectedTimeli
               key={timelineList.id}
               username={timelineList.username}
               timelineList={timelineList}
-              handleToggle={handleToggle}
+              timelineToggle={timelineToggle}
               handleSelectedTimeline={handleSelectedTimeline}
               state={state}
               isLoggedIn={isLoggedIn}
               handleFavourites={handleFavourites}
+              getMilestonesByTimeline={getMilestonesByTimeline}
               handleUsernameClick={handleUsernameClick} // Pass the function as a prop
             />)
   });
