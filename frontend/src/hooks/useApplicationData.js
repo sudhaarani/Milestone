@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from 'react';
+import { useReducer, useEffect, setState } from 'react';
 
 const useApplicationData = () => {
 
@@ -108,6 +108,10 @@ const useApplicationData = () => {
     });
   }
 
+  const resetSelectedUser = () => {
+    setState(prev => ({ ...prev, selectedUser: null }));
+  };
+
   const handleFavouritesPage = () => {
     const idsOfFavTimelines = state.favTimelines
     fetch('/api/timelines')
@@ -122,7 +126,7 @@ const useApplicationData = () => {
   }
 
   return {
-    state, handleHomePage, handleSelectedTimeline, handleFavourites, handleFavouritesPage
+    state, handleHomePage, handleSelectedTimeline, handleFavourites, resetSelectedUser, handleFavouritesPage
   };
 }
 

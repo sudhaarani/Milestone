@@ -13,14 +13,14 @@ import useApplicationData from "./hooks/useApplicationData"; // Adjusted the pat
 import useToggle from "./hooks/useToggle";
 
 function App() {
-  const { state, handleHomePage, handleSelectedTimeline, handleFavourites, handleFavouritesPage } = useApplicationData();
+  const { state, handleHomePage, handleSelectedTimeline, handleFavourites, handleFavouritesPage, resetSelectedUser } = useApplicationData();
   const { toggleState, handleToggle} = useToggle();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <Router> {/* Use Router to wrap the application */}
       <div className="App">
-        <NavBar username={"Labber"} handleFavouritesPage={handleFavouritesPage} handleHomePage={handleHomePage} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <NavBar username={"Labber"} handleFavouritesPage={handleFavouritesPage} handleHomePage={handleHomePage} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} resetSelectedUser={resetSelectedUser} />
 
         <Routes> {/* Use Routes instead of Switch */}
           <Route path="/" element={<HomePage
