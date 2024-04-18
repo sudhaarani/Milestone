@@ -3,8 +3,8 @@ import { NavLink, useNavigate} from 'react-router-dom'; // Add this line
 import LoginModal from './LoginModal';
 import RegistrationModal from './RegistrationModal';
 
-const NavBar = ({ handleFavouritesPage, handleHomePage }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedIn }) => {
+  
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [username, setUsername] = useState('');

@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import Routes instead of Switch
 import HomePage from './components/HomePage';
 import MainModal from './components/MainModal';
@@ -15,14 +15,17 @@ import useToggle from "./hooks/useToggle";
 function App() {
   const { state, handleHomePage, handleSelectedTimeline, handleFavourites, handleFavouritesPage } = useApplicationData();
   const { toggleState, handleToggle} = useToggle();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <Router> {/* Use Router to wrap the application */}
       <div className="App">
-        <NavBar isLoggedIn={true} username={"Labber"} handleFavouritesPage={handleFavouritesPage} handleHomePage={handleHomePage}/>
+        <NavBar username={"Labber"} handleFavouritesPage={handleFavouritesPage} handleHomePage={handleHomePage} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
         <Routes> {/* Use Routes instead of Switch */}
-          <Route path="/" element={<HomePage 
+          <Route path="/" element={<HomePage
+            isLoggedIn={isLoggedIn} 
+            setIsLoggedIn={setIsLoggedIn}
             state={state} 
             handleToggle={handleToggle} 
             handleSelectedTimeline={handleSelectedTimeline}
@@ -41,7 +44,8 @@ function App() {
             state={state} 
             handleToggle={handleToggle} 
             handleSelectedTimeline={handleSelectedTimeline}
-            handleFavourites={handleFavourites} 
+            handleFavourites={handleFavourites}
+            isLoggedIn={isLoggedIn} 
            />} />
 
         </Routes>
