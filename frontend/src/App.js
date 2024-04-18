@@ -54,7 +54,6 @@ function App() {
         <Routes> {/* Use Routes instead of Switch */}
           <Route path="/" element={<HomePage
             isLoggedIn={isLoggedIn} 
-            setIsLoggedIn={setIsLoggedIn}
             timelineToggle={timelineToggle} 
             state={state} 
             handleSelectedTimeline={handleSelectedTimeline}
@@ -69,7 +68,8 @@ function App() {
             timelineToggle={timelineToggle}  
             handleSelectedTimeline={handleSelectedTimeline}
             handleFavourites={handleFavourites} 
-            isLoggedIn={isLoggedIn} />} 
+            isLoggedIn={isLoggedIn} 
+            getMilestonesByTimeline={getMilestonesByTimeline} />} 
           />
 
           <Route path="/favourites" element={<FavouritesPage
@@ -77,7 +77,8 @@ function App() {
             timelineToggle={timelineToggle} 
             handleSelectedTimeline={handleSelectedTimeline}
             handleFavourites={handleFavourites}
-            isLoggedIn={isLoggedIn} 
+            isLoggedIn={isLoggedIn}
+            getMilestonesByTimeline={getMilestonesByTimeline}
            />} />
         </Routes>
 
