@@ -110,8 +110,15 @@ const useApplicationData = () => {
 
   const handleFavouritesPage = () => {
     const idsOfFavTimelines = state.favTimelines
-    const favouritedTimelines = state.timelines.filter(timeline => idsOfFavTimelines.includes(timeline.id));
-    dispatch({ type: ACTIONS.SET_TIMELINE, result: favouritedTimelines }); 
+    fetch('/api/timelines')
+      .then(res => res.json())
+      .then(data => {
+        const favTimelinesFullObj = data.filter(timeline => idsOfFavTimelines.includes(timeline.id));
+        dispatch({ type: ACTIONS.SET_TIMELINE, result: favTimelinesFullObj });
+      })
+      .catch(error => {
+        console.error('Error fetching timelines:', error);
+      })
   }
 
   return {
