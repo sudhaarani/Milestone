@@ -16,6 +16,24 @@
   justify-content: center;
 }
 
+.card-username {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.card-username p {
+  margin: 0;
+  color: #1e3a8a;
+}
+
+.card-username p:hover {
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 3px;
+}
+
 .fa-pen {
   font-size: 20px;
   &:hover {
