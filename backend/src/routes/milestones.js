@@ -52,16 +52,22 @@ router.post('/milestones', upload.array('images', 4), (req, res) => {
 });
 
 
-router.get('/milestones', (req, res) => {
-  db.query(`SELECT * FROM milestones`)
+router.get('/milestones', (req, res) => {  
+  db.query(`SELECT * FROM milestones order by date desc;`)
     .then(({ rows: milestones }) => {
-      const updatedMilestonesObj = milestones.map(milestone => ({
-        ...milestone,
-        milestoneImage1Url: `/uploads/${milestone.image1}`,
-        milestoneImage2Url: `/uploads/${milestone.image2}`,
-        milestoneImage3Url: `/uploads/${milestone.image3}`,
-        milestoneImage4Url: `/uploads/${milestone.image4}`
-      }));
+      const updatedMilestonesObj = milestones.map(milestone => {
+        let milestoneImageUrl = []
+        for (let i = 1; i <= 4; i++) { 
+          let fileName = milestone['image' + `${i}`]
+          if (fileName) { 
+            milestoneImageUrl.push(`/uploads/${fileName}`)
+          }   
+        }
+
+        return  {...milestone,
+          milestoneImageUrl: milestoneImageUrl
+          }  
+      });
       res.json(updatedMilestonesObj);
     })
     .catch(error => {
@@ -76,14 +82,110 @@ router.get('/milestones/search/:timeline_id/:searchText', (req, res) => {
   searchText=searchText.toLowerCase();
   db.query(`SELECT id as milestone_id,timeline_id, title as milestone_title, date as milestone_date, image1,image2,image3,image4 FROM milestones
    where (LOWER(title) LIKE $1) and timeline_id= $2;`, [`%${searchText}%`,timeline_id])
-    .then(({ rows: users }) => {
-      res.json(users);
+    .then(({ rows: milestones }) => {
+      const updatedMilestonesObj = milestones.map(milestone => {
+        let milestoneImageUrl = []
+        for (let i = 1; i <= 4; i++) { 
+          let fileName = milestone['image' + `${i}`]
+          if (fileName) { 
+            milestoneImageUrl.push(`/uploads/${fileName}`)
+          }   
+        }
+
+        return  {...milestone,
+          milestoneImageUrl: milestoneImageUrl
+          }  
+      });
+      res.json(updatedMilestonesObj);
     })
     .catch(error => {
       console.error(error);
       res.status(500).send('Server Error');
     });
 });
+
+//for milestone-edit save form
+//-------have to  implement deleting the previous image in the upload folder
+router.post('/milestones/update',  upload.fields([
+  { name: 'image1' },
+  { name: 'image2' },
+  { name: 'image3' },
+  { name: 'image4' }
+]), (req, res) => {
+  const { title, date, diary_entry, milestone_id, timeline_id } = req.body;
+  // const image1 = req.files['image1'][0].filename; // Array of files uploaded with field name 'file1'
+  // const image2 = req.files['image2'][0].filename; // Array of files uploaded with field name 'file2'
+  // const image3 = req.files['image3'][0].filename;
+  // const image4 = req.files['image4'][0].filename;
+  let { image1, image2, image3, image4 }=req.files;
+  console.log("req.files::", req.files);
+   image1 = req.files.image1 ? req.files.image1[0].filename : null;
+   image2 = req.files.image2 ? req.files.image2[0].filename : null;
+   image3 = req.files.image3 ? req.files.image3[0].filename : null;
+   image4 = req.files.image4 ? req.files.image4[0].filename : null;
+
+  console.log("title:", title);
+  console.log("date:", date);
+  console.log("diary_entry:", diary_entry);
+  console.log("image1:", image1);
+  console.log("image2:", image2);
+  console.log("image3:",image3);
+  console.log("image4:", image4);
+  
+  const queryParams = [];
+  let queryText = `UPDATE milestones SET`;
+
+  const propertiesToUpdate = {
+    title,
+    date,
+    diary_entry,
+    image1,
+    image2,
+    image3,
+    image4
+  };
+  
+  // Iterate over the properties and dynamically construct the query
+  Object.entries(propertiesToUpdate).forEach(([key, value], index) => {
+    if (value) {
+      queryText += ` ${key} = $${queryParams.length + 1},`;
+      queryParams.push(value);
+    }
+  });
+  
+  // Remove the trailing comma if any additional columns were added to the query
+  if (queryText.endsWith(',')) {
+    queryText = queryText.slice(0, -1);
+  }
+  
+  queryText += ` WHERE id = $${queryParams.length + 1} AND timeline_id = $${queryParams.length + 2} RETURNING *;`;
+  queryParams.push(milestone_id,timeline_id);
+  console.log("queryText::", queryText);
+  console.log("queryParams::", queryParams);
+  
+  db.query(queryText, queryParams)
+    .then(({ rows: milestones }) => {
+      res.json(milestones);
+    })
+    .catch((error) => {
+      console.error('Error updating timeline:', error);
+      res.status(500).send('Server Error');
+    });
+});
+
+router.delete('/milestones/delete/:timeline_id/:id', (req, res) => {  
+  console.log("router delete");
+  db.query(`DELETE FROM milestones WHERE id = $1 and timeline_id=$2;`,[req.params.id,req.params.timeline_id])
+    .then(() => {
+      console.log("Deleted milestone successfully");
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      console.error("Error deleting milestone:",error);
+      res.status(500).send('Server Error');
+    });
+});
+
 
 //to search by date
 router.get('/milestones/search/:timeline_id/:fromDate/:toDate', (req, res) => {  

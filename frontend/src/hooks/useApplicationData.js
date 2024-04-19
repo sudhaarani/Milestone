@@ -179,7 +179,7 @@ const useApplicationData = () => {
     const idsOfFavTimelines = state.favTimelines
     fetch('/api/timelines')
       .then(res => res.json())
-      .then(data => {
+      .then(data => { 
         const favTimelinesFullObj = data.filter(timeline => idsOfFavTimelines.includes(timeline.id));
         dispatch({ type: ACTIONS.SET_TIMELINE, result: favTimelinesFullObj });
       })
@@ -197,10 +197,10 @@ const useApplicationData = () => {
 
 
   const getTimelinesOf1User = (userId) => {
-    fetch(`/api/timelines/${userId}`)
+    fetch(`/api/timelines/${userId}`)  //not needed, instead we can use state.timelines.find?
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        console.log("getTimelinesOf1User::data::", data);
         dispatch({ type: ACTIONS.SET_TIMELINE, result: data });
       })
       .catch(error => {
@@ -208,9 +208,46 @@ const useApplicationData = () => {
       })
   }
 
+  const handleDeleteTimeline = (timeline_id) => {
+    console.log("timeline_id:", timeline_id);
+    fetch(`/api/timelines/delete/${timeline_id}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      console.log('Timeline deleted successfully');
+      const result=state.timelines.filter(timeline => timeline.id !==timeline_id)
+      dispatch({ type: ACTIONS.SET_TIMELINE, result: result });
+    })
+    .catch(error => {
+      console.error('Error deleting timeline:', error);
+    });
+  } 
+
+  const handleDeleteMilestone = (timeline_id,milestone_id) => {
+    ///milestones/delete/:timeline_id/:id
+    fetch(`/api/milestones/delete/${timeline_id}/${milestone_id}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      console.log('Milestone deleted successfully');
+      const result=state.milestonesByTimeline.filter(milestone => milestone.milestone_id !==milestone_id)
+      dispatch({ type: ACTIONS.GET_MILESTONES_BY_TIMELINE, result: result });
+    })
+    .catch(error => {
+      console.error('Error deleting milestone:', error);
+    });
+  } 
+  
   return {
-    state, handleHomePage, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline, searchKeyword,
-    getClickedMilestone, handleSearchByDate, handleFavouritesPage, getTimelinesOf1User
+    state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline, searchKeyword,
+    getClickedMilestone, handleDeleteTimeline, handleDeleteMilestone, getTimelinesOf1User, handleFavouritesPage,
+    handleSearchByDate,handleHomePage
   };
 }
 

@@ -7,7 +7,8 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import MilestoneList from '../components/MilestoneList';
 import SearchBar from '../components/SearchBar';
 
-const TimelineViewModal = ({ timelineToggle, state, searchKeyword,handleSearchByDate, getClickedMilestone, milestoneToggle}) => {
+const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMilestone,
+  milestoneToggle,timelineEditToggle,milestoneEditToggle,handleDeleteMilestone,handleSearchByDate }) => {
   const { selectedTimeline } = state;
   const [keyword, setKeyword] = useState('');
   const [fromDate, setFromDate] = useState('');
@@ -36,7 +37,6 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword,handleSearchBy
             <img src={closeSymbol} alt='close symbol' />
           </button>
         </div>
-
       </div>
 
       {selectedTimeline &&
@@ -45,10 +45,13 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword,handleSearchBy
           <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} /> */ }
           <h2>{selectedTimeline.title}</h2>
           <p>{selectedTimeline.description}</p>
-          <MilestoneList state={state} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} />
-          <button className="btn btn-dark">Edit Timeline</button>
-        </div>)}
-
+          <MilestoneList state={state} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle}
+            timelineEditToggle={timelineEditToggle} handleDeleteMilestone={handleDeleteMilestone} />
+          <button className="btn btn-dark" onClick={() => {
+            timelineEditToggle.handleToggle()
+          }}>Edit Timeline</button>
+        </div>)
+      }
     </div>
   )
 };

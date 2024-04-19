@@ -1,7 +1,9 @@
 import React from 'react';
 
-const MilestoneListItem = ({ milestoneList, getClickedMilestone, milestoneToggle, timelineStyleController}) => {
-  const { milestone_id, milestone_title, milestone_date  } = milestoneList;
+
+const MilestoneListItem = ({ milestoneList, getClickedMilestone, milestoneToggle,timelineEditToggle,
+  milestoneEditToggle,handleDeleteMilestone,timelineStyleController}) => {
+  const { id ,milestone_id, milestone_title, milestone_date  } = milestoneList;
   const isoDate = new Date(milestone_date).toISOString();
   const formattedDate = isoDate.substring(0, 10); // Extracting YYYY-MM-DD
 
@@ -17,6 +19,14 @@ const MilestoneListItem = ({ milestoneList, getClickedMilestone, milestoneToggle
           <p className="mb-0">{formattedDate}</p>
         </div>
       </div>
+      {timelineEditToggle.toggleState && <div>
+        <button onClick={() => { 
+          milestoneEditToggle.handleToggle() 
+          getClickedMilestone(milestone_id)
+        }}>Edit</button>
+        <button onClick={() => { 
+        handleDeleteMilestone(id,milestone_id)}}>Delete</button>
+      </div>}
     </div>
   );
 }

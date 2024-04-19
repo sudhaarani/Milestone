@@ -30,3 +30,29 @@ input[type="text"], input[type="password"], input[type="email"] {
 #milestone_images, #timeline_cover {
   padding: 10px;
 }
+
+.new-milestone-modal {
+  background-color: white;
+  box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 90%;
+  width: 70%;
+  overflow-y: scroll;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.close-button {
+  background-color: white;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 16px;
+}

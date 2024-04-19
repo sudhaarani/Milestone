@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
 import '../styles/forms.css';
+import closeSymbol from '../assets/closeSymbol.svg';
+//close button to close the form modal
 
-
-function NewMilestoneForm() {
+function NewMilestoneForm({newMilestoneToggle}) {
   const title = useTextInput('');
   const date = useTextInput('');
   const diaryEntry = useTextInput('');
@@ -45,29 +46,37 @@ function NewMilestoneForm() {
     });
   }
 
-  return (
-    <form onSubmit={handleNewMilestoneSubmit} encType="multipart/form-data">
-      <div>
-        <label>Milestone Title: </label>
-        <input type="text" id="milestone_title" value={title.textInput} onChange={title.handleTextInput} required />
+  return (//new-milestone-modal
+    <div className='new-milestone-modal'>
+      <p>Create New Milestone</p>
+      <div className="close-button-wrap">
+          <button className="close-button" onClick={() => { newMilestoneToggle.handleToggle(); }} >
+            <img src={closeSymbol} alt='close symbol' />
+          </button>
       </div>
-      <div>
-        <label>Date: </label>
-        <input type="date" id="milestone_date" value={date.textInput} onChange={date.handleTextInput} required />
-      </div>
+      <form onSubmit={handleNewMilestoneSubmit} encType="multipart/form-data">
+        <div>
+          <label>Milestone Title: </label>
+          <input type="text" id="milestone_title" value={title.textInput} onChange={title.handleTextInput} required />
+        </div>
+        <div>
+          <label>Date: </label>
+          <input type="date" id="milestone_date" value={date.textInput} onChange={date.handleTextInput} required />
+        </div>
 
-      <div>
-        <label>Diary Entry: </label>
-        <textarea id="diary_entry" className="diary_entry" value={diaryEntry.textInput} onChange={diaryEntry.handleTextInput}></textarea>
-      </div>
+        <div>
+          <label>Diary Entry: </label>
+          <textarea id="diary_entry" className="diary_entry" value={diaryEntry.textInput} onChange={diaryEntry.handleTextInput}></textarea>
+        </div>
 
-      <div>
-        <input type="file" name="images" id="milestone_images" onChange={images.handleMultiImageInput} multiple/>
-        {imageError && <p style={{ color:'red' }}> {imageError} </p>}
-      </div>
+        <div>
+          <input type="file" name="images" id="milestone_images" onChange={images.handleMultiImageInput} multiple/>
+          {imageError && <p style={{ color:'red' }}> {imageError} </p>}
+        </div>
 
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Submit</button>
+        </form>
+      </div>
   )
 };
 
