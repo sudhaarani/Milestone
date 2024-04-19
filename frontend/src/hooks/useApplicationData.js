@@ -125,6 +125,8 @@ const useApplicationData = () => {
         throw new Error('Network response was not ok');
       }
       console.log('Timeline deleted successfully');
+      const result=state.timelines.filter(timeline => timeline.id !==timeline_id)
+      dispatch({ type: ACTIONS.SET_TIMELINE, result: result });
     })
     .catch(error => {
       console.error('Error deleting timeline:', error);
@@ -141,6 +143,8 @@ const useApplicationData = () => {
         throw new Error('Network response was not ok');
       }
       console.log('Milestone deleted successfully');
+      const result=state.milestonesByTimeline.filter(milestone => milestone.milestone_id !==milestone_id)
+      dispatch({ type: ACTIONS.GET_MILESTONES_BY_TIMELINE, result: result });
     })
     .catch(error => {
       console.error('Error deleting milestone:', error);
