@@ -2,7 +2,7 @@ import React from 'react';
 
 import ListOfTimelines from "./ListOfTimelines";
 
-const HomePage = ({ state, isLoggedIn, timelineToggle, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline }) => {
+const HomePage = ({ state, isLoggedIn, timelineToggle, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline, getTimelinesOf1User }) => {
   return (
     <div>
       <ListOfTimelines
@@ -12,6 +12,7 @@ const HomePage = ({ state, isLoggedIn, timelineToggle, handleSelectedTimeline, h
         handleSelectedTimeline={handleSelectedTimeline}
         handleFavourites={handleFavourites}
         getMilestonesByTimeline={getMilestonesByTimeline}
+        getTimelinesOf1User={getTimelinesOf1User}
       />
     </div>
   );

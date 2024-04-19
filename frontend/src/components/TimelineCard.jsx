@@ -35,7 +35,7 @@ import React from 'react';
 import '../styles/TimelineCard.css'
 import FavButton from "./FavButton";
 
-const TimelineCard = ({ isLoggedIn, timelineList, timelineToggle, handleSelectedTimeline, handleFavourites, handleUsernameClick, state,getMilestonesByTimeline }) => {
+const TimelineCard = ({ isLoggedIn, timelineList, timelineToggle, handleSelectedTimeline, handleFavourites, state,getMilestonesByTimeline, getTimelinesOf1User }) => {
   const { id, username, title, description, timelineImageUrl } = timelineList;
 
   return (
@@ -52,7 +52,9 @@ const TimelineCard = ({ isLoggedIn, timelineList, timelineToggle, handleSelected
       </div>
       
       <div className='card-footer'>
-        <a href="#" className='card-username' onClick={(event) => handleUsernameClick(username, event)}>By {username}</a>
+        <div className='card-username' onClick={() => {getTimelinesOf1User(timelineList.user_id)}}>
+          By <p>{username}</p>
+        </div>
         <i className='fa-solid fa-trash'></i>
         {isLoggedIn && <FavButton id={id} handleFavourites={handleFavourites} state={state} />}
       </div>
