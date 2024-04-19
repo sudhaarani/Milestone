@@ -16,7 +16,7 @@ import useApplicationData from "./hooks/useApplicationData"; // Adjusted the pat
 import useToggle from "./hooks/useToggle";
 
 function App() {
-  const { state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline,searchKeyword,getClickedMilestone,handleSearchByDate, handleHomePage, handleFavouritesPage, resetSelectedUser  } = useApplicationData();
+  const { state, handleSelectedTimeline, handleFavourites,getMilestonesByTimeline,searchKeyword,getClickedMilestone,handleSearchByDate, handleHomePage, handleFavouritesPage, getTimelinesOf1User } = useApplicationData();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   /* Old code for opening/closing TIMELINE MODAL */
@@ -27,15 +27,11 @@ function App() {
     // const handleMilestoneClicked= () => {
     //   setIsMilestoneClicked(!isMilestoneClicked);  
     // };
-    
   /* New code for opening/closing TIMELINE AND MILESTONE MODAL (passed down these 2 variables) */
   const timelineToggle = useToggle();
   const milestoneToggle = useToggle(); 
       // eg. get the state: milestoneToggle.toggleState
       // eg. get the function to set state: milestoneToggle.handleToggle();
-
-
-
   const [isTimelineEditClicked, setIsTimelineEditClicked] = useState(false);
   const [isMilestoneEditClicked, setIsMilestoneEditClicked] = useState(false);
     
@@ -49,7 +45,7 @@ function App() {
   return (
     <Router> {/* Use Router to wrap the application */}
       <div className="App">
-        <NavBar username={"Labber"} handleFavouritesPage={handleFavouritesPage} handleHomePage={handleHomePage} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} resetSelectedUser={resetSelectedUser} />
+        <NavBar username={"Labber"} handleFavouritesPage={handleFavouritesPage} handleHomePage={handleHomePage} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
         <Routes> {/* Use Routes instead of Switch */}
           <Route path="/" element={<HomePage
@@ -58,7 +54,8 @@ function App() {
             state={state} 
             handleSelectedTimeline={handleSelectedTimeline}
             handleFavourites={handleFavourites}
-            getMilestonesByTimeline={getMilestonesByTimeline}/>} 
+            getMilestonesByTimeline={getMilestonesByTimeline}
+            getTimelinesOf1User={getTimelinesOf1User}/>} 
           />
 
           <Route path="/create-new" element={<NewTimelineForm />} />
@@ -69,7 +66,8 @@ function App() {
             handleSelectedTimeline={handleSelectedTimeline}
             handleFavourites={handleFavourites} 
             isLoggedIn={isLoggedIn} 
-            getMilestonesByTimeline={getMilestonesByTimeline} />} 
+            getMilestonesByTimeline={getMilestonesByTimeline}
+            getTimelinesOf1User={getTimelinesOf1User} />} 
           />
 
           <Route path="/favourites" element={<FavouritesPage
@@ -79,6 +77,7 @@ function App() {
             handleFavourites={handleFavourites}
             isLoggedIn={isLoggedIn}
             getMilestonesByTimeline={getMilestonesByTimeline}
+            getTimelinesOf1User={getTimelinesOf1User}
            />} />
         </Routes>
 

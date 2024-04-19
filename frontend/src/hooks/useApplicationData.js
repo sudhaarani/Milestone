@@ -1,4 +1,4 @@
-import { useReducer, useEffect, setState } from 'react';
+import { useReducer, useEffect } from 'react';
 
 const useApplicationData = () => {
 
@@ -174,10 +174,6 @@ const useApplicationData = () => {
       }
     });
   }
-
-    const resetSelectedUser = () => {
-    setState(prev => ({ ...prev, selectedUser: null }));
-  };
   
   const handleFavouritesPage = () => {
     const idsOfFavTimelines = state.favTimelines
@@ -199,9 +195,22 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.SELECT_MILESTONE, result: Result });
   }
 
+
+  const getTimelinesOf1User = (userId) => {
+    fetch(`/api/timelines/${userId}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        dispatch({ type: ACTIONS.SET_TIMELINE, result: data });
+      })
+      .catch(error => {
+        console.error('Error fetching timelines of single user:', error);
+      })
+  }
+
   return {
     state, handleHomePage, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline, searchKeyword,
-    getClickedMilestone, handleSearchByDate, resetSelectedUser, handleFavouritesPage
+    getClickedMilestone, handleSearchByDate, handleFavouritesPage, getTimelinesOf1User
   };
 }
 
