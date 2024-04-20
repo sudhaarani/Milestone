@@ -19,16 +19,10 @@ function App() {
   const { state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline,
     handleSearchByDate,handleHomePage,handleFavouritesPage, getTimelinesOf1User,
     searchKeyword, getClickedMilestone,handleDeleteTimeline,handleDeleteMilestone } = useApplicationData();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const timelineToggle = useToggle();
-  const milestoneToggle = useToggle(); 
-  const timelineEditToggle = useToggle();
-  const milestoneEditToggle = useToggle(); 
-  const newMilestoneToggle = useToggle();
-
-// Declare userId state here. This will be available throughout the app.
+  
+  // UserAuth: 
   const [userId, setUserId] = useState(null); 
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
@@ -36,6 +30,13 @@ function App() {
       setUserId(user.id); // Set userId when the app is loaded
     }
   }, []);
+
+  // Displaying Modals: 
+  const timelineToggle = useToggle();
+  const milestoneToggle = useToggle(); 
+  const timelineEditToggle = useToggle();
+  const milestoneEditToggle = useToggle(); 
+  const newMilestoneToggle = useToggle();
 
   return (
     <Router> {/* Use Router to wrap the application */}
@@ -92,12 +93,21 @@ function App() {
         </Routes>
 
 
-        {timelineToggle.toggleState && <TimelineViewModal timelineToggle={timelineToggle} state={state}
-        searchKeyword={searchKeyword} getClickedMilestone={getClickedMilestone}
-        milestoneToggle={milestoneToggle} timelineEditToggle={timelineEditToggle}
-        milestoneEditToggle={milestoneEditToggle} handleDeleteMilestone={handleDeleteMilestone}
-        handleSearchByDate={handleSearchByDate}/>
-  }
+        {timelineToggle.toggleState && 
+          <TimelineViewModal 
+            timelineToggle={timelineToggle}
+            state={state}
+            searchKeyword={searchKeyword}
+            getClickedMilestone={getClickedMilestone}
+            milestoneToggle={milestoneToggle}
+            timelineEditToggle={timelineEditToggle}
+            milestoneEditToggle={milestoneEditToggle}
+            handleDeleteMilestone={handleDeleteMilestone}
+            handleSearchByDate={handleSearchByDate}
+            userId={userId}/>
+        }
+
+
         {milestoneToggle.toggleState && <MilestoneViewModal milestoneToggle={milestoneToggle} state={state} />}
 
         {timelineEditToggle.toggleState && <TimelineEditModal timelineEditToggle={timelineEditToggle}
