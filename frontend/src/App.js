@@ -104,7 +104,9 @@ function App() {
             milestoneEditToggle={milestoneEditToggle}
             handleDeleteMilestone={handleDeleteMilestone}
             handleSearchByDate={handleSearchByDate}
-            userId={userId}/>
+            userId={userId}
+            handleDeleteTimeline={handleDeleteTimeline}
+          />
         }
 
 

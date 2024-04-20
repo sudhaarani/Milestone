@@ -22,11 +22,11 @@ const TimelineCard = ({isLoggedIn, timelineList, timelineToggle, handleSelectedT
         <div className='card-username' onClick={() => {getTimelinesOf1User(user_id)}}>
           By <p>{username}</p>
         </div>
-        <i className='fa-solid fa-trash'
+        {/* <i className='fa-solid fa-trash'
           onClick={() => { 
             handleDeleteTimeline(id)
           }}
-        />
+        /> */}
         {isLoggedIn && <FavButton id={id} handleFavourites={handleFavourites} state={state} />}
       </div>
     </div>

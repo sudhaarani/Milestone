@@ -8,7 +8,9 @@ import MilestoneList from '../components/MilestoneList';
 import SearchBar from '../components/SearchBar';
 
 const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMilestone,
-  milestoneToggle,timelineEditToggle,milestoneEditToggle,handleDeleteMilestone,handleSearchByDate, userId }) => {
+  milestoneToggle,timelineEditToggle,milestoneEditToggle,handleDeleteMilestone,handleSearchByDate,handleDeleteTimeline, userId }) => {
+
+  const { selectedTimeline } = state;
 
   const [keyword, setKeyword] = useState('');
   const [fromDate, setFromDate] = useState('');
@@ -20,7 +22,19 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
     state = { ...state, milestonesByTimeline: state.searchedMilestones }
   }
 
-  const { selectedTimeline } = state;
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const displayDeleteConfirmation = () => {
+    setShowDeleteConfirmation(true);
+  };
+  const cancelDelete = () => {
+    setShowDeleteConfirmation(false);
+  };
+  const confirmDelete = () => {
+    handleDeleteTimeline(selectedTimeline.id);
+    timelineToggle.handleToggle();
+    setShowDeleteConfirmation(false); // hide confirmation question after deleting
+  };
+
 
   return (
     <div className='timeline-milestone-modal'>
@@ -44,16 +58,21 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
 
           <MilestoneList state={state} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle}
             timelineEditToggle={timelineEditToggle} handleDeleteMilestone={handleDeleteMilestone} />
-          
-          
-          {/* if the logged in user === owner of selected timeline in the modal... */}
-          {userId === selectedTimeline.user_id &&
-          (<button className="btn btn-dark" onClick={() => { timelineEditToggle.handleToggle() }}>
-            Edit Timeline
-          </button>)}
 
-        </div>)
-      }
+          {userId === selectedTimeline.user_id &&
+            (<div className='timeline-bottom'>
+              {showDeleteConfirmation && (
+                <div className="delete-confirmation">
+                  Are you sure you want to delete?
+                  <i class="fa-solid fa-check" onClick={confirmDelete} ></i>
+                  <i class="fa-solid fa-xmark" onClick={cancelDelete}></i>
+                </div>)}
+                
+              <i className='fa-solid fa-pen' onClick={() => { timelineEditToggle.handleToggle()}} />
+              <i className='fa-solid fa-trash' onClick={() => {displayDeleteConfirmation()}} />
+            </div>)}
+            
+        </div>)}
     </div>
   )
 };
