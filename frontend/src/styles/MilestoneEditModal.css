@@ -1,14 +1,14 @@
 .milestone-edit-modal {
   background-color: white;
-  box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
-  position: absolute;
-  top: 55%;
+  position: fixed;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -40%);
-  height: 100%;
-  width: 50%;
+  transform: translate(-50%, -50%);
+  height: 90%;
+  width: 70%;
   overflow-y: scroll;
   border-radius: 12px;
+  padding: 10px;
 }
 
 .close-button {

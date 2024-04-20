@@ -55,13 +55,6 @@ const TimelineCard = ({isLoggedIn, timelineList, timelineToggle, handleSelectedT
         <div className='card-username' onClick={() => {getTimelinesOf1User(timelineList.user_id)}}>
           By <p>{username}</p>
         </div>
-        <i className='fa-solid fa-pen' 
-          onClick={() => { 
-            timelineEditToggle.handleToggle() 
-            handleSelectedTimeline(id)
-            getMilestonesByTimeline(id)
-          }} 
-        />
         <i className='fa-solid fa-trash'
           onClick={() => { 
             handleDeleteTimeline(id)

@@ -9,8 +9,6 @@
   overflow-y: scroll;
   border-radius: 12px;
   padding: 10px;
-  display: flex;
-  flex-direction: column;
 }
 
 .fa-arrow-left {
