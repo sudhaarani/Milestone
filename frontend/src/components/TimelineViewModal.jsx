@@ -8,21 +8,19 @@ import MilestoneList from '../components/MilestoneList';
 import SearchBar from '../components/SearchBar';
 
 const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMilestone,
-  milestoneToggle,timelineEditToggle,milestoneEditToggle,handleDeleteMilestone,handleSearchByDate }) => {
-  const { selectedTimeline } = state;
+  milestoneToggle,timelineEditToggle,milestoneEditToggle,handleDeleteMilestone,handleSearchByDate, userId }) => {
+
   const [keyword, setKeyword] = useState('');
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
-
   if (keyword && state.searchedMilestones) {
     state = { ...state, milestonesByTimeline: state.searchedMilestones }
-    console.log(state.searchedMilestones);
   }
   if (fromDate && toDate && state.searchedMilestones) {
     state = { ...state, milestonesByTimeline: state.searchedMilestones }
-    console.log(state.searchedMilestones);
   }
-  // console.log(state.milestonesByTimeline)
+
+  const { selectedTimeline } = state;
 
   return (
     <div className='timeline-milestone-modal'>
@@ -41,15 +39,19 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
 
       {selectedTimeline &&
         (<div>
-          {/* < PhotoFavButton id={selectedPhoto.id} favPhotos={state.favPhotos} favPhotosClick={favPhotosClick} />
-          <img className="photo-details-modal__photographer-profile" src={selectedPhoto.user.profile} /> */ }
           <h2>{selectedTimeline.title}</h2>
           <p>{selectedTimeline.description}</p>
+
           <MilestoneList state={state} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle}
             timelineEditToggle={timelineEditToggle} handleDeleteMilestone={handleDeleteMilestone} />
-          <button className="btn btn-dark" onClick={() => {
-            timelineEditToggle.handleToggle()
-          }}>Edit Timeline</button>
+          
+          
+          {/* if the logged in user === owner of selected timeline in the modal... */}
+          {userId === selectedTimeline.user_id &&
+          (<button className="btn btn-dark" onClick={() => { timelineEditToggle.handleToggle() }}>
+            Edit Timeline
+          </button>)}
+
         </div>)
       }
     </div>
