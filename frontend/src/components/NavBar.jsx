@@ -3,61 +3,63 @@ import { NavLink, useNavigate} from 'react-router-dom'; // Add this line
 import LoginModal from './LoginModal';
 import RegistrationModal from './RegistrationModal';
 
-const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedIn,getTimelinesOf1User }) => {
+// NavBar.jsx
+
+const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedIn, getTimelinesOf1User, userId, setUserId }) => {
   
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [username, setUsername] = useState('');
   const [loginError, setLoginError] = useState(null);
-  const [userId, setUserId] = useState(null);
 
-  const navigate = useNavigate(); // Add this line
+  const navigate = useNavigate();
 
-  
- useEffect(() => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (user) {
-    setIsLoggedIn(true);
-    setUsername(user.username);
-    setUserId(user.id); // Set the user's ID
-  }
-}, []);
-
-  const handleLogin = async (username, password) => {
-  try {
-    const response = await fetch('http://localhost:8001/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-    });
-
-    const user = await response.json();
-
-    if (response.ok) {
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
       setIsLoggedIn(true);
       setUsername(user.username);
-      setUserId(user.id); // Store the user's ID in the state
-      setLoginError(null);
-      localStorage.setItem('user', JSON.stringify(user)); // Store user's information in local storage
-      navigate('/'); // Change this line
-      return true; // Login was successful
-    } else {
-      setLoginError(user.message);
-      return false; // Login was not successful
+      setUserId(user.id); // Use the setUserId prop
     }
-  } catch (error) {
-    console.error('Network error:', error);
-    setLoginError('Network error');
-    return false; // Login was not successful
-  }
-};
+  }, [setUserId]);
+
+  const handleLogin = async (username, password) => {
+    try {
+      const response = await fetch('http://localhost:8001/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const user = await response.json();
+
+      if (response.ok) {
+        setIsLoggedIn(true);
+        setUsername(user.username);
+        setUserId(user.id); // Use the setUserId prop
+        setLoginError(null);
+        localStorage.setItem('user', JSON.stringify(user));
+        navigate('/');
+        return true;
+      } else {
+        setLoginError(user.message);
+        return false;
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      setLoginError('Network error');
+      return false;
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('user');
     setIsLoggedIn(false);
     setUsername(null);
-    navigate('/'); // Change this line
+    setUserId(null); // Clear userId when the user logs out
+    navigate('/');
   };
 
   const handleRegister = (username) => {
@@ -70,7 +72,7 @@ const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedI
     <nav className="navbar">
       <div className="navbar-logo">LOGO</div>
       <div className="navbar-links">
-      <NavLink exact to="/" onClick={handleHomePage}>Home</NavLink> 
+        <NavLink exact to="/" onClick={handleHomePage}>Home</NavLink> 
         {isLoggedIn && <>
           <NavLink to="/following">Following</NavLink>
           <NavLink to={`/timelines/${userId}`} onClick={() => { getTimelinesOf1User(userId) }}>My Timelines</NavLink>

@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import Routes instead of Switch
 import HomePage from './components/HomePage';
 import TimelineViewModal from './components/TimelineViewModal';
@@ -26,12 +26,29 @@ function App() {
   const milestoneEditToggle = useToggle(); 
   const newMilestoneToggle = useToggle();
 
+// Declare userId state here. This will be available throughout the app.
+  const [userId, setUserId] = useState(null); 
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setIsLoggedIn(true);
+      setUserId(user.id); // Set userId when the app is loaded
+    }
+  }, []);
+
   return (
     <Router> {/* Use Router to wrap the application */}
       <div className="App">
-        <NavBar handleFavouritesPage={handleFavouritesPage}
-          handleHomePage={handleHomePage} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}
-          getTimelinesOf1User={getTimelinesOf1User} />
+        <NavBar 
+          handleFavouritesPage={handleFavouritesPage} 
+          handleHomePage={handleHomePage} 
+          isLoggedIn={isLoggedIn} 
+          setIsLoggedIn={setIsLoggedIn} 
+          getTimelinesOf1User={getTimelinesOf1User} 
+          userId={userId} // Passing userId as a prop to NavBar
+          setUserId={setUserId} // Passing setUserId as a prop to NavBar
+        />
 
         <Routes> {/* Use Routes instead of Switch */}
           <Route path="/" element={<HomePage
