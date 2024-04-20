@@ -5,7 +5,7 @@ import '../styles/forms.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 //close button to close the form modal
 
-function NewMilestoneForm({newMilestoneToggle}) {
+function NewMilestoneForm({newMilestoneToggle, selectedTimeline}) {
   const title = useTextInput('');
   const date = useTextInput('');
   const diaryEntry = useTextInput('');
@@ -23,6 +23,7 @@ function NewMilestoneForm({newMilestoneToggle}) {
     }
 
     const formData = new FormData();
+      formData.append('timeline_id', selectedTimeline.id);
       formData.append('title', title.textInput);
       formData.append('date', date.textInput);
       formData.append('diary_entry', diaryEntry.textInput);

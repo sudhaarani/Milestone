@@ -120,7 +120,7 @@ function App() {
               
         {milestoneEditToggle.toggleState && <MilestoneEditModal milestoneEditToggle={milestoneEditToggle} state={state} />}
 
-        {newMilestoneToggle.toggleState && <NewMilestoneForm newMilestoneToggle={newMilestoneToggle}/>} 
+         
       </div>
     </Router>  
   );
