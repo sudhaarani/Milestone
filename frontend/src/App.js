@@ -41,9 +41,10 @@ function App() {
             handleSelectedTimeline={handleSelectedTimeline}
             handleFavourites={handleFavourites}
             getMilestonesByTimeline={getMilestonesByTimeline}
-            getTimelinesOf1User={getTimelinesOf1User} />} 
+            getTimelinesOf1User={getTimelinesOf1User} 
             timelineEditToggle={timelineEditToggle}
             handleDeleteTimeline={handleDeleteTimeline} 
+            />} 
           />
           <Route path="/create-new" element={<NewTimelineForm />} />
 
@@ -69,7 +70,8 @@ function App() {
             getTimelinesOf1User={getTimelinesOf1User}
             timelineEditToggle={timelineEditToggle}
             handleDeleteTimeline={handleDeleteTimeline}
-           />} />
+            />}
+          />
         </Routes>
 
 
