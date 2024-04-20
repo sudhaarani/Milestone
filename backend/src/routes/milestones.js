@@ -26,8 +26,7 @@ const upload = multer({ storage: storage });
 ////////////////////////////////////////////////////////
 
 router.post('/milestones', upload.array('images', 4), (req, res) => {
-  const timeline_id = 1 //hardcoded for now
-  const { title, date, diary_entry } = req.body;
+  const { timeline_id, title, date, diary_entry } = req.body;
   const image1 = req.files.length > 0 ? req.files[0].originalname : null;
   const image2 = req.files.length > 1 ? req.files[1].originalname : null;
   const image3 = req.files.length > 2 ? req.files[2].originalname : null;
@@ -54,7 +53,7 @@ router.post('/milestones', upload.array('images', 4), (req, res) => {
 
 
 router.get('/milestones', (req, res) => {  
-  db.query(`SELECT * FROM milestones order by date desc;`)
+  db.query(`SELECT * FROM milestones ORDER BY date ASC;`)
     .then(({ rows: milestones }) => {
       const updatedMilestonesObj = milestones.map(milestone => {
         let milestoneImageUrl = []

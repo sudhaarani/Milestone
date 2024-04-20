@@ -3,6 +3,7 @@ import React,{useState,useEffect} from 'react';
 import '../styles/TimelineEditModal.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 import MilestoneList from '../components/MilestoneList';
+import NewMilestoneForm from '../components/NewMilestoneForm';
 import SearchBar from '../components/SearchBar';
 import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
@@ -56,6 +57,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
   }
 
   return (
+    <div>
     <div className='timeline-edit-modal'>
       <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
       <button className="close-button" onClick={() => { timelineEditToggle.handleToggle() }} >
@@ -94,6 +96,8 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
         </div>)}
     </div>
     
+    {newMilestoneToggle.toggleState && <NewMilestoneForm newMilestoneToggle={newMilestoneToggle} selectedTimeline={selectedTimeline} />}
+    </div>
   )
 };
 
