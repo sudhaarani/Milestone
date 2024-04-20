@@ -33,17 +33,3 @@
   text-decoration-skip-ink: none;
   text-underline-offset: 3px;
 }
-
-.fa-pen {
-  font-size: 20px;
-  &:hover {
-    color: rgb(63, 70, 129);
-  }
-}
-
-.fa-trash {
-  font-size: 20px;
-  &:hover {
-    color: rgb(136, 56, 56);
-  }
-}
