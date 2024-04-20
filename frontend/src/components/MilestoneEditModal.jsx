@@ -156,14 +156,17 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
                     <img src={value} className='card-img-top' alt={value.name} />
                   </div>)
                   ))}
-              <div>
-                <label for="images" class="btn btn-primary">
-                {imagesNotNullInDbCount === 0 ? 'Add (Max of 4)' :
-                  imagesNotNullInDbCount === 1 ? 'Add (Max of 3)' :
-                  imagesNotNullInDbCount === 2 ? 'Add (Max of 2)' :
-                  imagesNotNullInDbCount === 3 ? 'Add (Max of 1)' : ""}
-                </label>
-                <input type="file" name="images" id="images" onChange={handleImageChange} multiple style={{ display: 'none' }} />
+            <div>
+            <div>
+              {imagesNotNullInDbCount <= 3 &&
+              <label htmlFor="images" className={`btn btn-primary`}>
+                {`Add (Max of ${4 - imagesNotNullInDbCount})`}
+              </label>
+              }
+            </div>
+                <div>
+                  <input type="file" name="images" id="images" onChange={handleImageChange} multiple style={{ display: 'none' }} />
+                </div>
               </div>
             </div>
             <button type="submit" onClick={() => { handleSaveClose() }}>Save</button>
