@@ -1,37 +1,45 @@
 .full-search-container {
   display: flex;
   flex-direction: column;
-  padding: 10px
+  padding: 0px 10px 20px 20px;
 }
 
 .date-search-container {
-  margin: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .radio-container {
   display: flex;
-  gap: 20px;
+  gap: 10px;
 }
 
 .radio-container label {
   margin-right: 30px;
-  margin-top: 10px 
 }
 
 .search-input-container {
-  margin-top: 10px;
+  margin-top: 20px;
+  text-align: left;
 }
 
 .date-input {
   margin-right: 10px;
+  color: #939597;
 }
 
-.date-search-button {
-  margin-top: 0px;
-  height: 40px;
-  padding: 5px
+.magnifying-glass-container {
+  display: flex;
+  align-items: center;
 }
 
+.fa-magnifying-glass {
+  font-size: 20px;
+  cursor: pointer;
+  &:hover {
+    color: #7a6e26;
+  }
+}
 
 .search-bar {
   background-color: #F0F2F5;

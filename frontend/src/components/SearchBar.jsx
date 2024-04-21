@@ -15,30 +15,27 @@ const SearchBar = ({ keyword, searchKeyword, setKeyword, selectedTimeline, fromD
 
         {selectedOption === 'date' ? (
           <div className='date-search-container'>
-            <label htmlFor="fromDate">From Date:</label>
+            <label htmlFor="fromDate">From Date</label>
             <input type="date" id="fromDate" className="date-input" value={fromDate}
               onChange={(e) => {
                 setFromDate(e.target.value);
               }}/>
-            <label htmlFor="toDate">To Date:</label>
+            <label htmlFor="toDate">To Date</label>
             <input type="date" id="toDate" className="date-input" value={toDate}
               onChange={(e) => {
                 setToDate(e.target.value);
             }}/>
-
-            <button className="date-search-button btn btn-dark"
-              onClick={() => {
-                handleSearchByDate(selectedTimeline.id, fromDate, toDate);
-              }}> 
-                Search 
-            </button>
+            <div className='magnifying-glass-container'>
+              <i class="fa-solid fa-magnifying-glass" 
+                onClick={() => {handleSearchByDate(selectedTimeline.id, fromDate, toDate);}} />
+            </div>
           </div>
         ) : (
           <input
             className="search-bar"
             type="text"
             value={keyword}
-            placeholder="Enter Title To Search"
+            placeholder="Milestone Search"
             onChange={(e) => {
               searchKeyword(selectedTimeline.id, e.target.value);
               setKeyword(e.target.value);

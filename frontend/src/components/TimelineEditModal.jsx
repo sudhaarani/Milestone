@@ -58,43 +58,46 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
 
   return (
     <div>
-    <div className='timeline-edit-modal'>
-      <i className="fa-solid fa-arrow-left" onClick={() => { timelineEditToggle.handleToggle() }} />
-      <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
-      
-      {selectedTimeline &&
-        (<div>
-          <form onSubmit={handleTimelineSave}>
-            <div>
-              <label>Title:</label>
-              <input type="text" name="title" id="title" value={title.textInput} onChange={title.handleTextInput} placeholder=""/>
-            </div>
-            <div>
-              <label>Description:</label>
-              <input type="text" name="description" id="description" value={description.textInput} onChange={description.handleTextInput} placeholder=""/>
-            </div>
-            <div>
-              <label>Cover Image:</label>
-              <img src={selectedTimeline.timelineImageUrl} className='card-img-top' alt={selectedTimeline.image} />
+      <div className='timeline-edit-modal'>
+        <i className="fa-solid fa-arrow-left" onClick={() => { timelineEditToggle.handleToggle() }} />
+        {selectedTimeline &&
+          (<div>
+            <form onSubmit={handleTimelineSave}>
               <div>
-                <input type="file" id="cover_image" onChange={coverImage.handleImageInput} />
-              </div>  
+                <label>Title:</label>
+                <input type="text" name="title" id="title" value={title.textInput} onChange={title.handleTextInput} placeholder=""/>
+              </div>
+              <div>
+                <label>Description:</label>
+                <input type="text" name="description" id="description" value={description.textInput} onChange={description.handleTextInput} placeholder=""/>
+              </div>
+              <div>
+                <label>Cover Image:</label>
+                <img src={selectedTimeline.timelineImageUrl} className='card-img-top' alt={selectedTimeline.image} />
+                <div>
+                  <input type="file" id="cover_image" onChange={coverImage.handleImageInput} />
+                </div>  
+              </div>
+              <button type="submit" onClick={() => { handleSaveClose() }}>Save</button>
+            </form>
+            
+            <div className='timelineditmodal-search-container'>
+              <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
             </div>
-            <button type="submit" onClick={() => { handleSaveClose() }}>Save</button>
-          </form>
-          <div className="photo-details-modal__image">
-            <MilestoneList state={state} getClickedMilestone={getClickedMilestone}
-                milestoneToggle={milestoneToggle} timelineEditToggle={timelineEditToggle}
-                milestoneEditToggle={milestoneEditToggle} handleDeleteMilestone={handleDeleteMilestone}
-            />
-          </div>
-        
-          {/* This button should open new-milestone-form modal */}
-        <button onClick={() => { newMilestoneToggle.handleToggle() }}>Add New Milestone</button>
-        </div>)}
-    </div>
+
+            <div>
+              <MilestoneList state={state} getClickedMilestone={getClickedMilestone}
+                  milestoneToggle={milestoneToggle} timelineEditToggle={timelineEditToggle}
+                  milestoneEditToggle={milestoneEditToggle} handleDeleteMilestone={handleDeleteMilestone}
+              />
+            </div>
+          
+            {/* This button should open new-milestone-form modal */}
+          <button onClick={() => { newMilestoneToggle.handleToggle() }}>Add New Milestone</button>
+          </div>)}
+      </div>
     
-    {newMilestoneToggle.toggleState && <NewMilestoneForm newMilestoneToggle={newMilestoneToggle} selectedTimeline={selectedTimeline} />}
+      {newMilestoneToggle.toggleState && <NewMilestoneForm newMilestoneToggle={newMilestoneToggle} selectedTimeline={selectedTimeline} />}
     </div>
   )
 };

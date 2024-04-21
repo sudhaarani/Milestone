@@ -14,6 +14,7 @@
 
 .fa-arrow-left {
   position: absolute;
+  color: #939597;
   top: 10px;
   left: 10px;
   padding: 10px;
@@ -21,19 +22,11 @@
   font-size: 22px;
 }
 
-.close-button {
-  background-color: white;
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  margin-left: 16px;
-  margin-top: 16px;
+.timelineditmodal-search-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
 }
-
 
 .milestonelistitem-container-left {
   text-align: left;
