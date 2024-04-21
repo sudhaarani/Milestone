@@ -1,20 +1,18 @@
 import React from 'react';
 import MilestoneListItem from './MilestoneListItem';
 import '../styles/TimelineViewModal.css';
+import '../styles/TimelineEditModal.css';
 
-
-const MilestoneList = ({ state, milestoneToggle, getClickedMilestone,
-  milestoneEditToggle,timelineEditToggle,handleDeleteMilestone}) => {
+const MilestoneList = ({ state, milestoneToggle, getClickedMilestone, milestoneEditToggle,timelineEditToggle,handleDeleteMilestone}) => {
+  /* milestoneStyleController changes orientation of milestone card to be on left or right side of timeline */
   const MilestoneListArray = state.milestonesByTimeline.map((milestoneList, index) => {
-  const timelineStyleController = index % 2 === 0 ? 'left' : 'right';
-        // changes orientation of milestone card to be on left or right side of timeline
-//import '../styles/MilestoneList.css'
+    const milestoneStyleController = index % 2 === 0 ? 'left' : 'right';
     return (<MilestoneListItem
               key={milestoneList.milestone_id}
               milestoneList={milestoneList}
               getClickedMilestone={getClickedMilestone}
               milestoneToggle={milestoneToggle}
-              timelineStyleController={timelineStyleController}
+              milestoneStyleController={milestoneStyleController}
               milestoneEditToggle={milestoneEditToggle}
               timelineEditToggle={timelineEditToggle}
               handleDeleteMilestone={handleDeleteMilestone}
