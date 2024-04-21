@@ -22,7 +22,8 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
   const [oldValues, setOldValues] = useState(oldValuesFromDatabase);
   const [editedValues, setEditedValues] = useState(oldValuesFromDatabase);
   const [imagesNotNullInDbCount, setImagesNotNullInDbCount] = useState(selectedMilestone.milestoneImageUrl.length);// to change the count of Add button based on deletion
-  
+  const [imageError, setImageError] = useState('');
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditedValues({ ...editedValues, [name]: value });
@@ -41,6 +42,10 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
       const lenOfTargetFiles = files.length;
       console.log("imagesNotNullInDbCount:", imagesNotNullInDbCount);
       console.log("lenOfTargetFiles:", lenOfTargetFiles);
+      if (lenOfTargetFiles !== (4-imagesNotNullInDbCount)) {
+        setImageError(`Maximum of ${4-imagesNotNullInDbCount} image(s) allowed.`);
+        return;
+      }
       if (lenOfTargetFiles === 4) {
         setEditedValues({
           ...editedValues, image1: files[0], image2: files[1],
@@ -89,7 +94,7 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
           ...editedValues, [ColName]: null
         });
         setImagesNotNullInDbCount(imagesNotNullInDbCount - 1);
-        console.log("imagesNotNullInDbCount: after image deletion::", imagesNotNullInDbCount);
+       // console.log("imagesNotNullInDbCount: after image deletion::", imagesNotNullInDbCount);
       } else {
         console.error('Failed to Delete Milestone');
       }
@@ -172,11 +177,14 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
                   ))}
             <div>
             <div>
-              {imagesNotNullInDbCount <= 3 &&
-              <label htmlFor="images" className={`btn btn-primary`}>
-                {`Add (Max of ${4 - imagesNotNullInDbCount})`}
-              </label>
-              }
+                {imagesNotNullInDbCount <= 3 &&
+                  <div>
+                    <label htmlFor="images" className={`btn btn-primary`}>
+                      {`Add (Max of ${4 - imagesNotNullInDbCount})`}
+                    </label>
+                    {imageError && <p style={{ color:'red' }}> {imageError} </p>}
+                  </div>
+                }
             </div>
                 <div>
                   <input type="file" name="images" id="images" onChange={handleImageChange} multiple style={{ display: 'none' }} />
