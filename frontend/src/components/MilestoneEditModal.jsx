@@ -9,8 +9,6 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
   console.log("selectedMilestone:", selectedMilestone);
   const isoDate = new Date(selectedMilestone.milestone_date).toISOString();
   const formattedDate = isoDate.substring(0, 10); // Extracting YYYY-MM-DD
-  const imagesNotNullInDbCount = selectedMilestone.milestoneImageUrl.length; 
-  console.log("imagesNotNullInDbCount:", imagesNotNullInDbCount);
   
   const oldValuesFromDatabase = {
     title: selectedMilestone.milestone_title,
@@ -23,6 +21,7 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
   };
   const [oldValues, setOldValues] = useState(oldValuesFromDatabase);
   const [editedValues, setEditedValues] = useState(oldValuesFromDatabase);
+  const [imagesNotNullInDbCount, setImagesNotNullInDbCount] = useState(selectedMilestone.milestoneImageUrl.length);// to change the count of Add button based on deletion
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,52 +39,66 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
     if (name === 'images') {
       console.log("inside images(multiple) e.target.files:", files);
       const lenOfTargetFiles = files.length;
+      console.log("imagesNotNullInDbCount:", imagesNotNullInDbCount);
       console.log("lenOfTargetFiles:", lenOfTargetFiles);
       if (lenOfTargetFiles === 4) {
         setEditedValues({
           ...editedValues, image1: files[0], image2: files[1],
           image3: files[2], image4:files[3]
         });
+        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
       }
       if (lenOfTargetFiles === 3) {
         setEditedValues({
           ...editedValues, image2: files[0],
           image3: files[1], image4: files[2]
         });
+        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
       }
       if (lenOfTargetFiles === 2) {
         setEditedValues({
           ...editedValues, image3: files[0], image4: files[1]
         });
+        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
       }
       if (lenOfTargetFiles === 1) {
         setEditedValues({
           ...editedValues, image4: files[0]
         });
+        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
       }
     }
   };
-    // if (imageFile) {
-    //   // File/Blob object is present
-    //   const reader = new FileReader();
-    //   reader.onloadend = () => {
-    //       setEditedValues({ ...editedValues, [name]: reader.result });
-    //   }
-    //   reader.readAsDataURL(imageFile);
-    //   console.log("reader.result :", reader.result );
-    // }else {
-    // setEditedValues({ ...editedValues, [name]: imageFile });
-    // }
-    // const reader = new FileReader();
-    
-    // reader.onloadend = () => {
-    //   setEditedValues({ ...editedValues, [name]: reader.result });
-    // }
-    // if (firstFile) {
-    //   reader.readAsDataURL(firstFile);
-    // }
-  
 
+  const handleImageDelete = (ColName,imageName) => { 
+    //ColName, imageName
+    console.log("milestone_id:", selectedMilestone.milestone_id);
+    console.log("ColName:", ColName);
+    console.log("imageName:", imageName);
+    fetch(`/api/milestones/delete-image/${selectedMilestone.milestone_id}/${ColName}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ imageName })
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log("Deleted Milestone successfully");
+        setEditedValues({
+          ...editedValues, [ColName]: null
+        });
+        setImagesNotNullInDbCount(imagesNotNullInDbCount - 1);
+        console.log("imagesNotNullInDbCount: after image deletion::", imagesNotNullInDbCount);
+      } else {
+        console.error('Failed to Delete Milestone');
+      }
+    })
+    .catch((error) => {
+      console.error('Error deleting Milestone:', error);
+    });
+  };
+  
   //to close the modal once save btn is clicked and form has submitted(form has to be
   //submitted before it closes so delaying one sec)
   const handleSaveClose = () => {
@@ -152,6 +165,7 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
                     <label for={key}>
                       <i className="fa-solid fa-pen" />
                     </label>
+                    <i className="fa-solid fa-trash" onClick={()=>{handleImageDelete(key,value)}}/>
                     <input type="file" name={key} id={key} onChange={handleImageChange} style={{ display: 'none' }} />
                     <img src={value} className='card-img-top' alt={value.name} />
                   </div>)
