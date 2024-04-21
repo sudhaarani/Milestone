@@ -20,34 +20,36 @@ const MilestoneViewModal = ({ state, milestoneToggle }) => {
 
 
   return (
-    <div className='milestone-view-modal'>
-      <i className="fa-solid fa-arrow-left" onClick={() => { milestoneToggle.handleToggle() }} />
-      <div className='card-body'>
-        <h3 className='card-title'>{state.selectedMilestone.milestone_title}</h3>
-        <p className='card-text'>{formattedDate}</p>
-        <div className="diary-entry">
-          <h5>Diary Entry</h5>
-          <p>{state.selectedMilestone.diary_entry}</p>
-        </div>
+    <div>
+      <div className='milestone-view-modal'>
+        <i className="fa-solid fa-arrow-left" onClick={() => { milestoneToggle.handleToggle() }} />
+        <div className='card-body'>
+          <h3 className='card-title'>{state.selectedMilestone.milestone_title}</h3>
+          <p className='card-text'>{formattedDate}</p>
+          <div className="diary-entry">
+            <h5>Diary Entry</h5>
+            <p>{state.selectedMilestone.diary_entry}</p>
+          </div>
 
-        <div className="photos">
-          <h5>Photo(s)</h5>
-          <div className="photos-container"> 
-            {/* map through the 4 images for a milestone entry if they're not null */}
-            {[1, 2, 3, 4].map((num) => {
-              const imageKey = `image${num}`;
-              const imageName = state.selectedMilestone[imageKey];
-              return imageName && (
-                <img key={num} src={`/uploads/${imageName}`} alt={`image${num}`}
-                  onClick={() => handleFullImageModal(`/uploads/${imageName}`)} />
-              );
-            })}
+          <div className="photos">
+            <h5>Photo(s)</h5>
+            <div className="photos-container"> 
+              {/* map through the 4 images for a milestone entry if they're not null */}
+              {[1, 2, 3, 4].map((num) => {
+                const imageKey = `image${num}`;
+                const imageName = state.selectedMilestone[imageKey];
+                return imageName && (
+                  <img key={num} src={`/uploads/${imageName}`} alt={`image${num}`}
+                    onClick={() => handleFullImageModal(`/uploads/${imageName}`)} />
+                );
+              })}
+            </div>
           </div>
         </div>
-
-        {imageModalToggle.toggleState && (<FullImageModal imageUrl={fullImage} closeModal={imageModalToggle.handleToggle} />)}
-
       </div>
+
+      {imageModalToggle.toggleState && (<FullImageModal imageUrl={fullImage} closeModal={imageModalToggle.handleToggle} />)}
+      
     </div>
   );
 };
