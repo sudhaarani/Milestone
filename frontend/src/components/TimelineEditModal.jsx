@@ -59,10 +59,8 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
   return (
     <div>
     <div className='timeline-edit-modal'>
+      <i className="fa-solid fa-arrow-left" onClick={() => { timelineEditToggle.handleToggle() }} />
       <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
-      <button className="close-button" onClick={() => { timelineEditToggle.handleToggle() }} >
-        <img src={closeSymbol} alt='close symbol' />
-      </button>
       
       {selectedTimeline &&
         (<div>

@@ -126,9 +126,7 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
   }
   return (
     <div className='milestone-edit-modal'>
-      <button className="close-button" onClick={() => { milestoneEditToggle.handleToggle() }} >
-        <img src={closeSymbol} alt='close symbol' />
-      </button>
+      <i className="fa-solid fa-arrow-left" onClick={() => { milestoneEditToggle.handleToggle() }} />
       {selectedMilestone &&
         (<div>
           <form onSubmit={handleTimelineSave} enctype="multipart/form-data">
