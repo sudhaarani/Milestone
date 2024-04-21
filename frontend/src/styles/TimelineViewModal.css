@@ -60,14 +60,14 @@
 }
 
 /* Container within timeline-container. Wraps around milestones: works with left/right milestone orientation */
-.timeline {
+.milestone {
   position: relative;
   background-color: inherit;
   width: 50%;
 }
 
 /* The circles on the timeline */
-.timeline::after {
+.milestone::after {
   content: "";
   position: absolute;
   width: 25px;
@@ -82,13 +82,12 @@
 
 /* Place the container to the left */
 .left {
-  padding: 0px 40px 20px 0px;
-  left: 0;
+  left:0px;
 }
 
 /* Place the container to the right */
 .right {
-  padding: 0px 0px 20px 40px;
+  padding: 0px 0px 0px 40px;
   left: 50%;
 }
 
@@ -161,6 +160,10 @@
   color: rgb(252, 0, 0);
 }
 
+#milestone-card {
+  width: 385px;
+  cursor: pointer;
+}
 
 
 /*////////////////////////////////////////////////////////////////////////////////*/
@@ -179,14 +182,14 @@
   }
 
   /* Full-width containers */
-  .timeline {
+  .milestone {
     width: 100%;
     padding-left: 70px;
     padding-right: 25px;
   }
 
   /* Make sure that all arrows are pointing leftwards */
-  .timeline::before {
+  .milestone::before {
     left: 60px;
     border: medium solid white;
     border-width: 10px 10px 10px 0;
@@ -208,7 +211,7 @@
     left: 0%;
   }
 
-  .card {
+  #milestone-card {
     width: 200px;
     cursor: pointer;
   }
