@@ -195,9 +195,9 @@ router.delete('/milestones/delete/:timeline_id/:id', (req, res) => {
 router.delete('/milestones/delete-image/:milestone_id/:ColName', async (req, res) => {
   const { milestone_id, ColName } = req.params;
   const { imageName } = req.body;
-  let image = imageName.split("/");
-  console.log(" imageName after split:", image);
-  db.query(`UPDATE milestones SET ${ColName} = NULL WHERE id = $1 AND ${ColName} = $2`, [milestone_id, image[2]])
+  //let image = imageName.split("/");
+ console.log(" imageName :", imageName);
+  db.query(`UPDATE milestones SET ${ColName} = NULL WHERE id = $1 AND ${ColName} = $2`, [milestone_id, imageName])
     .then(() => {
       console.log('Database updated successfully');
       res.sendStatus(200);
