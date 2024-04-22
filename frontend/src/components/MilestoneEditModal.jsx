@@ -127,48 +127,61 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
   return (
     <div className='milestone-edit-modal'>
       <i className="fa-solid fa-arrow-left" onClick={() => { milestoneEditToggle.handleToggle() }} />
+
+      <h3 className='edit-modal-headers'>Edit Milestone</h3>
+
       {selectedMilestone &&
         (<div>
-          <form onSubmit={handleTimelineSave} enctype="multipart/form-data">
-            <div>
-              <label>Title:</label>
-              <input type="text" name="title" id="title" value={editedValues.title} onChange={handleChange} />
+
+          <form className='edit-forms' onSubmit={handleTimelineSave} enctype="multipart/form-data">
+
+            <div className='editmilestone-text-container' >
+              <div>
+                <div>
+                  <label>Title:</label>
+                  <input type="text" name="title" id="title" value={editedValues.title} onChange={handleChange} />
+                </div>
+                <div>
+                  <label>Date:</label>
+                  <input className='editmilestone-date' type="date" name="date" id="date" value={editedValues.date} onChange={handleChange} />
+                </div>
+              </div>
+              <div>
+                <label>Diary Entry:</label>
+                <textarea style={{height:'120px'}} type="text" name="diary_entry" id="diary_entry" value={editedValues.diary_entry} onChange={handleChange}/>
+              </div>
             </div>
-            <div>
-              <label>Date:</label>
-              <input type="date" name="date" id="date" value={editedValues.date} onChange={handleChange} />
-            </div>
-            <div>
-              <label>Diary Entry:</label>
-              <input type="text" name="diary_entry" id="diary_entry" value={editedValues.diary_entry} onChange={handleChange}/>
-            </div>
-            <div>
-              <label>Images:</label>
-              {Object.entries(editedValues).slice(3, 7).map(([key, value], index) => (  
-                value &&  value !== '/uploads/null' &&
+
+            <label className='editmilestone-photos-label'>Photos</label>
+
+            <div className='editmilestone-photos-container' >
+              {Object.entries(editedValues).slice(3, 7).map(([key, value], index) => ( 
+                value && value !== '/uploads/null' &&
                   (<div>
+                    <input type="file" name={key} id={key} onChange={handleImageChange} className='no-display-file-input' />
+                    <img style={{width:'250px', height:'150px'}} src={value} className='card-img-top' alt={value.name} />
                     <label for={key}>
                       <i className="fa-solid fa-pen" />
                     </label>
-                    <input type="file" name={key} id={key} onChange={handleImageChange} style={{ display: 'none' }} />
-                    <img src={value} className='card-img-top' alt={value.name} />
-                  </div>)
-                  ))}
-            <div>
-            <div>
+                  </div>)))}
+            </div>
+
+            
               {imagesNotNullInDbCount <= 3 &&
-              <label htmlFor="images" className={`btn btn-primary`}>
-                {`Add (Max of ${4 - imagesNotNullInDbCount})`}
-              </label>
-              }
-            </div>
-                <div>
-                  <input type="file" name="images" id="images" onChange={handleImageChange} multiple style={{ display: 'none' }} />
-                </div>
-              </div>
-            </div>
-            <button type="submit" onClick={() => { handleSaveClose() }}>Save</button>
+                (<div>
+                  <label htmlFor="images" className={`btn btn-outline-dark btn-sm`}>
+                    {`+ New Images (Max of ${4 - imagesNotNullInDbCount})`}
+                  </label>
+                  <input className='no-display-file-input' type="file" name="images" id="images" onChange={handleImageChange} multiple />
+                </div>)}
+
           </form>
+
+          <div className='editmilestone-save'>
+              <button className='btn btn-info' type="submit" onClick={() => { handleSaveClose() }}>
+                <i class="fa-solid fa-circle-check"/> Save
+              </button>
+          </div>
         </div>)
       }  
     </div>

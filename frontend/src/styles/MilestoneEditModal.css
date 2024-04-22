@@ -33,3 +33,36 @@
   margin-left: 16px;
   margin-top: 16px;
 }
+
+.editmilestone-text-container {
+  display: flex;
+  gap: 10px;
+  text-align:left;
+}
+
+.editmilestone-date {
+  width: 195px;
+}
+
+.editmilestone-photos-label {
+  font-weight: bold;
+}
+
+.editmilestone-photos-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 540px;
+}
+
+.no-display-file-input {
+  display: none;
+}
+
+.editmilestone-save {
+  text-align: right;
+  margin: 20px;
+}
+
