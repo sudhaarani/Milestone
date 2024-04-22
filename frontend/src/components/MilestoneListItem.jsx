@@ -17,7 +17,7 @@ const MilestoneListItem = ({ milestoneList, getClickedMilestone, milestoneToggle
         }}>
         <div className="card" id="milestone-card">
           <div className="card-body p-4">
-            <h4>{milestone_title}</h4>
+            <h5>{milestone_title}</h5>
             <p className="mb-0">{formattedDate}</p>
           </div>
         </div>
@@ -25,12 +25,12 @@ const MilestoneListItem = ({ milestoneList, getClickedMilestone, milestoneToggle
 
       {timelineEditToggle.toggleState && 
         (<div className={`buttons`}>
-          <button className='btn btn-info btn-sm' onClick={() => { 
+          <button className='btn btn-outline-info btn-sm' onClick={() => { 
             milestoneEditToggle.handleToggle() 
             getClickedMilestone(milestone_id) }}>
             Edit
           </button>
-          <button className='btn btn-dark btn-sm' onClick={() => { 
+          <button className='btn btn-outline-dark btn-sm' onClick={() => { 
           handleDeleteMilestone(id,milestone_id)}}>
             Delete
           </button>

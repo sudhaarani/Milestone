@@ -60,27 +60,30 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
     <div>
       <div className='timeline-edit-modal'>
         <i className="fa-solid fa-arrow-left" onClick={() => { timelineEditToggle.handleToggle() }} />
+        <h3 style={{marginTop:'50px'}}>Edit Timeline</h3>
+
         {selectedTimeline &&
           (<div>
-            <form onSubmit={handleTimelineSave}>
+            <form style={{backgroundColor:'#F0F2F5', margin:'0px 20px', padding:'10px', borderRadius:'10px'}} onSubmit={handleTimelineSave}>
               <div>
-                <label>Title:</label>
+                <label>Title</label>
                 <input type="text" name="title" id="title" value={title.textInput} onChange={title.handleTextInput} placeholder=""/>
               </div>
               <div>
-                <label>Description:</label>
+                <label>Description</label>
                 <input type="text" name="description" id="description" value={description.textInput} onChange={description.handleTextInput} placeholder=""/>
               </div>
               <div>
-                <label>Cover Image:</label>
+                <label>Cover Image</label>
                 <img src={selectedTimeline.timelineImageUrl} className='card-img-top' alt={selectedTimeline.image} />
                 <div>
-                  <input type="file" id="cover_image" onChange={coverImage.handleImageInput} />
+                  <input style={{margin:'10px'}} type="file" id="cover_image" onChange={coverImage.handleImageInput} />
                 </div>  
               </div>
-              <button type="submit" onClick={() => { handleSaveClose() }}>Save</button>
+              <button className="btn btn-info" type="submit" onClick={() => { handleSaveClose() }}>Save</button>
             </form>
-            
+
+            <h3 style={{marginTop:'50px'}}>Edit Milestones</h3>
             <div className='timelineditmodal-search-container'>
               <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
             </div>
@@ -93,7 +96,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
             </div>
           
             {/* This button should open new-milestone-form modal */}
-          <button onClick={() => { newMilestoneToggle.handleToggle() }}>Add New Milestone</button>
+            <button className="btn btn-info" onClick={() => { newMilestoneToggle.handleToggle() }}>+ Add New Milestone</button>
           </div>)}
       </div>
     
