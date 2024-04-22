@@ -60,11 +60,11 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
     <div>
       <div className='timeline-edit-modal'>
         <i className="fa-solid fa-arrow-left" onClick={() => { timelineEditToggle.handleToggle() }} />
-        <h3 style={{marginTop:'50px'}}>Edit Timeline</h3>
+        <h3 className='edit-modal-headers'>Edit Timeline</h3>
 
         {selectedTimeline &&
           (<div>
-            <form style={{backgroundColor:'#F0F2F5', margin:'0px 20px', padding:'10px', borderRadius:'10px'}} onSubmit={handleTimelineSave}>
+            <form className='timeline-edit-form' onSubmit={handleTimelineSave}>
               <div>
                 <label>Title</label>
                 <input type="text" name="title" id="title" value={title.textInput} onChange={title.handleTextInput} placeholder=""/>
@@ -77,13 +77,13 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
                 <label>Cover Image</label>
                 <img src={selectedTimeline.timelineImageUrl} className='card-img-top' alt={selectedTimeline.image} />
                 <div>
-                  <input style={{margin:'10px'}} type="file" id="cover_image" onChange={coverImage.handleImageInput} />
+                  <input className='file-input' type="file" id="cover_image" onChange={coverImage.handleImageInput} />
                 </div>  
               </div>
               <button className="btn btn-info" type="submit" onClick={() => { handleSaveClose() }}>Save</button>
             </form>
 
-            <h3 style={{marginTop:'50px'}}>Edit Milestones</h3>
+            <h3 className='edit-modal-headers'>Edit Milestones</h3>
             <div className='timelineditmodal-search-container'>
               <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
             </div>
