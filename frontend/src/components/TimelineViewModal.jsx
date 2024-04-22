@@ -45,7 +45,7 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
         toDate={toDate} setToDate={setToDate} handleSearchByDate={handleSearchByDate} />
 
         <div className="close-button-wrap">
-          <button className="close-button" onClick={() => { timelineToggle.handleToggle(); }} >
+          <button className="close-button-new" onClick={() => { timelineToggle.handleToggle(); }} >
             <img src={closeSymbol} alt='close symbol' />
           </button>
         </div>
