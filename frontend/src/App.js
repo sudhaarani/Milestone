@@ -37,6 +37,7 @@ function App() {
   const timelineEditToggle = useToggle();
   const milestoneEditToggle = useToggle(); 
   const newMilestoneToggle = useToggle();
+  const newTimelineToggle = useToggle();
 
   return (
     <Router> {/* Use Router to wrap the application */}
@@ -49,6 +50,7 @@ function App() {
           getTimelinesOf1User={getTimelinesOf1User} 
           userId={userId} // Passing userId as a prop to NavBar
           setUserId={setUserId} // Passing setUserId as a prop to NavBar
+          newTimelineToggle={newTimelineToggle}
         />
 
         <Routes> {/* Use Routes instead of Switch */}
@@ -64,8 +66,7 @@ function App() {
             handleDeleteTimeline={handleDeleteTimeline} 
             />} 
           />
-          <Route path="/create-new" element={<NewTimelineForm />} />
-
+          
           <Route path="/timelines/:id" element={<MyTimelines 
             state={state}
             timelineToggle={timelineToggle}
@@ -120,7 +121,8 @@ function App() {
               
         {milestoneEditToggle.toggleState && <MilestoneEditModal milestoneEditToggle={milestoneEditToggle} state={state} />}
 
-         
+        {newTimelineToggle.toggleState && <NewTimelineForm newTimelineToggle={newTimelineToggle}/>}
+        
       </div>
     </Router>  
   );

@@ -2,9 +2,10 @@ import React from 'react';
 import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
 import '../styles/forms.css';
+import closeSymbol from '../assets/closeSymbol.svg';
 
 
-function NewTimelineForm() {
+function NewTimelineForm({ newTimelineToggle }) {
   const title = useTextInput('');
   const description = useTextInput('');
   const coverImage = useImageInput(null);
@@ -37,22 +38,35 @@ function NewTimelineForm() {
   }
 
   return (
-    <form onSubmit={handleNewTimelineSubmit}>
-      <div>
-        <label>Title:</label>
-        <input type="text" id="timeline_title" value={title.textInput} onChange={title.handleTextInput} />
-      </div>
-      <div>
-        <label>Description:</label>
-        <input type="text" id="timeline_description" value={description.textInput} onChange={description.handleTextInput} />
+    <div className='new-timeline-modal'>
+      <div className="close-button-wrap">
+        <button className="close-button-new" onClick={() => { newTimelineToggle.handleToggle()}}> 
+          <img src={closeSymbol} alt='close symbol' />
+        </button>
       </div>
 
-      <div>
-        <input type="file" id="timeline_cover" onChange={coverImage.handleImageInput} />
-      </div>
+      <h1>Create New Timeline</h1>
 
-      <button type="submit">Submit</button>
-    </form>
+      <form className='edit-forms' onSubmit={handleNewTimelineSubmit}>
+        <div>
+          <label>Title:</label>
+          <input type="text" id="timeline_title" value={title.textInput} onChange={title.handleTextInput} />
+        </div>
+        <div>
+          <label>Description:</label>
+          <input type="text" id="timeline_description" value={description.textInput} onChange={description.handleTextInput} />
+        </div>
+
+        <div>
+          <input type="file" id="timeline_cover" onChange={coverImage.handleImageInput} />
+        </div>
+
+        <button className='btn btn-info' type="submit">
+          <i class="fa-solid fa-file-import"/> Submit
+        </button>
+      </form>
+
+    </div>
   )
 };
 

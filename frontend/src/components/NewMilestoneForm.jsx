@@ -49,12 +49,14 @@ function NewMilestoneForm({newMilestoneToggle, selectedTimeline}) {
 
   return (//new-milestone-modal
     <div className='new-milestone-modal'>
-      <p>Create New Milestone</p>
       <div className="close-button-wrap">
-          <button className="close-button" onClick={() => { newMilestoneToggle.handleToggle(); }} >
+          <button className="close-button-new" onClick={() => { newMilestoneToggle.handleToggle(); }} >
             <img src={closeSymbol} alt='close symbol' />
           </button>
       </div>
+
+      <h1>Create New Milestone</h1>
+
       <form onSubmit={handleNewMilestoneSubmit} encType="multipart/form-data">
         <div>
           <label>Milestone Title: </label>
@@ -75,9 +77,12 @@ function NewMilestoneForm({newMilestoneToggle, selectedTimeline}) {
           {imageError && <p style={{ color:'red' }}> {imageError} </p>}
         </div>
 
-        <button type="submit">Submit</button>
-        </form>
-      </div>
+        <button className='btn btn-info' type="submit">
+          <i class="fa-solid fa-file-import"/> Submit
+        </button>
+      </form>
+      
+    </div>
   )
 };
 
