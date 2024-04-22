@@ -64,7 +64,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
 
         {selectedTimeline &&
           (<div>
-            <form className='timeline-edit-form' onSubmit={handleTimelineSave}>
+            <form className='edit-forms' onSubmit={handleTimelineSave}>
               <div>
                 <label>Title</label>
                 <input type="text" name="title" id="title" value={title.textInput} onChange={title.handleTextInput} placeholder=""/>
@@ -80,7 +80,9 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
                   <input className='file-input' type="file" id="cover_image" onChange={coverImage.handleImageInput} />
                 </div>  
               </div>
-              <button className="btn btn-info" type="submit" onClick={() => { handleSaveClose() }}>Save</button>
+              <button className="btn btn-info" type="submit" onClick={() => { handleSaveClose() }}>
+                <i class="fa-solid fa-circle-check"/> Save
+              </button>
             </form>
 
             <h3 className='edit-modal-headers'>Edit Milestones</h3>
@@ -96,7 +98,9 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
             </div>
           
             {/* This button should open new-milestone-form modal */}
-            <button className="btn btn-info" onClick={() => { newMilestoneToggle.handleToggle() }}>+ Add New Milestone</button>
+            <button className="btn btn-info" onClick={() => { newMilestoneToggle.handleToggle() }}>
+              <i class="fa-solid fa-circle-plus"/> New Milestone
+            </button>
           </div>)}
       </div>
     

@@ -25,14 +25,14 @@ const MilestoneListItem = ({ milestoneList, getClickedMilestone, milestoneToggle
 
       {timelineEditToggle.toggleState && 
         (<div className={`buttons`}>
-          <button className='btn btn-outline-info btn-sm' onClick={() => { 
+          <button className='btn btn-outline-info' onClick={() => { 
             milestoneEditToggle.handleToggle() 
             getClickedMilestone(milestone_id) }}>
-            Edit
+             <i class="fa-solid fa-pen" id='timeline-edit-button'/>
           </button>
-          <button className='btn btn-outline-dark btn-sm' onClick={() => { 
+          <button className='btn btn-outline-dark' onClick={() => { 
           handleDeleteMilestone(id,milestone_id)}}>
-            Delete
+            <i class="fa-solid fa-trash" id='timeline-edit-button'/>
           </button>
         </div>)}
 

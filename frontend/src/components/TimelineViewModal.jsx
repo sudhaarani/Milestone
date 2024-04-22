@@ -68,8 +68,16 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
                   <i class="fa-solid fa-xmark" onClick={cancelDelete}></i>
                 </div>)}
                 
-              <i className='fa-solid fa-pen' onClick={() => { timelineEditToggle.handleToggle()}} />
-              <i className='fa-solid fa-trash' onClick={() => {displayDeleteConfirmation()}} />
+              {/* <i className='fa-solid fa-pen' onClick={() => { timelineEditToggle.handleToggle()}} /> */}
+
+              <button className='btn btn-outline-info' onClick={() => { timelineEditToggle.handleToggle()}}>
+                <i class="fa-solid fa-pen" id='timeline-edit-button'/>
+              </button>
+
+
+              <button className='btn btn-outline-dark' onClick={() => {displayDeleteConfirmation()}} >
+                <i class="fa-solid fa-trash" id='timeline-edit-button'/>
+              </button>
             </div>)}
             
         </div>)}

@@ -28,10 +28,10 @@
 }
 
 .edit-modal-headers {
-  margin-top:50px;
+  margin-top:40px;
 }
 
-.timeline-edit-form {
+.edit-forms {
   background-color: #F0F2F5;
   margin: 0px 20px;
   padding: 10px;
@@ -53,5 +53,13 @@
   text-align: right;
   .buttons {
     padding-right: 20px;
+  }
+}
+
+#timeline-edit-button {
+  font-size: 15px;
+  margin:0px;
+  &:hover {
+    color: white;
   }
 }
