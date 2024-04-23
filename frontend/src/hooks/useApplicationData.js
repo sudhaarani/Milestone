@@ -12,8 +12,7 @@ const useApplicationData = () => {
     selectedMilestone: null,
     followedUsers: [],
   }
-  const [userId, setUserId] = useState(null); 
-
+  
   const ACTIONS = {
     SET_TIMELINE: 'SET_TIMELINE', // fetches all timelines data from the backend
     SELECT_TIMELINE: 'SELECT_TIMELINE',
