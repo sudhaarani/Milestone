@@ -34,7 +34,8 @@ router.post('/timelines', upload.single('coverimage'), (req, res) => {
 
   db.query(`
       INSERT INTO timelines (title, description, image, user_id)
-      VALUES ($1, $2, $3, $4)`, 
+      VALUES ($1, $2, $3, $4)
+      RETURNING *;`, 
       [title, description, image, user_id]
     )
     .then(({ rows: timelines }) => {
@@ -56,7 +57,7 @@ router.get('/timelines', (req, res) => {
   db.query(`
     SELECT timelines.*, users.username
     FROM timelines
-    JOIN users ON timelines.user_id = users.id order by timelines.id;
+    JOIN users ON timelines.user_id = users.id ORDER BY timelines.id DESC;
   `)
     .then(({ rows: timelines }) => {
       const updatedTimelinesObj = timelines.map(timeline => ({

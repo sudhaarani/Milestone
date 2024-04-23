@@ -9,11 +9,12 @@ INSERT INTO users (username, email, password) VALUES
 
 -- Timelines
 INSERT INTO timelines (title, description, image, user_id) VALUES
-('Family Adventures', 'Timeline capturing memorable family trips and events.', 'family_adventures_image.jpg', 1),
-('Programming Journey', 'Timeline tracking my journey into programming and software development.', 'programming_journey_image.jpg', 1),
 ('Career Transitions', 'Timeline documenting key career transitions and milestones.', 'career_transitions_image.jpg', 2),
 ('Wellness and Fitness', 'Timeline focusing on health, fitness, and personal wellness goals.', 'wellness_fitness_image.jpg', 3),
-('Social Gatherings', 'Timeline highlighting social events and gatherings with friends and family.', 'social_gatherings_image.jpg', 4);
+('Social Gatherings', 'Timeline highlighting social events and gatherings with friends and family.', 'social_gatherings_image.jpg', 4),
+('Programming Journey', 'Timeline tracking my journey into programming and software development.', 'programming_journey_image.jpg', 1),
+('Family Adventures', 'Timeline capturing memorable family trips and events.', 'family_adventures_image.jpg', 1);
+
 
 -- Milestones
 INSERT INTO milestones (timeline_id, title, date, diary_entry, image1, image2, image3, image4) VALUES
