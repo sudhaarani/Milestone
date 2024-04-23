@@ -48,13 +48,37 @@
   font-weight: bold;
 }
 
-.editmilestone-photos-container {
+.editmilestone-photos {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 540px;
+  width: 600px;
+}
+
+#editmilestone-image-buttons {
+  display: flex;
+  justify-content: center;
+  gap:20px;
+}
+
+#editmilestone-image-buttons label i {
+  margin: 0px;
+  &:hover {
+    color: #939597;
+  }
+}
+
+.edit-image-preview {
+  width: 250px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.error-message {
+  color: red;
 }
 
 .no-display-file-input {
@@ -62,7 +86,6 @@
 }
 
 .editmilestone-save {
-  text-align: right;
   margin: 20px;
 }
 

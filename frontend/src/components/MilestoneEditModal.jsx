@@ -1,91 +1,128 @@
-
 //if 2 available, displays image and edit button, add 2 more pen
 import React, { useState, useEffect } from 'react';
-
 import '../styles/MilestoneEditModal.css';
 import closeSymbol from '../assets/closeSymbol.svg';
+
 const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
+
   const { selectedMilestone } = state;
   console.log("selectedMilestone:", selectedMilestone);
+
   const isoDate = new Date(selectedMilestone.milestone_date).toISOString();
   const formattedDate = isoDate.substring(0, 10); // Extracting YYYY-MM-DD
-  const imagesNotNullInDbCount = selectedMilestone.milestoneImageUrl.length; 
-  console.log("imagesNotNullInDbCount:", imagesNotNullInDbCount);
-  
+
   const oldValuesFromDatabase = {
     title: selectedMilestone.milestone_title,
     date: formattedDate,
     diary_entry: selectedMilestone.diary_entry,
-    image1:selectedMilestone.milestoneImageUrl[0],
-    image2:selectedMilestone.milestoneImageUrl[1],
-    image3:selectedMilestone.milestoneImageUrl[2],
-    image4:selectedMilestone.milestoneImageUrl[3],
+    image1:selectedMilestone.image1, //`/uploads/`
+    image2:selectedMilestone.image2,
+    image3:selectedMilestone.image3,
+    image4:selectedMilestone.image4,
   };
   const [oldValues, setOldValues] = useState(oldValuesFromDatabase);
   const [editedValues, setEditedValues] = useState(oldValuesFromDatabase);
-  
+
+  const [imagesNotNullInDbCount, setImagesNotNullInDbCount] = useState(selectedMilestone.milestoneImageUrl.length);// to change the count of Add button based on deletion
+  const [imageError, setImageError] = useState('');
+  console.log("imagesNotNullInDbCount in component:", imagesNotNullInDbCount);
+  console.log("editedValues in component:", editedValues);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditedValues({ ...editedValues, [name]: value });
   };
+  let fieldArray = [];
+  const checkNull = () => {
+    Object.entries(editedValues).slice(3, 7).map(([key, value], index) => {
+      if (value === null) { //"/uploads/
+        fieldArray.push(key);
+      }
+    })
+  }
 
   const handleImageChange = (e) => {
     const { name, files } = e.target;
     if (name === 'image1' || 'image2' || 'image3' || 'image4') {
+      console.log("name::files::", name, ",", files[0]);
       const imageFile = files[0];
       setEditedValues({ ...editedValues, [name]: imageFile });
-      console.log("imageFile:", imageFile);
+      //console.log("imageFile:", imageFile);
     }
     console.log("e.target:", e.target);
     if (name === 'images') {
       console.log("inside images(multiple) e.target.files:", files);
       const lenOfTargetFiles = files.length;
+      checkNull();
+      console.log("fieldArray:", fieldArray);
+      console.log("imagesNotNullInDbCount:", imagesNotNullInDbCount);
       console.log("lenOfTargetFiles:", lenOfTargetFiles);
+      if (lenOfTargetFiles > (4-imagesNotNullInDbCount)) {
+        setImageError(`Maximum of ${4-imagesNotNullInDbCount} image(s) allowed.`);
+        return;
+      }
       if (lenOfTargetFiles === 4) {
+        console.log("inside if 4");
         setEditedValues({
-          ...editedValues, image1: files[0], image2: files[1],
-          image3: files[2], image4:files[3]
+          ...editedValues, [fieldArray[0]]: files[0], [fieldArray[1]]: files[1],
+          [fieldArray[2]]: files[2], [fieldArray[3]]:files[3]
         });
+        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
       }
       if (lenOfTargetFiles === 3) {
+        console.log("inside if 3");
         setEditedValues({
-          ...editedValues, image2: files[0],
-          image3: files[1], image4: files[2]
+          ...editedValues, [fieldArray[0]]: files[0],
+          [fieldArray[1]]: files[1], [fieldArray[2]]: files[2]
         });
+        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
       }
       if (lenOfTargetFiles === 2) {
+        console.log("inside if 2");
         setEditedValues({
-          ...editedValues, image3: files[0], image4: files[1]
+          ...editedValues, [fieldArray[0]]: files[0], [fieldArray[1]]: files[1]
         });
+        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
       }
       if (lenOfTargetFiles === 1) {
+        console.log("inside if 1");
         setEditedValues({
-          ...editedValues, image4: files[0]
+          ...editedValues, [fieldArray[0]]: files[0]
         });
+        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
       }
     }
   };
-    // if (imageFile) {
-    //   // File/Blob object is present
-    //   const reader = new FileReader();
-    //   reader.onloadend = () => {
-    //       setEditedValues({ ...editedValues, [name]: reader.result });
-    //   }
-    //   reader.readAsDataURL(imageFile);
-    //   console.log("reader.result :", reader.result );
-    // }else {
-    // setEditedValues({ ...editedValues, [name]: imageFile });
-    // }
-    // const reader = new FileReader();
-    
-    // reader.onloadend = () => {
-    //   setEditedValues({ ...editedValues, [name]: reader.result });
-    // }
-    // if (firstFile) {
-    //   reader.readAsDataURL(firstFile);
-    // }
+ 
+  const handleImageDelete = (ColName,imageName) => { 
+    //ColName, imageName
+    console.log("milestone_id:", selectedMilestone.milestone_id);
+    console.log("ColName:", ColName);
+    console.log("imageName:", imageName);
+    fetch(`/api/milestones/delete-image/${selectedMilestone.milestone_id}/${ColName}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ imageName })
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log("Deleted Milestone-image successfully");
+        setEditedValues({
+          ...editedValues, [ColName]: null
+        });
+        setImagesNotNullInDbCount(imagesNotNullInDbCount - 1);
+       // console.log("imagesNotNullInDbCount: after image deletion::", imagesNotNullInDbCount);
+      } else {
+        console.error('Failed to Delete Milestone');
+      }
+    })
+    .catch((error) => {
+      console.error('Error deleting Milestone:', error);
+    });
+  };
   
-
   //to close the modal once save btn is clicked and form has submitted(form has to be
   //submitted before it closes so delaying one sec)
   const handleSaveClose = () => {
@@ -96,6 +133,7 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
 
   const handleTimelineSave = (event) => {
     event.preventDefault();
+    console.log("inside handleTimelineSave:");
     const formData = new FormData();
     console.log("editedValues:", editedValues);
     console.log("oldValues:", oldValues);
@@ -103,6 +141,8 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
     Object.keys(editedValues).forEach(fieldName => {
       const file = oldValues[fieldName] === editedValues[fieldName] ? '' :editedValues[fieldName];
       if (file) {
+        console.log("fieldName:", fieldName);
+        console.log("file:", file);
         formData.append(fieldName, file);
       }
     });
@@ -124,6 +164,8 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
       console.error('Error fetching data:', error);
     });
   }
+
+
   return (
     <div className='milestone-edit-modal'>
       <i className="fa-solid fa-arrow-left" onClick={() => { milestoneEditToggle.handleToggle() }} />
@@ -132,10 +174,9 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
 
       {selectedMilestone &&
         (<div>
-
           <form className='edit-forms' onSubmit={handleTimelineSave} enctype="multipart/form-data">
 
-            <div className='editmilestone-text-container' >
+            <div className='editmilestone-text-container'>
               <div>
                 <div>
                   <label>Title:</label>
@@ -146,46 +187,57 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
                   <input className='editmilestone-date' type="date" name="date" id="date" value={editedValues.date} onChange={handleChange} />
                 </div>
               </div>
+
               <div>
                 <label>Diary Entry:</label>
-                <textarea style={{height:'120px'}} type="text" name="diary_entry" id="diary_entry" value={editedValues.diary_entry} onChange={handleChange}/>
+                <textarea style={{ height:'120px'}} type="text" name="diary_entry" id="diary_entry" value={editedValues.diary_entry} onChange={handleChange}/>
               </div>
             </div>
 
-            <label className='editmilestone-photos-label'>Photos</label>
+            <label style={{fontWeight:'bold'}}>Photos</label>
 
-            <div className='editmilestone-photos-container' >
-              {Object.entries(editedValues).slice(3, 7).map(([key, value], index) => ( 
-                value && value !== '/uploads/null' &&
-                  (<div>
-                    <input type="file" name={key} id={key} onChange={handleImageChange} className='no-display-file-input' />
-                    <img style={{width:'250px', height:'150px'}} src={value} className='card-img-top' alt={value.name} />
+            <div className='editmilestone-photos-container'>
+              <div className='editmilestone-photos'>
+                {Object.entries(editedValues).slice(3, 7).map(([key, value], index) => ( value &&
+                (<div>
+                  <input type="file" name={key} id={key} onChange={handleImageChange} className='no-display-file-input' />
+
+                  <img src={`/uploads/${value}`} className='edit-image-preview' alt={value.name} />
+
+                  <div id='editmilestone-image-buttons'>
                     <label for={key}>
                       <i className="fa-solid fa-pen" />
                     </label>
-                  </div>)))}
+                    <label>
+                      <i className="fa-solid fa-trash" onClick={()=>{handleImageDelete(key,value)}}/>
+                    </label>
+                  </div>
+                </div>)))
+                }
+              </div>
+
+              {imagesNotNullInDbCount <= 3 &&
+              (<div>
+                <label htmlFor="images" className={`btn btn-outline-secondary btn-sm`}>
+                  {`+ New Image (Max of ${4 - imagesNotNullInDbCount})`}
+                </label>
+                {imageError && <p className='error-message'> {imageError} </p>}
+
+                <input type="file" name="images" id="images" onChange={handleImageChange} className='no-display-file-input' multiple />
+              </div>)}
+
             </div>
 
-            
-              {imagesNotNullInDbCount <= 3 &&
-                (<div>
-                  <label htmlFor="images" className={`btn btn-outline-dark btn-sm`}>
-                    {`+ New Images (Max of ${4 - imagesNotNullInDbCount})`}
-                  </label>
-                  <input className='no-display-file-input' type="file" name="images" id="images" onChange={handleImageChange} multiple />
-                </div>)}
-
-          </form>
-
-          <div className='editmilestone-save'>
+            <div className='editmilestone-save'>
               <button className='btn btn-info' type="submit" onClick={() => { handleSaveClose() }}>
                 <i class="fa-solid fa-circle-check"/> Save
               </button>
-          </div>
+            </div>
+
+          </form>
         </div>)
       }  
     </div>
   )
 };
-
 export default MilestoneEditModal;

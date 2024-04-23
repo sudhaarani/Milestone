@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 router.use(express.json());
 const db = require('../db/connection.js');
+const fs = require('fs');
 
 const multer = require('multer');
 const storage = multer.diskStorage({
@@ -156,20 +157,25 @@ router.post('/milestones/update',  upload.fields([
   if (queryText.endsWith(',')) {
     queryText = queryText.slice(0, -1);
   }
+ 
   
   queryText += ` WHERE id = $${queryParams.length + 1} AND timeline_id = $${queryParams.length + 2} RETURNING *;`;
   queryParams.push(milestone_id,timeline_id);
   console.log("queryText::", queryText);
   console.log("queryParams::", queryParams);
-  
-  db.query(queryText, queryParams)
-    .then(({ rows: milestones }) => {
-      res.json(milestones);
-    })
-    .catch((error) => {
-      console.error('Error updating timeline:', error);
-      res.status(500).send('Server Error');
-    });
+
+  if (queryParams.length === 2) {
+    res.status(200).send('Success but no field is affected.');
+  }else{
+    db.query(queryText, queryParams)
+      .then(({ rows: milestones }) => {
+        res.json(milestones);
+      })
+      .catch((error) => {
+        console.error('Error updating timeline:', error);
+        res.status(500).send('Server Error');
+      });
+  }
 });
 
 router.delete('/milestones/delete/:timeline_id/:id', (req, res) => {  
@@ -185,6 +191,33 @@ router.delete('/milestones/delete/:timeline_id/:id', (req, res) => {
     });
 });
 
+//to delete milestone individual image 
+router.delete('/milestones/delete-image/:milestone_id/:ColName', async (req, res) => {
+  const { milestone_id, ColName } = req.params;
+  const { imageName } = req.body;
+  //let image = imageName.split("/");
+ console.log(" imageName :", imageName);
+  db.query(`UPDATE milestones SET ${ColName} = NULL WHERE id = $1 AND ${ColName} = $2`, [milestone_id, imageName])
+    .then(() => {
+      console.log('Database updated successfully');
+      res.sendStatus(200);
+          // Delete the image file from the filesystem
+          // const imagePath = `src/public/${ imageName }`;
+          //   fs.unlink(imagePath, (err) => {
+          //     if (err) {
+          //       console.error(err);
+          //       reject(err);
+          //     } else {
+          //       console.log('Image deleted successfully');
+          //       resolve();
+          //     }
+          //   });
+      })
+      .catch((error) => {
+        console.error('Error updating database:', error);
+        res.status(500).send('Server Error');
+      });
+});
 
 //to search by date
 router.get('/milestones/search/:timeline_id/:fromDate/:toDate', (req, res) => {  
