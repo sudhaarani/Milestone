@@ -9,9 +9,10 @@ INSERT INTO users (username, email, password) VALUES
 
 -- Timelines
 INSERT INTO timelines (title, description, image, user_id) VALUES
-('Career Transitions', 'Timeline documenting key career transitions and milestones.', 'career_transitions_image.jpg', 2),
 ('Wellness and Fitness', 'Timeline focusing on health, fitness, and personal wellness goals.', 'wellness_fitness_image.jpg', 3),
 ('Social Gatherings', 'Timeline highlighting social events and gatherings with friends and family.', 'social_gatherings_image.jpg', 4),
+('Career Transitions', 'Timeline documenting key career transitions and milestones.', 'career_transitions_image.jpg', 2),
+('Test Timeline', 'Test Timeline Description', 'beachtrip1.jpg', 2),
 ('Programming Journey', 'Timeline tracking my journey into programming and software development.', 'programming_journey_image.jpg', 1),
 ('Family Adventures', 'Timeline capturing memorable family trips and events.', 'family_adventures_image.jpg', 1);
 
