@@ -10,7 +10,9 @@ const useApplicationData = () => {
     milestonesByTimeline: [],
     searchedMilestones: [],
     selectedMilestone: null,
+    followedUsers: [],
   }
+  const [userId, setUserId] = useState(null); 
 
   const ACTIONS = {
     SET_TIMELINE: 'SET_TIMELINE', // fetches all timelines data from the backend
@@ -21,6 +23,7 @@ const useApplicationData = () => {
     SEARCHED_MILESTONES: 'SEARCHED_MILESTONES',
     SELECT_MILESTONE: 'SELECT_MILESTONE',
     ADD_NEW_TIMELINE: 'ADD_NEW_TIMELINE',
+    SET_FOLLOWED_USERS: 'SET_FOLLOW_USER'
   }
   
   function reducer(state, action) {
@@ -39,8 +42,12 @@ const useApplicationData = () => {
     
       case ACTIONS.SEARCHED_MILESTONES:
         return { ...state, searchedMilestones: action.result }
+
       case ACTIONS.SELECT_MILESTONE:
         return { ...state, selectedMilestone: action.result }
+
+      case ACTIONS.SET_FOLLOWED_USERS:
+        return { ...state, followedUsers: action.result }
 
       default:
         throw new Error(
@@ -61,6 +68,65 @@ const useApplicationData = () => {
   //       console.error('Error fetching topics:', error);
   //     })
   // }, [ACTIONS.SET_TIMELINE]);
+
+
+
+  // Rendering followedUsers state
+  useEffect(() => {
+    fetch(`/api/followings/1`) // HARDCODE FOR NOW...
+      .then(res => res.json())
+      .then(data => {
+        const arrayOfFollowedUserIds = data.map(item => item.user2_id);
+        dispatch({ type: ACTIONS.SET_FOLLOWED_USERS, result: arrayOfFollowedUserIds });
+      })
+      .catch(error => {
+        console.error('Error fetching followed users:', error);
+      })
+  }, [ACTIONS.SET_FOLLOWED_USERS]);
+
+
+  const handleFollowedUsers = (userId, loggedInId) => {
+    const updatedFollowedUsers = state.followedUsers.includes(userId) ? state.followedUsers.filter(user_id =>
+      user_id !== userId) : [...state.followedUsers, userId]
+
+      console.log("loggedInId aka user1_id: ", loggedInId)
+      console.log("userId aka user2_id: ", userId)
+    dispatch({ type: ACTIONS.SET_FOLLOWED_USERS, result: updatedFollowedUsers });
+    
+    // Determine whether to send a POST or DELETE request to backend, based on whether userId is already in followedUsers state or not:
+    const method = state.followedUsers.includes(userId) ? 'DELETE' : 'POST';
+
+    // Send a request that will either add or remove an entry from the followings table
+    fetch(`/api/followings/${loggedInId}`, { 
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user1Id: loggedInId, user2Id: userId }),
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(method === 'DELETE' ? 'Failed to remove previously followed user' : 'Failed to add user to followings');
+      }
+    });
+  }
+
+  const handleFollowingPage = () => {
+    const idsOfFollowedUsers = state.followedUsers
+    fetch('/api/timelines')
+      .then(res => res.json())
+      .then(data => { 
+        // goal: display timelines of followed users only. check if user_id of a timeline is in the followedUsers array
+        const followedUsersFullTimelines = data.filter(timeline => {
+          return idsOfFollowedUsers.includes(timeline.user_id);
+        });
+        dispatch({ type: ACTIONS.SET_TIMELINE, result: followedUsersFullTimelines });
+      })
+      .catch(error => {
+        console.error('Error fetching timelines:', error);
+      })
+  }
+
 
   const handleHomePage = () => {
     fetch('/api/timelines')
@@ -265,7 +331,7 @@ const useApplicationData = () => {
   return {
     state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline, searchKeyword,
     getClickedMilestone, handleDeleteTimeline, handleDeleteMilestone, getTimelinesOf1User, handleFavouritesPage,
-    handleSearchByDate,handleHomePage
+    handleSearchByDate,handleHomePage, handleFollowedUsers, handleFollowingPage
   };
 }
 
