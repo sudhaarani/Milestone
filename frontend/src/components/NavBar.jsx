@@ -69,37 +69,40 @@ const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedI
     setShowRegistrationModal(false);
   };
 
+  const handleNavLinkClick = (event, callback) => {
+    if (!isLoggedIn) {
+      event.preventDefault();
+      setShowLoginModal(true);
+    } else if (callback) {
+      callback();
+    }
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">LOGO</div>
       <div className="navbar-links">
         <NavLink exact to="/" onClick={handleHomePage}>Home</NavLink> 
-        {isLoggedIn && <>
-          <NavLink to="/following" onClick={handleFollowingPage}>Following</NavLink>
-          <NavLink to={`/timelines/${userId}`} onClick={() => { getTimelinesOf1User(userId) }}>My Timelines</NavLink>
-          <NavLink to="/favourites" onClick={handleFavouritesPage}>Favourites</NavLink>
-          <NavLink onClick={() => { newTimelineToggle.handleToggle() }}>Create New Timeline</NavLink>
-        </>}
+        <NavLink to="/following" onClick={(event) => handleNavLinkClick(event, handleFollowingPage)}>Following</NavLink>
+        <NavLink to={`/timelines/${userId}`} onClick={(event) => handleNavLinkClick(event, () => getTimelinesOf1User(userId))}>My Timelines</NavLink>
+        <NavLink to="/favourites" onClick={(event) => handleNavLinkClick(event, handleFavouritesPage)}>Favourites</NavLink>
+        <NavLink onClick={(event) => handleNavLinkClick(event, newTimelineToggle.handleToggle)}>Create New Timeline</NavLink>
       </div>
-
       <div className="navbar-auth">
         {isLoggedIn ? (
           <>
             <span className="navbar-username">Hello, {username}</span>
-            <button className='btn btn-outline-info' onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout}>Logout</button>
           </>
         ) : (
           <>
-            <button className='btn btn-outline-info' onClick={() => setShowLoginModal(true)}>Login</button>
-            <button className='btn btn-outline-warning' onClick={() => setShowRegistrationModal(true)}>Register</button>
+            <button onClick={() => setShowLoginModal(true)}>Login</button>
+            <button onClick={() => setShowRegistrationModal(true)}>Register</button>
           </>
         )}
       </div>
-
       <LoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} onLogin={handleLogin} error={loginError}/>
-
       <RegistrationModal isOpen={showRegistrationModal} onClose={() => setShowRegistrationModal(false)} onRegister={handleRegister} />
-
     </nav>
   );
 };
