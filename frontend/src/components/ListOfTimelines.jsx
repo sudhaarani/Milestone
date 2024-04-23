@@ -3,8 +3,8 @@ import TimelineCard from './TimelineCard';
 import '../styles/ListOfTimelines.css';
 
 const ListOfTimelines = ({ state,isLoggedIn, timelineToggle, handleSelectedTimeline, handleFavourites,
-  getMilestonesByTimeline, timelineEditToggle, handleDeleteTimeline, getTimelinesOf1User }) => {
-  console.log("in ListOfTimelines::,state.timelines: ",state.timelines)
+  getMilestonesByTimeline, timelineEditToggle, handleDeleteTimeline, getTimelinesOf1User, handleFollowedUsers, userId }) => {
+    
   const TimelineListArray = state.timelines.map((timelineList) => {
     return (<TimelineCard 
               key={timelineList.id}
@@ -19,6 +19,8 @@ const ListOfTimelines = ({ state,isLoggedIn, timelineToggle, handleSelectedTimel
               getTimelinesOf1User={getTimelinesOf1User} // Pass the function as a prop
               timelineEditToggle={timelineEditToggle}
               handleDeleteTimeline={handleDeleteTimeline}
+              handleFollowedUsers={handleFollowedUsers}
+              userId={userId}
             />)
   });
 

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import ListOfTimelines from "./ListOfTimelines";
 
 const MyTimelines = ({state, timelineToggle, handleSelectedTimeline, handleFavourites, isLoggedIn,
-  getMilestonesByTimeline, getTimelinesOf1User,timelineEditToggle,handleDeleteTimeline }) => {
+  getMilestonesByTimeline, getTimelinesOf1User,timelineEditToggle,handleDeleteTimeline, handleFollowedUsers, userId }) => {
   
   // const [state, setState] = useState({ timelines: [] });
   // const { id: userId } = useParams();
@@ -32,6 +32,8 @@ const MyTimelines = ({state, timelineToggle, handleSelectedTimeline, handleFavou
         getTimelinesOf1User={getTimelinesOf1User}
         timelineEditToggle={timelineEditToggle}
         handleDeleteTimeline={handleDeleteTimeline}
+        handleFollowedUsers={handleFollowedUsers}
+        userId={userId}
       />
     </div>
   );
