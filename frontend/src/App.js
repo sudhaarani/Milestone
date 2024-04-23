@@ -18,7 +18,7 @@ import useToggle from "./hooks/useToggle";
 function App() {
   const { state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline,
     handleSearchByDate,handleHomePage,handleFavouritesPage, getTimelinesOf1User,
-    searchKeyword, getClickedMilestone,handleDeleteTimeline,handleDeleteMilestone } = useApplicationData();
+    searchKeyword, getClickedMilestone,handleDeleteTimeline,handleDeleteMilestone, handleFollowedUsers, handleFollowingPage } = useApplicationData();
   
   // UserAuth: 
   const [userId, setUserId] = useState(null); 
@@ -39,6 +39,7 @@ function App() {
   const newMilestoneToggle = useToggle();
   const newTimelineToggle = useToggle();
 
+
   return (
     <Router> {/* Use Router to wrap the application */}
       <div className="App">
@@ -51,6 +52,7 @@ function App() {
           userId={userId} // Passing userId as a prop to NavBar
           setUserId={setUserId} // Passing setUserId as a prop to NavBar
           newTimelineToggle={newTimelineToggle}
+          handleFollowingPage={handleFollowingPage}
         />
 
         <Routes> {/* Use Routes instead of Switch */}
@@ -63,7 +65,24 @@ function App() {
             getMilestonesByTimeline={getMilestonesByTimeline}
             getTimelinesOf1User={getTimelinesOf1User} 
             timelineEditToggle={timelineEditToggle}
-            handleDeleteTimeline={handleDeleteTimeline} 
+            handleDeleteTimeline={handleDeleteTimeline}
+            handleFollowedUsers={handleFollowedUsers}
+            userId={userId}
+            />} 
+          />
+
+          <Route path="/following" element={<HomePage
+            isLoggedIn={isLoggedIn} 
+            timelineToggle={timelineToggle} 
+            state={state} 
+            handleSelectedTimeline={handleSelectedTimeline}
+            handleFavourites={handleFavourites}
+            getMilestonesByTimeline={getMilestonesByTimeline}
+            getTimelinesOf1User={getTimelinesOf1User} 
+            timelineEditToggle={timelineEditToggle}
+            handleDeleteTimeline={handleDeleteTimeline}
+            handleFollowedUsers={handleFollowedUsers}
+            userId={userId}
             />} 
           />
           
@@ -76,7 +95,9 @@ function App() {
             getMilestonesByTimeline={getMilestonesByTimeline}
             getTimelinesOf1User={getTimelinesOf1User}
             timelineEditToggle={timelineEditToggle}
-            handleDeleteTimeline={handleDeleteTimeline} />} 
+            handleDeleteTimeline={handleDeleteTimeline} 
+            handleFollowedUsers={handleFollowedUsers} 
+            userId={userId}/>} 
           />
 
           <Route path="/favourites" element={<FavouritesPage
@@ -89,7 +110,8 @@ function App() {
             getTimelinesOf1User={getTimelinesOf1User}
             timelineEditToggle={timelineEditToggle}
             handleDeleteTimeline={handleDeleteTimeline}
-            />}
+            handleFollowedUsers={handleFollowedUsers}
+            userId={userId} />}
           />
         </Routes>
 

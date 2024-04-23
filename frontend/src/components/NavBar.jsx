@@ -6,7 +6,7 @@ import NewTimelineForm from './NewTimelineForm';
 
 // NavBar.jsx
 
-const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedIn, getTimelinesOf1User, userId, setUserId, newTimelineToggle }) => {
+const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedIn, getTimelinesOf1User, userId, setUserId, newTimelineToggle, handleFollowingPage }) => {
   
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
@@ -75,7 +75,7 @@ const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedI
       <div className="navbar-links">
         <NavLink exact to="/" onClick={handleHomePage}>Home</NavLink> 
         {isLoggedIn && <>
-          <NavLink to="/following">Following</NavLink>
+          <NavLink to="/following" onClick={handleFollowingPage}>Following</NavLink>
           <NavLink to={`/timelines/${userId}`} onClick={() => { getTimelinesOf1User(userId) }}>My Timelines</NavLink>
           <NavLink to="/favourites" onClick={handleFavouritesPage}>Favourites</NavLink>
           <NavLink onClick={() => { newTimelineToggle.handleToggle() }}>Create New Timeline</NavLink>
