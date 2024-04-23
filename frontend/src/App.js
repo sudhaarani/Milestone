@@ -121,7 +121,7 @@ function App() {
               
         {milestoneEditToggle.toggleState && <MilestoneEditModal milestoneEditToggle={milestoneEditToggle} state={state} />}
 
-        {newTimelineToggle.toggleState && <NewTimelineForm newTimelineToggle={newTimelineToggle}/>}
+        {newTimelineToggle.toggleState && <NewTimelineForm newTimelineToggle={newTimelineToggle} timelineToggle={timelineToggle} handleSelectedTimeline={handleSelectedTimeline} />}
         
       </div>
     </Router>  

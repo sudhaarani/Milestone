@@ -133,26 +133,24 @@ const useApplicationData = () => {
     }
 
   const handleSelectedTimeline = (id) => {
-    const selectedTimelineResult = state.timelines.find(timeline => timeline.id === id)
-    console.log("selectedTimelineResult: ", selectedTimelineResult);
-    dispatch({ type: ACTIONS.SELECT_TIMELINE, result: selectedTimelineResult }); 
-
-    /* Alternate way to get selectedTimeline. may be better to do this way to open up newly created timeline without /refreshing. Above method doesn't work due to interferance from state.timelines: */
+    /* Old code for handleSelectedTimeline. needed to change it so that newly created timeline opens up without refreshing (state.timelines was interferring): */
+    // const selectedTimelineResult = state.timelines.find(timeline => timeline.id === id)
+    // console.log("selectedTimelineResult: ", selectedTimelineResult);
+    // dispatch({ type: ACTIONS.SELECT_TIMELINE, result: selectedTimelineResult }); 
     
-    // fetch('/api/timelines')
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     const selectedTimeline = data.find(timeline => timeline.id === id);
-    //     if (selectedTimeline) {
-    //       dispatch({ type: ACTIONS.SELECT_TIMELINE, result: selectedTimeline });
-    //     } else {
-    //       console.error('Timeline with id ' + id + ' not found.');
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.error('Error fetching timelines:', error);
-    //   });
-    
+    fetch('/api/timelines')
+      .then(res => res.json())
+      .then(data => {
+        const selectedTimeline = data.find(timeline => timeline.id === id);
+        if (selectedTimeline) {
+          dispatch({ type: ACTIONS.SELECT_TIMELINE, result: selectedTimeline });
+        } else {
+          console.error('Timeline with id ' + id + ' not found.');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching timelines:', error);
+      });
   }
 
 

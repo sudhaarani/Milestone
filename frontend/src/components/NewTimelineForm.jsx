@@ -5,7 +5,7 @@ import '../styles/forms.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 
 
-function NewTimelineForm({ newTimelineToggle }) {
+function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTimeline }) {
   const title = useTextInput('');
   const description = useTextInput('');
   const coverImage = useImageInput(null);
@@ -33,11 +33,10 @@ function NewTimelineForm({ newTimelineToggle }) {
       }
     })
     .then(data => {
-      console.log("Newly created timeline's ID:", data[0].id)
-      /* code below opens up newly created timeline without refreshing : */
-        // newTimelineToggle.handleToggle(); //---> closes new timeline form
-        // timelineToggle.handleToggle(); //---> opens timeline view modal
-        // handleSelectedTimeline(data[0].id);
+      /* Open up newly created timeline without refreshing : */
+      newTimelineToggle.handleToggle(); //---> closes new timeline form
+      timelineToggle.handleToggle(); //---> opens timeline view modal
+      handleSelectedTimeline(data[0].id);
     })
     .catch((error) => {
       console.error('Error fetching data:', error);
