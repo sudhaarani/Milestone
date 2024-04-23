@@ -15,11 +15,12 @@ const useApplicationData = () => {
   const ACTIONS = {
     SET_TIMELINE: 'SET_TIMELINE', // fetches all timelines data from the backend
     SELECT_TIMELINE: 'SELECT_TIMELINE',
-      // selects data pretaining to a timeline (eg. when clicking edit button, state updates to timline data associated with that edit button) 
+      // selects data pretaining to a timeline (exmaple: when clicking edit button, state updates to timline data associated with that edit button) 
     SET_FAV_TIMELINES: 'SET_FAV_TIMELINES',
     GET_MILESTONES_BY_TIMELINE: 'GET_MILESTONES_BY_TIMELINE',
     SEARCHED_MILESTONES: 'SEARCHED_MILESTONES',
     SELECT_MILESTONE: 'SELECT_MILESTONE',
+    ADD_NEW_TIMELINE: 'ADD_NEW_TIMELINE',
   }
   
   function reducer(state, action) {
@@ -40,7 +41,7 @@ const useApplicationData = () => {
         return { ...state, searchedMilestones: action.result }
       case ACTIONS.SELECT_MILESTONE:
         return { ...state, selectedMilestone: action.result }
-        
+
       default:
         throw new Error(
           `Tried to reduce with unsupported action type: ${action.type}`
@@ -76,7 +77,8 @@ const useApplicationData = () => {
     handleHomePage();
   }, []);
 
-  //to display milestones based on selected timeline in the homepage
+
+  //to display milestones based on selected timeline
   const getMilestonesByTimeline = (timeline_id) => {
     fetch(`/api/timelines/milestones/${timeline_id}`)
       .then((res) => {
@@ -134,7 +136,25 @@ const useApplicationData = () => {
     const selectedTimelineResult = state.timelines.find(timeline => timeline.id === id)
     console.log("selectedTimelineResult: ", selectedTimelineResult);
     dispatch({ type: ACTIONS.SELECT_TIMELINE, result: selectedTimelineResult }); 
+
+    /* Alternate way to get selectedTimeline. may be better to do this way to open up newly created timeline without /refreshing. Above method doesn't work due to interferance from state.timelines: */
+    
+    // fetch('/api/timelines')
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     const selectedTimeline = data.find(timeline => timeline.id === id);
+    //     if (selectedTimeline) {
+    //       dispatch({ type: ACTIONS.SELECT_TIMELINE, result: selectedTimeline });
+    //     } else {
+    //       console.error('Timeline with id ' + id + ' not found.');
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.error('Error fetching timelines:', error);
+    //   });
+    
   }
+
 
   useEffect(() => {
     fetch('/api/timelines/favourites/1') // HARDCODE user id as 1 (john_doe) for now

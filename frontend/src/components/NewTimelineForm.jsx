@@ -24,13 +24,20 @@ function NewTimelineForm({ newTimelineToggle }) {
     .then(response => {
       if (response.ok) {
         console.log("Submitted Timeline Form")
-        // Reset form fields after successful submission
         title.reset();
         description.reset();
         coverImage.reset();
+        return response.json();
       } else {
         console.error('Failed to submit form');
       }
+    })
+    .then(data => {
+      console.log("Newly created timeline's ID:", data[0].id)
+      /* code below opens up newly created timeline without refreshing : */
+        // newTimelineToggle.handleToggle(); //---> closes new timeline form
+        // timelineToggle.handleToggle(); //---> opens timeline view modal
+        // handleSelectedTimeline(data[0].id);
     })
     .catch((error) => {
       console.error('Error fetching data:', error);
