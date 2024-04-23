@@ -33,3 +33,16 @@
   text-decoration-skip-ink: none;
   text-underline-offset: 3px;
 }
+
+
+.fa-user-check,.fa-user {
+  font-size: 18px;
+  margin-top: 2px;
+  color: #263985;
+  cursor: pointer;
+}
+
+
+.fa-user {
+  padding-right: 7px;
+}
