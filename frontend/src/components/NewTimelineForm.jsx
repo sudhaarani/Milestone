@@ -5,7 +5,7 @@ import '../styles/forms.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 
 
-function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTimeline, getMilestonesByTimeline }) {
+function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTimeline, getMilestonesByTimeline,handleHomePage }) {
   const title = useTextInput('');
   const description = useTextInput('');
   const coverImage = useImageInput(null);
@@ -38,6 +38,7 @@ function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTime
       timelineToggle.handleToggle(); //---> opens timeline view modal
       handleSelectedTimeline(data[0].id);
       getMilestonesByTimeline(data[0].id);
+      handleHomePage();
     })
     .catch((error) => {
       console.error('Error fetching data:', error);
