@@ -140,12 +140,14 @@ function App() {
 
         {timelineEditToggle.toggleState && <TimelineEditModal timelineEditToggle={timelineEditToggle}
         state={state} searchKeyword={searchKeyword} getClickedMilestone={getClickedMilestone}
-        milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle} handleDeleteMilestone={handleDeleteMilestone} newMilestoneToggle={newMilestoneToggle} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline}
+        milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle} handleDeleteMilestone={handleDeleteMilestone}
+          newMilestoneToggle={newMilestoneToggle} timelineToggle={timelineToggle} handleSelectedTimeline = { handleSelectedTimeline }
+        getMilestonesByTimeline={getMilestonesByTimeline} handleHomePage={handleHomePage}
         />}
               
         {milestoneEditToggle.toggleState && <MilestoneEditModal milestoneEditToggle={milestoneEditToggle} timelineEditToggle={timelineEditToggle} state={state} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline} />}
 
-        {newTimelineToggle.toggleState && <NewTimelineForm newTimelineToggle={newTimelineToggle} timelineToggle={timelineToggle} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline} />}
+        {newTimelineToggle.toggleState && <NewTimelineForm newTimelineToggle={newTimelineToggle} timelineToggle={timelineToggle} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline} handleHomePage={handleHomePage} />}
         
       </div>
     </Router>  

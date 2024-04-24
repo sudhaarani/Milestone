@@ -8,8 +8,9 @@ import SearchBar from '../components/SearchBar';
 import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
 
-const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
-  milestoneToggle,timelineEditToggle,milestoneEditToggle,handleDeleteMilestone,newMilestoneToggle, handleSelectedTimeline, getMilestonesByTimeline }) => {
+const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,handleHomePage,
+  milestoneToggle, timelineEditToggle, milestoneEditToggle, handleDeleteMilestone, newMilestoneToggle,
+  timelineToggle,handleSelectedTimeline,getMilestonesByTimeline}) => {
   const { selectedTimeline } = state;
   console.log("selectedTimeline:", selectedTimeline);
 
@@ -19,11 +20,11 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
   const coverImage = useImageInput(selectedTimeline.image);
   //to close the modal once save btn is clicked and form has submitted(form has to be 
   //submitted before it closes so delaying one sec)
-  const handleSaveClose = () => { 
-    setTimeout(() => {
-      timelineEditToggle.handleToggle();
-    }, 1000); // Delay of 1 second (1000 milliseconds)
-  };
+  // const handleSaveClose = () => { 
+  //   setTimeout(() => {
+  //     timelineEditToggle.handleToggle();
+  //   }, 1000); // Delay of 1 second (1000 milliseconds)
+  // };
 
   const handleTimelineSave = (event) => {
     event.preventDefault();
@@ -45,6 +46,15 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
       } else {
         console.error('Failed to submit form');
       }
+      return response.json();
+    })//closes edit modal,closes view modal
+    .then(data => {
+      /* Open up newly created timeline without refreshing : */
+      timelineEditToggle.handleToggle(); //---> closes new timeline form
+      timelineToggle.handleToggle(); //---> closes timeline view modal
+      handleSelectedTimeline(data[0].id);
+      //getMilestonesByTimeline(data[0].id);  
+      handleHomePage();
     })
     .catch((error) => {
       console.error('Error fetching data:', error);
@@ -80,7 +90,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
                   <input className='file-input' type="file" id="cover_image" onChange={coverImage.handleImageInput} />
                 </div>  
               </div>
-              <button className="btn btn-info" type="submit" onClick={() => { handleSaveClose() }}>
+              <button className="btn btn-info" type="submit" >
                 <i class="fa-solid fa-circle-check"/> Save
               </button>
             </form>
