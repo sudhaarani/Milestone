@@ -49,12 +49,12 @@
 .photos-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
 }
 
 .photos img {
-  width: 450px;
-  height: 250px;
+  width: 475px;
+  height: 260px;
   border-radius: 8px;
   object-fit: cover; 
 }

@@ -136,6 +136,10 @@
   }
 }
 
+.timeline-view-milestone-status {
+  color: #939597;
+  font-style: italic;
+}
 
 .timeline-bottom {
   text-align: right;

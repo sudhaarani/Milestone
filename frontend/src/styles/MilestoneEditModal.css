@@ -57,6 +57,13 @@
   width: 600px;
 }
 
+.new-milestone-addphoto-message {
+  padding-top: 10px;
+  margin: 0px;
+  color: #939597;
+  font-style: italic;
+}
+
 #editmilestone-image-buttons {
   display: flex;
   justify-content: center;

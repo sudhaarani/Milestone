@@ -4,3 +4,23 @@
   justify-content: center;
   padding: 20px;
 }
+
+.listoftimelines-default-msg-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(206, 212, 218, 0.5); /* Light gray background */
+  width: 40%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.listoftimelines-default-msg-container h1 {
+  font-size: 30px;
+  text-align: center;
+}
+
+

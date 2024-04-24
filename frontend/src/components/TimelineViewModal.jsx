@@ -54,11 +54,12 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
       {selectedTimeline &&
         (<div>
           <h2>{selectedTimeline.title}</h2>
-          <p>{selectedTimeline.description}</p>
+          <p className='timeline-view-description'>{selectedTimeline.description}</p>
 
-          <MilestoneList state={state} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle}
-            timelineEditToggle={timelineEditToggle} handleDeleteMilestone={handleDeleteMilestone} />
+          <MilestoneList state={state} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle} timelineEditToggle={timelineEditToggle} handleDeleteMilestone={handleDeleteMilestone} />
 
+          {state.milestonesByTimeline.length === 0 && <p className='timeline-view-milestone-status'>NO MILESTONES YET </p>}
+          
           {userId === selectedTimeline.user_id &&
             (<div className='timeline-bottom'>
               {showDeleteConfirmation && (

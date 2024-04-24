@@ -81,7 +81,9 @@ function NewMilestoneForm({newMilestoneToggle, timelineEditToggle, selectedTimel
         </div>
 
         <div>
+          <label className='new-milestone-addphoto-message'>Add Max of 4 images</label>
           <input type="file" name="images" id="milestone_images" onChange={images.handleMultiImageInput} multiple/>
+          
           {imageError && <p style={{ color:'red' }}> {imageError} </p>}
         </div>
 

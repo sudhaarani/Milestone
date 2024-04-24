@@ -23,6 +23,7 @@
   background-color: #F7C344;
   padding: 10px 5px;
   color: #333;
+  transition: background-color 0.3s ease;
 }
 .navbar-username {
   font-weight: bold;
