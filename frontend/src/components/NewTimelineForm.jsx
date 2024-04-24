@@ -33,11 +33,11 @@ function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTime
       }
     })
     .then(data => {
-      /* Open up newly created timeline without refreshing : */
+      /* View newly created timeline without refreshing : */
       newTimelineToggle.handleToggle(); //---> closes new timeline form
-      timelineToggle.handleToggle(); //---> opens timeline view modal
-      handleSelectedTimeline(data[0].id);
-      getMilestonesByTimeline(data[0].id);
+      // timelineToggle.handleToggle(); //---> opens timeline view modal
+      // handleSelectedTimeline(data[0].id);
+      // getMilestonesByTimeline(data[0].id);
       handleHomePage();
     })
     .catch((error) => {
