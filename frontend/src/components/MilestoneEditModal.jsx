@@ -43,7 +43,7 @@ const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handl
 
   const handleImageChange = (e) => {
     const { name, files } = e.target;
-    if (name === 'image1' || 'image2' || 'image3' || 'image4') {
+    if (name === 'image1' || name ==='image2' || name ==='image3' || name ==='image4') {
       console.log("name::files::", name, ",", files[0]);
       const imageFile = files[0];
       setEditedValues({ ...editedValues, [name]: imageFile });
@@ -61,36 +61,16 @@ const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handl
         setImageError(`Maximum of ${4-imagesNotNullInDbCount} image(s) allowed.`);
         return;
       }
-      if (lenOfTargetFiles === 4) {
-        console.log("inside if 4");
-        setEditedValues({
-          ...editedValues, [fieldArray[0]]: files[0], [fieldArray[1]]: files[1],
-          [fieldArray[2]]: files[2], [fieldArray[3]]:files[3]
-        });
-        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
+      const updatedValues = {};
+      for (let i = 0; i < lenOfTargetFiles; i++) {
+        console.log("inside if ",i+1);
+        updatedValues[fieldArray[i]] = files[i];
       }
-      if (lenOfTargetFiles === 3) {
-        console.log("inside if 3");
-        setEditedValues({
-          ...editedValues, [fieldArray[0]]: files[0],
-          [fieldArray[1]]: files[1], [fieldArray[2]]: files[2]
-        });
-        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
-      }
-      if (lenOfTargetFiles === 2) {
-        console.log("inside if 2");
-        setEditedValues({
-          ...editedValues, [fieldArray[0]]: files[0], [fieldArray[1]]: files[1]
-        });
-        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
-      }
-      if (lenOfTargetFiles === 1) {
-        console.log("inside if 1");
-        setEditedValues({
-          ...editedValues, [fieldArray[0]]: files[0]
-        });
-        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
-      }
+      setEditedValues({
+        ...editedValues,
+        ...updatedValues
+      });
+      setImagesNotNullInDbCount(imagesNotNullInDbCount + lenOfTargetFiles);
     }
   };
  
