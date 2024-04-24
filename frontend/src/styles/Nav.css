@@ -1,5 +1,5 @@
 
-/* NavBar and Button Styling */
+/* NavBar Styling */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -13,6 +13,25 @@
   color: white;
   text-decoration: none;
   margin-right: 15px;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navbar-logo-text {
+  margin: 0px;
+  font-family: 'Poiret One';
+  font-size: 22px;
+}
+
+.navbar-logo-img {
+  width: 30px;
+  height: 30px;
+  padding: 0px;
+  margin: 0px;
 }
 
 #navlink-create-new {

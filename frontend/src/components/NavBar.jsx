@@ -79,7 +79,11 @@ const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedI
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">LOGO</div>
+      <div className="navbar-logo">
+        <p className="navbar-logo-text">MILE</p>
+        <img className="navbar-logo-img" src="/milestone-logo.png" alt='logo' />
+        <p className="navbar-logo-text">TONE</p>
+      </div>
       <div className="navbar-links">
         <NavLink exact to="/" onClick={handleHomePage}>Home</NavLink> 
         <NavLink to="/following" onClick={(event) => handleNavLinkClick(event, handleFollowingPage)}>Following</NavLink>
@@ -107,3 +111,6 @@ const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedI
 };
 
 export default NavBar;
+
+
+
