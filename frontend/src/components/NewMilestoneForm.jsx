@@ -5,7 +5,7 @@ import '../styles/forms.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 //close button to close the form modal
 
-function NewMilestoneForm({newMilestoneToggle, selectedTimeline}) {
+function NewMilestoneForm({newMilestoneToggle, timelineEditToggle, selectedTimeline, handleSelectedTimeline, getMilestonesByTimeline }) {
   const title = useTextInput('');
   const date = useTextInput('');
   const diaryEntry = useTextInput('');
@@ -41,6 +41,14 @@ function NewMilestoneForm({newMilestoneToggle, selectedTimeline}) {
       } else {
         console.error('Failed to submit form');
       }
+    })
+    .then(data => {
+      console.log("NEW MILESTONE FORM DATA: ",data)
+      /* Show newly created milestone without refreshing : */
+      newMilestoneToggle.handleToggle(); //---> closes new milestone form
+      timelineEditToggle.handleToggle(); //---> closes timeline edit modal
+      handleSelectedTimeline(selectedTimeline.id);
+      getMilestonesByTimeline(selectedTimeline.id);
     })
     .catch((error) => {
       console.error('Error fetching data:', error);

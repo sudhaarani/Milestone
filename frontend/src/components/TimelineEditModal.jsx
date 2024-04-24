@@ -9,7 +9,7 @@ import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
 
 const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
-  milestoneToggle,timelineEditToggle,milestoneEditToggle,handleDeleteMilestone,newMilestoneToggle }) => {
+  milestoneToggle,timelineEditToggle,milestoneEditToggle,handleDeleteMilestone,newMilestoneToggle, handleSelectedTimeline, getMilestonesByTimeline }) => {
   const { selectedTimeline } = state;
   console.log("selectedTimeline:", selectedTimeline);
 
@@ -104,7 +104,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,
           </div>)}
       </div>
     
-      {newMilestoneToggle.toggleState && <NewMilestoneForm newMilestoneToggle={newMilestoneToggle} selectedTimeline={selectedTimeline} />}
+      {newMilestoneToggle.toggleState && <NewMilestoneForm newMilestoneToggle={newMilestoneToggle} selectedTimeline={selectedTimeline} timelineEditToggle={timelineEditToggle} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline} />}
     </div>
   )
 };

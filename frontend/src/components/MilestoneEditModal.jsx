@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/MilestoneEditModal.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 
-const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
+const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handleSelectedTimeline, getMilestonesByTimeline }) => {
 
   const { selectedMilestone } = state;
   console.log("selectedMilestone:", selectedMilestone);
@@ -15,7 +15,7 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
     title: selectedMilestone.milestone_title,
     date: formattedDate,
     diary_entry: selectedMilestone.diary_entry,
-    image1:selectedMilestone.image1, //`/uploads/`
+    image1:selectedMilestone.image1, // `/uploads/`
     image2:selectedMilestone.image2,
     image3:selectedMilestone.image3,
     image4:selectedMilestone.image4,
@@ -160,6 +160,18 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
         console.error('Failed to submit form');
       }
     })
+    .then(data => {
+      // close milestone & timeline edit modals:
+      milestoneEditToggle.handleToggle(); 
+      timelineEditToggle.handleToggle();
+      //update state for timeline and milestones using timeline id (selectedMilestone.id = timeline id)
+      handleSelectedTimeline(selectedMilestone.id);
+      getMilestonesByTimeline(selectedMilestone.id); 
+      
+
+      // doesn't work --> getClickedMilestone(selectedMilestone.milestone_id);  
+      // milestoneToggle.handleToggle();
+    })
     .catch((error) => {
       console.error('Error fetching data:', error);
     });
@@ -229,7 +241,7 @@ const MilestoneEditModal = ({ state,milestoneEditToggle }) => {
             </div>
 
             <div className='editmilestone-save'>
-              <button className='btn btn-info' type="submit" onClick={() => { handleSaveClose() }}>
+              <button className='btn btn-info' type="submit">
                 <i class="fa-solid fa-circle-check"/> Save
               </button>
             </div>
