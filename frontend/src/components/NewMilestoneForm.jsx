@@ -47,7 +47,7 @@ function NewMilestoneForm({newMilestoneToggle, timelineEditToggle, selectedTimel
       /* Show newly created milestone without refreshing : */
       newMilestoneToggle.handleToggle(); //---> closes new milestone form
       timelineEditToggle.handleToggle(); //---> closes timeline edit modal
-      handleSelectedTimeline(selectedTimeline.id);
+      handleSelectedTimeline(selectedTimeline.id); //sending timeline_id
       getMilestonesByTimeline(selectedTimeline.id);
     })
     .catch((error) => {
