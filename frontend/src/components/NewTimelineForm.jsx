@@ -66,7 +66,10 @@ function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTime
         </div>
 
         <div>
-          <input type="file" id="timeline_cover" onChange={coverImage.handleImageInput} />
+          <label htmlFor="timeline_cover" className={`btn btn-outline-secondary btn-sm mt-3`}>
+            Add cover image
+          </label>
+          <input type="file" id="timeline_cover" onChange={coverImage.handleImageInput} className='no-display-file-input'/>
         </div>
 
         <button className='btn btn-info' type="submit">
@@ -79,3 +82,5 @@ function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTime
 };
 
 export default NewTimelineForm;
+
+

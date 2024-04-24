@@ -82,3 +82,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 .fa-solid,.fa-regular {
   margin-right:5px;
 }
+
+.no-display-file-input {
+  display: none;
+}
