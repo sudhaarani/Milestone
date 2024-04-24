@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate} from 'react-router-dom'; // Add this line
 import LoginModal from './LoginModal';
 import RegistrationModal from './RegistrationModal';
-import NewTimelineForm from './NewTimelineForm';
+import '../styles/Nav.css';
 
-// NavBar.jsx
 
 const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedIn, getTimelinesOf1User, userId, setUserId, newTimelineToggle, handleFollowingPage }) => {
   
@@ -86,18 +85,18 @@ const NavBar = ({ handleFavouritesPage, handleHomePage, isLoggedIn, setIsLoggedI
         <NavLink to="/following" onClick={(event) => handleNavLinkClick(event, handleFollowingPage)}>Following</NavLink>
         <NavLink to={`/timelines/${userId}`} onClick={(event) => handleNavLinkClick(event, () => getTimelinesOf1User(userId))}>My Timelines</NavLink>
         <NavLink to="/favourites" onClick={(event) => handleNavLinkClick(event, handleFavouritesPage)}>Favourites</NavLink>
-        <NavLink onClick={(event) => handleNavLinkClick(event, newTimelineToggle.handleToggle)}>Create New Timeline</NavLink>
+        <p id='navlink-create-new' onClick={(event) => handleNavLinkClick(event, newTimelineToggle.handleToggle)}>Create New Timeline</p>
       </div>
       <div className="navbar-auth">
         {isLoggedIn ? (
           <>
             <span className="navbar-username">Hello, {username}</span>
-            <button onClick={handleLogout}>Logout</button>
+            <button className='btn btn-outline-info' onClick={handleLogout}>Logout</button>
           </>
         ) : (
           <>
-            <button onClick={() => setShowLoginModal(true)}>Login</button>
-            <button onClick={() => setShowRegistrationModal(true)}>Register</button>
+            <button className='btn btn-outline-info' onClick={() => setShowLoginModal(true)}>Login</button>
+            <button className='btn btn-outline-warning' onClick={() => setShowRegistrationModal(true)}>Register</button>
           </>
         )}
       </div>

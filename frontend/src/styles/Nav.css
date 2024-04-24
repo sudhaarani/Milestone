@@ -1,0 +1,31 @@
+
+/* NavBar and Button Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+}
+
+.navbar-logo, .navbar-links a, #navlink-create-new, .navbar-auth button, .navbar-auth a {
+  color: white;
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+#navlink-create-new {
+  display: inline;
+}
+
+.navbar-links a:hover, #navlink-create-new:hover {
+  background-color: #F7C344;
+  padding: 10px 5px;
+  color: #333;
+}
+.navbar-username {
+  font-weight: bold;
+  padding-top: 15px;
+  padding-right: 15px;
+}

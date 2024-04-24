@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/LoginModals.css';
+import '../styles/forms.css';
+
 
 const LoginModal = ({ isOpen, onClose, onLogin, error }) => {
   const [username, setUsername] = useState('');
@@ -26,28 +29,28 @@ const LoginModal = ({ isOpen, onClose, onLogin, error }) => {
   }
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <h2 style={{ color: 'black' }}>Login</h2>
+    <div className="user-auth-modal">
+      <div className="user-auth-content">
+        <h2>Login</h2>
         <form onSubmit={handleSubmit}>
-          <input
+          <input className='user-auth-input'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Username"
             required
           />
-          <input
+          <input className='user-auth-input'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             required
           />
-          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {error && <p className='error-message'>{error}</p>}
           <div className="button-group">
-            <button type="submit">Login</button>
-            <button type="button" onClick={onClose}>Cancel</button>
+            <button className='btn btn-info' type="submit">Login</button>
+            <button className='btn btn-dark' type="button" onClick={onClose}>Cancel</button>
           </div>
         </form>
       </div>

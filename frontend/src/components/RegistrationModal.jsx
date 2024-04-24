@@ -1,5 +1,8 @@
 // File: RegistrationModal.js
 import React, { useState } from 'react';
+import '../styles/LoginModals.css';
+import '../styles/forms.css';
+
 
 const RegistrationModal = ({ isOpen, onClose, onRegister }) => {
   const [username, setUsername] = useState('');
@@ -21,25 +24,25 @@ const RegistrationModal = ({ isOpen, onClose, onRegister }) => {
   }
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <h2 style={{ color: 'black' }}>Register</h2>
-        <form onSubmit={handleRegistration}>
-          <input
+    <div className="user-auth-modal">
+      <div className="user-auth-content">
+        <h2>Register</h2>
+        <form className='user-auth-form' onSubmit={handleRegistration}>
+          <input className='user-auth-input'
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Username"
             required
           />
-          <input
+          <input className='user-auth-input'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             required
           />
-          <input
+          <input className='user-auth-input'
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -47,8 +50,8 @@ const RegistrationModal = ({ isOpen, onClose, onRegister }) => {
             required
           />
           <div className="button-group">
-            <button type="submit">Register</button>
-            <button type="button" onClick={onClose}>Cancel</button>
+            <button className='btn btn-info' type="submit">Register</button>
+            <button className='btn btn-dark' type="button" onClick={onClose}>Cancel</button>
           </div>
         </form>
       </div>
