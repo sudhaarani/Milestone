@@ -147,7 +147,7 @@ function App() {
               
         {milestoneEditToggle.toggleState && <MilestoneEditModal milestoneEditToggle={milestoneEditToggle} timelineEditToggle={timelineEditToggle} state={state} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline} />}
 
-        {newTimelineToggle.toggleState && <NewTimelineForm newTimelineToggle={newTimelineToggle} timelineToggle={timelineToggle} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline} />}
+        {newTimelineToggle.toggleState && <NewTimelineForm newTimelineToggle={newTimelineToggle} timelineToggle={timelineToggle} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline} handleHomePage={handleHomePage} />}
         
       </div>
     </Router>  
