@@ -141,7 +141,7 @@ router.get('/timelines/favourites/:id', (req, res) => {
 
 
 router.post('/timelines/favourites/:id', (req, res) => {
-  const userId = req.params.id;
+  const userId = req.body.userId
   const timelineId = req.body.timelineId; // Assuming the timelineId is sent in the request body
 
   db.query(`
@@ -159,7 +159,7 @@ router.post('/timelines/favourites/:id', (req, res) => {
 
 
 router.delete('/timelines/favourites/:id', (req, res) => {
-  const userId = req.params.id;
+  const userId = req.body.userId
   const timelineId = req.body.timelineId; // Assuming the timelineId is sent in the request body
 
   db.query(`

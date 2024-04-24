@@ -27,14 +27,14 @@ import React from 'react';
 import FavIcon from './FavIcon';
 //import '../styles/FavButton.scss';  
 
-function FavButton({ handleFavourites, state, id }) {
+function FavButton({ handleFavourites, state, timelineId, userId }) {
 
   return (
     <div className="photo-list__fav-icon" onClick={() => {
-      handleFavourites(id)
+      handleFavourites(timelineId, userId)
     }}>
       <div className="photo-list__fav-icon-svg">
-        <FavIcon selected={state && state.favTimelines ? state.favTimelines.includes(id) : false} />
+        <FavIcon selected={state && state.favTimelines ? state.favTimelines.includes(timelineId) : false} />
       </div>
     </div>
   );

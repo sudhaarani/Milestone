@@ -12,15 +12,16 @@ import NewMilestoneForm from './components/NewMilestoneForm';
 import MyTimelines from './components/MyTimelines';
 import FavouritesPage from './components/FavouritesPage';
 
-import useApplicationData from "./hooks/useApplicationData"; // Adjusted the path for hooks
+import useApplicationData from "./hooks/useApplicationData";
 import useToggle from "./hooks/useToggle";
 
 function App() {
   const { state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline,
     handleSearchByDate,handleHomePage,handleFavouritesPage, getTimelinesOf1User,
-    searchKeyword, getClickedMilestone,handleDeleteTimeline,handleDeleteMilestone, handleFollowedUsers, handleFollowingPage } = useApplicationData();
+    searchKeyword, getClickedMilestone,handleDeleteTimeline,handleDeleteMilestone, handleFollowedUsers, handleFollowingPage, renderFollowedUsers, renderFavourites } = useApplicationData();
   
-  // UserAuth: 
+  // UserAuth + Rendering Followings and Favourites of logged in user: 
+      // (however: needs initial refresh to see following and favourites. idk how to fix)
   const [userId, setUserId] = useState(null); 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
@@ -28,6 +29,8 @@ function App() {
     if (user) {
       setIsLoggedIn(true);
       setUserId(user.id); // Set userId when the app is loaded
+      renderFollowedUsers(user.id);
+      renderFavourites(user.id);
     }
   }, []);
 

@@ -57,22 +57,10 @@ const useApplicationData = () => {
 
   const [state, dispatch] = useReducer(reducer, stateDeclare);
 
-  // useEffect(() => {
-  //   fetch('/api/timelines')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       dispatch({ type: ACTIONS.SET_TIMELINE, result: data });
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching topics:', error);
-  //     })
-  // }, [ACTIONS.SET_TIMELINE]);
-
-
 
   // Rendering followedUsers state
-  useEffect(() => {
-    fetch(`/api/followings/1`) // HARDCODE FOR NOW...
+  const renderFollowedUsers = (loggedInId) => {
+    fetch(`/api/followings/${loggedInId}`)
       .then(res => res.json())
       .then(data => {
         const arrayOfFollowedUserIds = data.map(item => item.user2_id);
@@ -81,8 +69,7 @@ const useApplicationData = () => {
       .catch(error => {
         console.error('Error fetching followed users:', error);
       })
-  }, [ACTIONS.SET_FOLLOWED_USERS]);
-
+  }
 
   const handleFollowedUsers = (userId, loggedInId) => {
     const updatedFollowedUsers = state.followedUsers.includes(userId) ? state.followedUsers.filter(user_id =>
@@ -219,8 +206,8 @@ const useApplicationData = () => {
   }
 
 
-  useEffect(() => {
-    fetch('/api/timelines/favourites/1') // HARDCODE user id as 1 (john_doe) for now
+  const renderFavourites = (loggedInId) => {
+    fetch(`/api/timelines/favourites/${loggedInId}`)
       .then(res => res.json())
       .then(data => {
         const likedTimelineIds = data.map(item => item.timeline_id);
@@ -229,27 +216,27 @@ const useApplicationData = () => {
       .catch(error => {
         console.error('Error fetching favorites:', error);
       })
-  }, [ACTIONS.SET_FAV_TIMELINES]);
+  }
 
 
-  const handleFavourites = (id) => {
-    const updatedFavTimelines = state.favTimelines.includes(id) ? state.favTimelines.filter(_id =>
-      _id !== id
-    ) : [...state.favTimelines, id]
+  const handleFavourites = (timeline_id, user_id) => {
+    const updatedFavTimelines = state.favTimelines.includes(timeline_id) ? state.favTimelines.filter(tl_id =>
+      tl_id !== timeline_id
+    ) : [...state.favTimelines, timeline_id]
 
     // Update favTimelines state locally (temporary -> need to still update database)
     dispatch({ type: ACTIONS.SET_FAV_TIMELINES, result: updatedFavTimelines });
 
     // Determine whether to send a POST or DELETE request to backend, based on whether timeline_id is already in favTimelines state or not:
-    const method = state.favTimelines.includes(id) ? 'DELETE' : 'POST';
+    const method = state.favTimelines.includes(timeline_id) ? 'DELETE' : 'POST';
 
     // Send a request that will either add or remove a timeline from the favs table
-    fetch(`/api/timelines/favourites/1`, { // HARDCODE user id as 1 for now
+    fetch(`/api/timelines/favourites/${user_id}`, {
       method: method,
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ timelineId: id }),
+      body: JSON.stringify({ timelineId: timeline_id, userId: user_id }),
     })
     .then(res => {
       if (!res.ok) {
@@ -330,7 +317,7 @@ const useApplicationData = () => {
   return {
     state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline, searchKeyword,
     getClickedMilestone, handleDeleteTimeline, handleDeleteMilestone, getTimelinesOf1User, handleFavouritesPage,
-    handleSearchByDate,handleHomePage, handleFollowedUsers, handleFollowingPage
+    handleSearchByDate,handleHomePage, handleFollowedUsers, handleFollowingPage, renderFollowedUsers, renderFavourites
   };
 }
 

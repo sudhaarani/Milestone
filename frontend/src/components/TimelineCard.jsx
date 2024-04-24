@@ -32,7 +32,7 @@ const TimelineCard = ({isLoggedIn, timelineList, timelineToggle, handleSelectedT
 
         {isLoggedIn && showFollow && <FollowButton loggedInUserId={userId} timelineUserId={user_id} handleFollowedUsers={handleFollowedUsers} state={state}/>}
 
-        {isLoggedIn && <FavButton id={id} handleFavourites={handleFavourites} state={state} />}
+        {isLoggedIn && <FavButton timelineId={id} userId={userId} handleFavourites={handleFavourites} state={state} />}
       </div>
     </div>
   );
