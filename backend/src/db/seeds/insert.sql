@@ -42,8 +42,6 @@ INSERT INTO milestones (timeline_id, title, date, diary_entry, image1, image2, i
 
 -- Favourites
 INSERT INTO favourites (user_id, timeline_id) VALUES
-(1, 2), -- John Doe (user_id: 1) favorites the timeline with id 2
-(1, 5), -- John Doe (user_id: 1) favorites the timeline with id 5
 (2, 1), -- Jane Smith (user_id: 2) favorites the timeline with id 1
 (3, 1), -- Mike Jackson (user_id: 3) favorites the timeline with id 1
 (4, 1); -- Sara Williams (user_id: 4) favorites the timeline with id 1
@@ -51,8 +49,6 @@ INSERT INTO favourites (user_id, timeline_id) VALUES
 
 -- Followings
 INSERT INTO followings (user1_id, user2_id) VALUES
-(1, 2), -- John Doe (user1_id: 1) follows Jane Smith (user2_id: 2)
-(1, 3), -- John Doe (user1_id: 1) follows Mike Jackson (user2_id: 3)
 (2, 4), -- Jane Smith (user1_id: 2) follows Sara Williams (user2_id: 4)
 (3, 1), -- Mike Jackson (user1_id: 3) follows John Doe (user2_id: 1)
 (4, 2); -- Sara Williams (user1_id: 3) follows Jane Smith (user2_id: 1)
