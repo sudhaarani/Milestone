@@ -16,8 +16,8 @@ import useToggle from "./hooks/useToggle";
 
 function App() {
   const { state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline,
-    handleSearchByDate,handleHomePage,handleFavouritesPage, getTimelinesOf1User,
-    searchKeyword, getClickedMilestone,handleDeleteTimeline,handleDeleteMilestone, handleFollowedUsers, handleFollowingPage, renderFollowedUsers, renderFavourites } = useApplicationData();
+    handleSearchByDate, handleHomePage, handleFavouritesPage, getTimelinesOf1User,
+    searchKeyword, getClickedMilestone, handleDeleteTimeline, handleDeleteMilestone, handleFollowedUsers, handleFollowingPage, renderFollowedUsers, renderFavourites } = useApplicationData();
   
   // UserAuth + Rendering Followings and Favourites of logged in user: 
       // (however: needs initial refresh to see following and favourites. idk how to fix)

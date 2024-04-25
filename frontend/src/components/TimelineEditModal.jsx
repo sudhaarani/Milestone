@@ -7,9 +7,9 @@ import SearchBar from '../components/SearchBar';
 import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
 
-const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,handleHomePage,
+const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone, handleHomePage,
   milestoneToggle, timelineEditToggle, milestoneEditToggle, handleDeleteMilestone, newMilestoneToggle,
-  timelineToggle,handleSelectedTimeline,getMilestonesByTimeline}) => {
+  timelineToggle, handleSelectedTimeline, getMilestonesByTimeline}) => {
   const { selectedTimeline } = state;
 
   const [keyword, setKeyword] = useState('');

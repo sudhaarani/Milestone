@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import '../styles/MilestoneEditModal.css';
 
-const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handleSelectedTimeline, getMilestonesByTimeline }) => {
+const MilestoneEditModal = ({ state, milestoneEditToggle, timelineEditToggle, handleSelectedTimeline, getMilestonesByTimeline }) => {
 
   const { selectedMilestone } = state;
 

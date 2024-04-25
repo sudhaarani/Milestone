@@ -8,7 +8,7 @@ import MilestoneList from '../components/MilestoneList';
 import SearchBar from '../components/SearchBar';
 
 const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMilestone,
-  milestoneToggle,timelineEditToggle,milestoneEditToggle,handleDeleteMilestone,handleSearchByDate,handleDeleteTimeline, userId }) => {
+  milestoneToggle, timelineEditToggle, milestoneEditToggle, handleDeleteMilestone, handleSearchByDate, handleDeleteTimeline, userId }) => {
 
   const { selectedTimeline } = state;
 
