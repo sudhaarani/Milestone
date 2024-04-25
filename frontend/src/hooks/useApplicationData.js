@@ -57,7 +57,6 @@ const useApplicationData = () => {
 
   const [state, dispatch] = useReducer(reducer, stateDeclare);
 
-
   // Rendering followedUsers state
   const renderFollowedUsers = (loggedInId) => {
     fetch(`/api/followings/${loggedInId}`)
@@ -73,10 +72,10 @@ const useApplicationData = () => {
 
   const handleFollowedUsers = (userId, loggedInId) => {
     const updatedFollowedUsers = state.followedUsers.includes(userId) ? state.followedUsers.filter(user_id =>
-      user_id !== userId) : [...state.followedUsers, userId]
+    user_id !== userId) : [...state.followedUsers, userId]
 
-      console.log("loggedInId aka user1_id: ", loggedInId)
-      console.log("userId aka user2_id: ", userId)
+    console.log("loggedInId aka user1_id: ", loggedInId)
+    console.log("userId aka user2_id: ", userId)
     dispatch({ type: ACTIONS.SET_FOLLOWED_USERS, result: updatedFollowedUsers });
     
     // Determine whether to send a POST or DELETE request to backend, based on whether userId is already in followedUsers state or not:
@@ -104,7 +103,7 @@ const useApplicationData = () => {
       .then(data => { 
         // goal: display timelines of followed users only. check if user_id of a timeline is in the followedUsers array
         const followedUsersFullTimelines = data.filter(timeline => {
-          return idsOfFollowedUsers.includes(timeline.user_id);
+        return idsOfFollowedUsers.includes(timeline.user_id);
         });
         dispatch({ type: ACTIONS.SET_TIMELINE, result: followedUsersFullTimelines });
       })
@@ -112,7 +111,6 @@ const useApplicationData = () => {
         console.error('Error fetching timelines:', error);
       })
   }
-
 
   const handleHomePage = () => {
     fetch('/api/timelines')
@@ -147,7 +145,6 @@ const useApplicationData = () => {
       })
   }
 
-
   //to display searched milestones 
   const searchKeyword = (timeline_id,keyword) => {
     fetch(`/api/milestones/search/${timeline_id}/${keyword}`)
@@ -165,7 +162,6 @@ const useApplicationData = () => {
         console.error('Error fetching topics:', error);
       })
   }
-
 
   const handleSearchByDate = (timeline_id,fromDate,toDate) => {
     fetch(`/api/milestones/search/${timeline_id}/${fromDate}/${toDate}`)
@@ -205,7 +201,6 @@ const useApplicationData = () => {
       });
   }
 
-
   const renderFavourites = (loggedInId) => {
     fetch(`/api/timelines/favourites/${loggedInId}`)
       .then(res => res.json())
@@ -217,7 +212,6 @@ const useApplicationData = () => {
         console.error('Error fetching favorites:', error);
       })
   }
-
 
   const handleFavourites = (timeline_id, user_id) => {
     const updatedFavTimelines = state.favTimelines.includes(timeline_id) ? state.favTimelines.filter(tl_id =>
@@ -297,7 +291,6 @@ const useApplicationData = () => {
   } 
 
   const handleDeleteMilestone = (timeline_id,milestone_id) => {
-    ///milestones/delete/:timeline_id/:id
     fetch(`/api/milestones/delete/${timeline_id}/${milestone_id}`, {
       method: 'DELETE'
     })

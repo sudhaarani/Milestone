@@ -50,9 +50,9 @@ INSERT INTO milestones (timeline_id, title, date, diary_entry, image1, image2, i
 (19, 'Mindful Eating Practice', '2023-12-10', 'Started practicing mindful eating to develop a healthier relationship with food.', NULL, NULL, NULL, NULL),
 (19, 'Completed First Half Marathon', '2024-02-15', 'Accomplished the goal of running my first half marathon.', NULL, NULL, NULL, NULL),
 
-(20, 'Lucas''s First Words', '2023-03-15', 'Lucas said his first word today - ''mama''! It melted our hearts to hear his sweet voice.', NULL, NULL, NULL, NULL),
-(20, 'Lucas''s First Steps', '2023-06-20', 'Today, Lucas took his first steps all by himself! It was an exciting moment for the whole family as he confidently took those wobbly steps towards his favorite toy.', NULL, NULL, NULL, NULL),
-(20, 'Lucas''s First Birthday', '2024-12-10', 'Happy 1st Birthday, Lucas! I love watching you grow and learn during your first year. Here''s to many more adventures together!', 'first_birthday.jpg', 'first_birthday2.jpg', NULL, NULL),
+(20, 'Lucas''s First Steps', '2024-04-20', 'Today, Lucas took his first steps all by himself! It was an exciting moment for the whole family as he confidently took those wobbly steps towards his favorite toy.', NULL, NULL, NULL, NULL),
+(20, 'Lucas''s First Words', '2024-03-15', 'Lucas said his first word today - ''mama''! It melted our hearts to hear his sweet voice.', NULL, NULL, NULL, NULL),
+(20, 'Lucas''s First Birthday', '2023-12-10', 'Happy 1st Birthday, Lucas! I love watching you grow and learn during your first year. Here''s to many more adventures together!', 'first_birthday1.jpg', 'first_birthday2.jpg', NULL, NULL),
 
 (21, 'Changed Job', '2022-01-15', 'Started a new job as a software engineer.', 'newjob1.jpg', NULL, NULL, NULL),
 (21, 'Promotion', '2022-05-01', 'Got promoted to a senior developer position. Hard work pays off!', 'promotion1.jpg', NULL, NULL, NULL),

@@ -3,7 +3,6 @@ import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
 import '../styles/forms.css';
 import closeSymbol from '../assets/closeSymbol.svg';
-//close button to close the form modal
 
 function NewMilestoneForm({newMilestoneToggle, timelineEditToggle, selectedTimeline, handleSelectedTimeline, getMilestonesByTimeline }) {
   const title = useTextInput('');
@@ -12,7 +11,6 @@ function NewMilestoneForm({newMilestoneToggle, timelineEditToggle, selectedTimel
   const images = useImageInput([]);
 
   const [imageError, setImageError] = useState('');
-
 
   const handleNewMilestoneSubmit = (event) => {
     event.preventDefault();
@@ -55,7 +53,7 @@ function NewMilestoneForm({newMilestoneToggle, timelineEditToggle, selectedTimel
     });
   }
 
-  return (//new-milestone-modal
+  return (
     <div className='new-milestone-modal'>
       <div className="close-button-wrap">
           <button className="close-button-new" onClick={() => { newMilestoneToggle.handleToggle(); }} >

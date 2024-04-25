@@ -23,9 +23,7 @@
 // In this code, I've replaced state.favTimelines.includes(id) with state && state.favTimelines ? state.favTimelines.includes(id) : false. This checks if state and state.favTimelines are defined before calling includes. If they're not defined, it passes false to FavIcon.
 
 import React from 'react';
-
 import FavIcon from './FavIcon';
-//import '../styles/FavButton.scss';  
 
 function FavButton({ handleFavourites, state, timelineId, userId }) {
 

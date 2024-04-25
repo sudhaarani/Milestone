@@ -27,7 +27,7 @@ const SearchBar = ({ keyword, searchKeyword, setKeyword, selectedTimeline, fromD
             }}/>
             <div className='magnifying-glass-container'>
               <i class="fa-solid fa-magnifying-glass" 
-                onClick={() => {handleSearchByDate(selectedTimeline.id, fromDate, toDate);}} />
+                onClick={() => {handleSearchByDate(selectedTimeline.id, fromDate, toDate)}} />
             </div>
           </div>
         ) : (

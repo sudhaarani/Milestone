@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-//import { useHistory } from 'react-router-dom';
 import '../styles/MilestoneViewModal.css';
 import FullImageModal from "./FullImageModal.jsx";
 import useToggle from "../hooks/useToggle";
-
-
 
 const MilestoneViewModal = ({ state, milestoneToggle }) => {
   const [fullImage, setFullImage] = useState(null);
@@ -17,7 +14,6 @@ const MilestoneViewModal = ({ state, milestoneToggle }) => {
   console.log("state.selectedMilestone: ", state.selectedMilestone);
   const isoDate = new Date(state.selectedMilestone.milestone_date).toISOString();
   const formattedDate = isoDate.substring(0, 10); // Extracting YYYY-MM-DD
-
 
   return (
     <div>

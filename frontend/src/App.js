@@ -92,8 +92,6 @@ function App() {
             isLoggedIn={isLoggedIn}
             getMilestonesByTimeline={getMilestonesByTimeline}
             getTimelinesOf1User={getTimelinesOf1User}
-            timelineEditToggle={timelineEditToggle}
-            handleDeleteTimeline={handleDeleteTimeline} 
             handleFollowedUsers={handleFollowedUsers} 
             userId={userId}/>} 
           />
@@ -106,8 +104,6 @@ function App() {
             isLoggedIn={isLoggedIn}
             getMilestonesByTimeline={getMilestonesByTimeline}
             getTimelinesOf1User={getTimelinesOf1User}
-            timelineEditToggle={timelineEditToggle}
-            handleDeleteTimeline={handleDeleteTimeline}
             handleFollowedUsers={handleFollowedUsers}
             userId={userId} />}
           />
@@ -137,7 +133,7 @@ function App() {
         state={state} searchKeyword={searchKeyword} getClickedMilestone={getClickedMilestone}
         milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle} handleDeleteMilestone={handleDeleteMilestone}
           newMilestoneToggle={newMilestoneToggle} timelineToggle={timelineToggle} handleSelectedTimeline = { handleSelectedTimeline }
-        getMilestonesByTimeline={getMilestonesByTimeline} handleHomePage={handleHomePage}
+        getMilestonesByTimeline={getMilestonesByTimeline} handleHomePage={handleHomePage} handleSearchByDate={handleSearchByDate}
         />}
               
         {milestoneEditToggle.toggleState && <MilestoneEditModal milestoneEditToggle={milestoneEditToggle} timelineEditToggle={timelineEditToggle} state={state} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline} />}

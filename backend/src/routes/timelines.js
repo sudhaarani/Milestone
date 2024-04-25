@@ -19,8 +19,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 // multer stores files uploaded in frontend to backend public folder
-  
-
 
 ////////////////////////////////////////////////////////
 //                      routes                        //
@@ -221,8 +219,8 @@ router.post('/timelines/update', upload.single('image'), (req, res) => {
 });
 
 router.delete('/timelines/delete/:id', (req, res) => {  
-  const user_id = 4 //hardcoded for now
-  console.log("router post")
+  const user_id = 1 //hardcoded for now
+  console.log("router post");
   db.query(`DELETE FROM timelines WHERE id = $1 and user_id=$2;`,[req.params.id,user_id])
     .then(() => {
       console.log("Deleted timeline successfully");
