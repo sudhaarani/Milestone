@@ -15,14 +15,15 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
   const [keyword, setKeyword] = useState('');
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
   if (keyword && state.searchedMilestones) {
     state = { ...state, milestonesByTimeline: state.searchedMilestones }
   }
   if (fromDate && toDate && state.searchedMilestones) {
     state = { ...state, milestonesByTimeline: state.searchedMilestones }
   }
-
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+ 
   const displayDeleteConfirmation = () => {
     setShowDeleteConfirmation(true);
   };
@@ -34,7 +35,6 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
     timelineToggle.handleToggle();
     setShowDeleteConfirmation(false); // hide confirmation question after deleting
   };
-
 
   return (
     <div className='timeline-milestone-modal'>
@@ -58,8 +58,7 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
 
           <MilestoneList state={state} getClickedMilestone={getClickedMilestone} milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle} timelineEditToggle={timelineEditToggle} handleDeleteMilestone={handleDeleteMilestone} />
 
-          {state.milestonesByTimeline.length === 0 && <p className='timeline-view-milestone-status'>NO MILESTONES YET </p>}
-          
+          {state.milestonesByTimeline.length === 0 && <p className='timeline-view-milestone-status'>NO MILESTONES YET </p>}         
           {userId === selectedTimeline.user_id &&
             (<div className='timeline-bottom'>
               {showDeleteConfirmation && (
@@ -67,14 +66,11 @@ const TimelineViewModal = ({ timelineToggle, state, searchKeyword, getClickedMil
                   Are you sure you want to delete?
                   <i class="fa-solid fa-check" onClick={confirmDelete} ></i>
                   <i class="fa-solid fa-xmark" onClick={cancelDelete}></i>
-                </div>)}
-                
-              {/* <i className='fa-solid fa-pen' onClick={() => { timelineEditToggle.handleToggle()}} /> */}
+                </div>)}                
 
               <button className='btn btn-outline-info' onClick={() => { timelineEditToggle.handleToggle()}}>
                 <i class="fa-solid fa-pen" id='timeline-edit-button'/>
               </button>
-
 
               <button className='btn btn-outline-dark' onClick={() => {displayDeleteConfirmation()}} >
                 <i class="fa-solid fa-trash" id='timeline-edit-button'/>

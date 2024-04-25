@@ -5,7 +5,7 @@ import '../styles/forms.css';
 import closeSymbol from '../assets/closeSymbol.svg';
 
 
-function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTimeline, getMilestonesByTimeline,handleHomePage }) {
+function NewTimelineForm({ newTimelineToggle, handleHomePage }) {
   const title = useTextInput('');
   const description = useTextInput('');
   const coverImage = useImageInput(null);
@@ -24,9 +24,6 @@ function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTime
     .then(response => {
       if (response.ok) {
         console.log("Submitted Timeline Form")
-        title.reset();
-        description.reset();
-        coverImage.reset();
         return response.json();
       } else {
         console.error('Failed to submit form');
@@ -35,9 +32,6 @@ function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTime
     .then(data => {
       /* View newly created timeline without refreshing : */
       newTimelineToggle.handleToggle(); //---> closes new timeline form
-      // timelineToggle.handleToggle(); //---> opens timeline view modal
-      // handleSelectedTimeline(data[0].id);
-      // getMilestonesByTimeline(data[0].id);
       handleHomePage();
     })
     .catch((error) => {
@@ -64,7 +58,6 @@ function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTime
           <label>Description:</label>
           <input type="text" id="timeline_description" value={description.textInput} onChange={description.handleTextInput} />
         </div>
-
         <div>
           <label htmlFor="timeline_cover" className={`btn btn-outline-secondary btn-sm mt-3`}>
             Add cover image
@@ -76,7 +69,6 @@ function NewTimelineForm({ newTimelineToggle, timelineToggle, handleSelectedTime
           <i class="fa-solid fa-file-import"/> Submit
         </button>
       </form>
-
     </div>
   )
 };

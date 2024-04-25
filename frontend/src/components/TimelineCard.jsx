@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import '../styles/TimelineCard.css'
 import FavButton from "./FavButton";
 import FollowButton from './FollowButton';
 
-
 const TimelineCard = ({isLoggedIn, timelineList, timelineToggle, handleSelectedTimeline, handleFavourites,
-  state, getMilestonesByTimeline,timelineEditToggle,handleDeleteTimeline,getTimelinesOf1User,toggleFollowSymbol, handleFollowedUsers, userId }) => {
+  state, getMilestonesByTimeline, getTimelinesOf1User, handleFollowedUsers, userId }) => {
   const { id, user_id, username, title, description, timelineImageUrl } = timelineList;
 
     // note: do not mixed up user_id and userId. userId = id of logged in user. user_id = owner of selected timeline
