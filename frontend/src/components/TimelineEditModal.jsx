@@ -80,9 +80,6 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone, handleHo
                 <label>Cover Image</label>
                 <img src={selectedTimeline.timelineImageUrl} className='card-img-top' alt={selectedTimeline.image} />
                 <div>
-                  <label htmlFor="cover_image" className={`btn btn-outline-secondary btn-sm mt-3`}>
-                    Edit cover image
-                  </label>
                   <input className='file-input' type="file" id="cover_image" onChange={coverImage.handleImageInput} />
                 </div>  
               </div>
