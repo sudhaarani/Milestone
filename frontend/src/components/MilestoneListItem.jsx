@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const MilestoneListItem = ({ milestoneList, getClickedMilestone, milestoneToggle,timelineEditToggle,
   milestoneEditToggle,handleDeleteMilestone,milestoneStyleController}) => {
   const { id ,milestone_id, milestone_title, milestone_date  } = milestoneList;

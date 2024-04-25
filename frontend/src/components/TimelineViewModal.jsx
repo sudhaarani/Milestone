@@ -1,8 +1,6 @@
 import React,{useState} from 'react';
-
 import '../styles/TimelineViewModal.css';
 import '../styles/SearchBar.css';
-
 import closeSymbol from '../assets/closeSymbol.svg';
 import MilestoneList from '../components/MilestoneList';
 import SearchBar from '../components/SearchBar';
