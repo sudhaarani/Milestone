@@ -59,10 +59,7 @@ function NewTimelineForm({ newTimelineToggle, handleHomePage }) {
           <input type="text" id="timeline_description" value={description.textInput} onChange={description.handleTextInput} />
         </div>
         <div>
-          <label htmlFor="timeline_cover" className={`btn btn-outline-secondary btn-sm mt-3`}>
-            Add cover image
-          </label>
-          <input type="file" id="timeline_cover" onChange={coverImage.handleImageInput} className='no-display-file-input'/>
+          <input type="file" id="timeline_cover" onChange={coverImage.handleImageInput} />
         </div>
 
         <button className='btn btn-info' type="submit">

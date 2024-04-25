@@ -80,9 +80,8 @@ function NewMilestoneForm({newMilestoneToggle, timelineEditToggle, selectedTimel
           <textarea id="diary_entry" className="diary_entry" value={diaryEntry.textInput} onChange={diaryEntry.handleTextInput}></textarea>
         </div>
 
-        <div>
-          <label htmlFor="milestone_images" className={`btn btn-outline-secondary btn-sm mt-3`}>Add Max of 4 images</label>
-          <input type="file" name="images" id="milestone_images" onChange={images.handleMultiImageInput} className='no-display-file-input' multiple/>
+        <div style={{alignText:'center'}}>
+          <input type="file" name="images" id="milestone_images" onChange={images.handleMultiImageInput}  multiple/>
           
           {imageError && <p style={{ color:'red' }}> {imageError} </p>}
         </div>
