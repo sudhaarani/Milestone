@@ -9,10 +9,12 @@ import useTextInput from '../hooks/useTextInput';
 
 const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone, handleHomePage,
   milestoneToggle, timelineEditToggle, milestoneEditToggle, handleDeleteMilestone, newMilestoneToggle,
-  timelineToggle, handleSelectedTimeline, getMilestonesByTimeline}) => {
+  timelineToggle, handleSelectedTimeline, getMilestonesByTimeline, handleSearchByDate}) => {
   const { selectedTimeline } = state;
 
   const [keyword, setKeyword] = useState('');
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
   const title = useTextInput(selectedTimeline.title);
   const description = useTextInput(selectedTimeline.description);
   const coverImage = useImageInput(selectedTimeline.image);
@@ -53,6 +55,9 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone, handleHo
     state = { ...state, milestonesByTimeline: state.searchedMilestones }
     console.log(state.searchedMilestones);
   }
+  if (fromDate && toDate && state.searchedMilestones) {
+    state = { ...state, milestonesByTimeline: state.searchedMilestones }
+  }
 
   return (
     <div>
@@ -88,7 +93,9 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone, handleHo
 
             <h3 className='edit-modal-headers'>Edit Milestones</h3>
             <div className='timelineditmodal-search-container'>
-              <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline} />
+            <SearchBar keyword={keyword} searchKeyword={searchKeyword} setKeyword={setKeyword} selectedTimeline={selectedTimeline}
+            fromDate={fromDate} setFromDate={setFromDate}
+            toDate={toDate} setToDate={setToDate} handleSearchByDate={handleSearchByDate}/>
             </div>
 
             <div>
