@@ -19,8 +19,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 // multer stores files uploaded in frontend to backend public folder
-  
-
 
 ////////////////////////////////////////////////////////
 //                      routes                        //
