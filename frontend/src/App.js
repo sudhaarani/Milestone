@@ -8,7 +8,6 @@ import MilestoneViewModal from './components/MilestoneViewModal';
 import MilestoneEditModal from './components/MilestoneEditModal';
 import NavBar from './components/NavBar';
 import NewTimelineForm from './components/NewTimelineForm';
-import NewMilestoneForm from './components/NewMilestoneForm';
 import MyTimelines from './components/MyTimelines';
 import FavouritesPage from './components/FavouritesPage';
 
@@ -17,8 +16,8 @@ import useToggle from "./hooks/useToggle";
 
 function App() {
   const { state, handleSelectedTimeline, handleFavourites, getMilestonesByTimeline,
-    handleSearchByDate,handleHomePage,handleFavouritesPage, getTimelinesOf1User,
-    searchKeyword, getClickedMilestone,handleDeleteTimeline,handleDeleteMilestone, handleFollowedUsers, handleFollowingPage, renderFollowedUsers, renderFavourites } = useApplicationData();
+    handleSearchByDate, handleHomePage, handleFavouritesPage, getTimelinesOf1User,
+    searchKeyword, getClickedMilestone, handleDeleteTimeline, handleDeleteMilestone, handleFollowedUsers, handleFollowingPage, renderFollowedUsers, renderFavourites } = useApplicationData();
   
   // UserAuth + Rendering Followings and Favourites of logged in user: 
       // (however: needs initial refresh to see following and favourites. idk how to fix)
@@ -67,8 +66,6 @@ function App() {
             handleFavourites={handleFavourites}
             getMilestonesByTimeline={getMilestonesByTimeline}
             getTimelinesOf1User={getTimelinesOf1User} 
-            timelineEditToggle={timelineEditToggle}
-            handleDeleteTimeline={handleDeleteTimeline}
             handleFollowedUsers={handleFollowedUsers}
             userId={userId}
             />} 
@@ -82,8 +79,6 @@ function App() {
             handleFavourites={handleFavourites}
             getMilestonesByTimeline={getMilestonesByTimeline}
             getTimelinesOf1User={getTimelinesOf1User} 
-            timelineEditToggle={timelineEditToggle}
-            handleDeleteTimeline={handleDeleteTimeline}
             handleFollowedUsers={handleFollowedUsers}
             userId={userId}
             />} 
@@ -147,7 +142,7 @@ function App() {
               
         {milestoneEditToggle.toggleState && <MilestoneEditModal milestoneEditToggle={milestoneEditToggle} timelineEditToggle={timelineEditToggle} state={state} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline} />}
 
-        {newTimelineToggle.toggleState && <NewTimelineForm newTimelineToggle={newTimelineToggle} timelineToggle={timelineToggle} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline} handleHomePage={handleHomePage} />}
+        {newTimelineToggle.toggleState && <NewTimelineForm newTimelineToggle={newTimelineToggle} handleHomePage={handleHomePage} />}
         
       </div>
     </Router>  

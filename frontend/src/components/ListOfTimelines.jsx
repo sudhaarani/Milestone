@@ -3,7 +3,7 @@ import TimelineCard from './TimelineCard';
 import '../styles/ListOfTimelines.css';
 
 const ListOfTimelines = ({ state, isLoggedIn, timelineToggle, handleSelectedTimeline, handleFavourites,
-  getMilestonesByTimeline, timelineEditToggle, handleDeleteTimeline, getTimelinesOf1User, handleFollowedUsers, userId }) => {
+  getMilestonesByTimeline, getTimelinesOf1User, handleFollowedUsers, userId }) => {
     
   let TimelineListArray;
 
@@ -17,7 +17,6 @@ const ListOfTimelines = ({ state, isLoggedIn, timelineToggle, handleSelectedTime
     TimelineListArray = state.timelines.map((timelineList) => (
       <TimelineCard 
         key={timelineList.id}
-        username={timelineList.username}
         timelineList={timelineList}
         timelineToggle={timelineToggle}
         handleSelectedTimeline={handleSelectedTimeline}
@@ -26,8 +25,6 @@ const ListOfTimelines = ({ state, isLoggedIn, timelineToggle, handleSelectedTime
         handleFavourites={handleFavourites}
         getMilestonesByTimeline={getMilestonesByTimeline}
         getTimelinesOf1User={getTimelinesOf1User} // Pass the function as a prop
-        timelineEditToggle={timelineEditToggle}
-        handleDeleteTimeline={handleDeleteTimeline}
         handleFollowedUsers={handleFollowedUsers}
         userId={userId}
       />

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import '../styles/LoginModals.css';
 import '../styles/forms.css';
 
-
 const RegistrationModal = ({ isOpen, onClose, onRegister }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

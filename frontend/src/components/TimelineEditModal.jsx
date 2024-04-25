@@ -1,30 +1,21 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 
 import '../styles/TimelineEditModal.css';
-import closeSymbol from '../assets/closeSymbol.svg';
 import MilestoneList from '../components/MilestoneList';
 import NewMilestoneForm from '../components/NewMilestoneForm';
 import SearchBar from '../components/SearchBar';
 import useImageInput from '../hooks/useImageInput';
 import useTextInput from '../hooks/useTextInput';
 
-const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,handleHomePage,
+const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone, handleHomePage,
   milestoneToggle, timelineEditToggle, milestoneEditToggle, handleDeleteMilestone, newMilestoneToggle,
-  timelineToggle,handleSelectedTimeline,getMilestonesByTimeline}) => {
+  timelineToggle, handleSelectedTimeline, getMilestonesByTimeline}) => {
   const { selectedTimeline } = state;
-  console.log("selectedTimeline:", selectedTimeline);
 
   const [keyword, setKeyword] = useState('');
   const title = useTextInput(selectedTimeline.title);
   const description = useTextInput(selectedTimeline.description);
   const coverImage = useImageInput(selectedTimeline.image);
-  //to close the modal once save btn is clicked and form has submitted(form has to be 
-  //submitted before it closes so delaying one sec)
-  // const handleSaveClose = () => { 
-  //   setTimeout(() => {
-  //     timelineEditToggle.handleToggle();
-  //   }, 1000); // Delay of 1 second (1000 milliseconds)
-  // };
 
   const handleTimelineSave = (event) => {
     event.preventDefault();
@@ -33,9 +24,7 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,handleHom
     formData.append('description', description.textInput);
     formData.append('image', coverImage.imageInput);
     formData.append('timeline_id', selectedTimeline.id);
-    //console.log("coverImage.imageInput.name:", coverImage.imageInput.name);
-    //throws error when we save without editing image ---> have to look
-    //implement post req update query in milestones.js //upload multiple images
+
     fetch('/api/timelines/update', {
       method: 'POST',
       body: formData
@@ -47,13 +36,12 @@ const TimelineEditModal = ({ state, searchKeyword, getClickedMilestone,handleHom
         console.error('Failed to submit form');
       }
       return response.json();
-    })//closes edit modal,closes view modal
+    })
     .then(data => {
       /* Open up newly created timeline without refreshing : */
       timelineEditToggle.handleToggle(); //---> closes new timeline form
       timelineToggle.handleToggle(); //---> closes timeline view modal
       handleSelectedTimeline(data[0].id);
-      //getMilestonesByTimeline(data[0].id);  
       handleHomePage();
     })
     .catch((error) => {

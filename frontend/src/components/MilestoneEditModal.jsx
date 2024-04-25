@@ -1,12 +1,10 @@
 //if 2 available, displays image and edit button, add 2 more pen
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../styles/MilestoneEditModal.css';
-import closeSymbol from '../assets/closeSymbol.svg';
 
-const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handleSelectedTimeline, getMilestonesByTimeline }) => {
+const MilestoneEditModal = ({ state, milestoneEditToggle, timelineEditToggle, handleSelectedTimeline, getMilestonesByTimeline }) => {
 
   const { selectedMilestone } = state;
-  console.log("selectedMilestone:", selectedMilestone);
 
   const isoDate = new Date(selectedMilestone.milestone_date).toISOString();
   const formattedDate = isoDate.substring(0, 10); // Extracting YYYY-MM-DD
@@ -15,7 +13,7 @@ const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handl
     title: selectedMilestone.milestone_title,
     date: formattedDate,
     diary_entry: selectedMilestone.diary_entry,
-    image1:selectedMilestone.image1, // `/uploads/`
+    image1:selectedMilestone.image1, 
     image2:selectedMilestone.image2,
     image3:selectedMilestone.image3,
     image4:selectedMilestone.image4,
@@ -25,8 +23,6 @@ const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handl
 
   const [imagesNotNullInDbCount, setImagesNotNullInDbCount] = useState(selectedMilestone.milestoneImageUrl.length);// to change the count of Add button based on deletion
   const [imageError, setImageError] = useState('');
-  console.log("imagesNotNullInDbCount in component:", imagesNotNullInDbCount);
-  console.log("editedValues in component:", editedValues);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,7 +31,7 @@ const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handl
   let fieldArray = [];
   const checkNull = () => {
     Object.entries(editedValues).slice(3, 7).map(([key, value], index) => {
-      if (value === null) { //"/uploads/
+      if (value === null) { 
         fieldArray.push(key);
       }
     })
@@ -43,62 +39,32 @@ const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handl
 
   const handleImageChange = (e) => {
     const { name, files } = e.target;
-    if (name === 'image1' || 'image2' || 'image3' || 'image4') {
-      console.log("name::files::", name, ",", files[0]);
+    if (name === 'image1' || name ==='image2' || name ==='image3' || name ==='image4') {
       const imageFile = files[0];
       setEditedValues({ ...editedValues, [name]: imageFile });
-      //console.log("imageFile:", imageFile);
     }
-    console.log("e.target:", e.target);
+  
     if (name === 'images') {
-      console.log("inside images(multiple) e.target.files:", files);
       const lenOfTargetFiles = files.length;
       checkNull();
-      console.log("fieldArray:", fieldArray);
-      console.log("imagesNotNullInDbCount:", imagesNotNullInDbCount);
-      console.log("lenOfTargetFiles:", lenOfTargetFiles);
+
       if (lenOfTargetFiles > (4-imagesNotNullInDbCount)) {
         setImageError(`Maximum of ${4-imagesNotNullInDbCount} image(s) allowed.`);
         return;
       }
-      if (lenOfTargetFiles === 4) {
-        console.log("inside if 4");
-        setEditedValues({
-          ...editedValues, [fieldArray[0]]: files[0], [fieldArray[1]]: files[1],
-          [fieldArray[2]]: files[2], [fieldArray[3]]:files[3]
-        });
-        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
+      const updatedValues = {};
+      for (let i = 0; i < lenOfTargetFiles; i++) {
+        updatedValues[fieldArray[i]] = files[i];
       }
-      if (lenOfTargetFiles === 3) {
-        console.log("inside if 3");
-        setEditedValues({
-          ...editedValues, [fieldArray[0]]: files[0],
-          [fieldArray[1]]: files[1], [fieldArray[2]]: files[2]
-        });
-        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
-      }
-      if (lenOfTargetFiles === 2) {
-        console.log("inside if 2");
-        setEditedValues({
-          ...editedValues, [fieldArray[0]]: files[0], [fieldArray[1]]: files[1]
-        });
-        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
-      }
-      if (lenOfTargetFiles === 1) {
-        console.log("inside if 1");
-        setEditedValues({
-          ...editedValues, [fieldArray[0]]: files[0]
-        });
-        setImagesNotNullInDbCount(imagesNotNullInDbCount+lenOfTargetFiles);
-      }
+      setEditedValues({
+        ...editedValues,
+        ...updatedValues
+      });
+      setImagesNotNullInDbCount(imagesNotNullInDbCount + lenOfTargetFiles);
     }
   };
  
   const handleImageDelete = (ColName,imageName) => { 
-    //ColName, imageName
-    console.log("milestone_id:", selectedMilestone.milestone_id);
-    console.log("ColName:", ColName);
-    console.log("imageName:", imageName);
     fetch(`/api/milestones/delete-image/${selectedMilestone.milestone_id}/${ColName}`, {
       method: 'DELETE',
       headers: {
@@ -113,7 +79,6 @@ const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handl
           ...editedValues, [ColName]: null
         });
         setImagesNotNullInDbCount(imagesNotNullInDbCount - 1);
-       // console.log("imagesNotNullInDbCount: after image deletion::", imagesNotNullInDbCount);
       } else {
         console.error('Failed to Delete Milestone');
       }
@@ -122,27 +87,14 @@ const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handl
       console.error('Error deleting Milestone:', error);
     });
   };
-  
-  //to close the modal once save btn is clicked and form has submitted(form has to be
-  //submitted before it closes so delaying one sec)
-  const handleSaveClose = () => {
-    setTimeout(() => {
-      milestoneEditToggle.handleToggle();
-    }, 1000); // Delay of 1 second (1000 milliseconds)
-  };
 
   const handleTimelineSave = (event) => {
     event.preventDefault();
-    console.log("inside handleTimelineSave:");
     const formData = new FormData();
-    console.log("editedValues:", editedValues);
-    console.log("oldValues:", oldValues);
 
     Object.keys(editedValues).forEach(fieldName => {
       const file = oldValues[fieldName] === editedValues[fieldName] ? '' :editedValues[fieldName];
       if (file) {
-        console.log("fieldName:", fieldName);
-        console.log("file:", file);
         formData.append(fieldName, file);
       }
     });
@@ -167,16 +119,11 @@ const MilestoneEditModal = ({ state,milestoneEditToggle,timelineEditToggle,handl
       //update state for timeline and milestones using timeline id (selectedMilestone.id = timeline id)
       handleSelectedTimeline(selectedMilestone.id);
       getMilestonesByTimeline(selectedMilestone.id); 
-      
-
-      // doesn't work --> getClickedMilestone(selectedMilestone.milestone_id);  
-      // milestoneToggle.handleToggle();
     })
     .catch((error) => {
       console.error('Error fetching data:', error);
     });
   }
-
 
   return (
     <div className='milestone-edit-modal'>
