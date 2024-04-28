@@ -43,7 +43,7 @@ npm start
 
 - Tech Stack: Node.js, Express, React, Bootstrap
 - Database: PostgreSQL
-- Planning Docs, Wireframes, and DB Diagram can be found contained in "Project-Planning" directory
+- Planning Docs, Wireframes, and DB Diagram can be found in "Project-Planning" directory
 
 ## Frontend Dependencies
 
