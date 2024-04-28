@@ -25,7 +25,7 @@ const upload = multer({ storage: storage });
 //                      routes                        //
 ////////////////////////////////////////////////////////
 
-router.post('/milestones', upload.array('images', 4), (req, res) => {
+router.post('/', upload.array('images', 4), (req, res) => {
   const { timeline_id, title, date, diary_entry } = req.body;
   const image1 = req.files.length > 0 ? req.files[0].originalname : null;
   const image2 = req.files.length > 1 ? req.files[1].originalname : null;
@@ -52,7 +52,7 @@ router.post('/milestones', upload.array('images', 4), (req, res) => {
 });
 
 
-router.get('/milestones', (req, res) => {  
+router.get('/', (req, res) => {  
   db.query(`SELECT * FROM milestones ORDER BY date ASC;`)
     .then(({ rows: milestones }) => {
       const updatedMilestonesObj = milestones.map(milestone => {
@@ -76,7 +76,7 @@ router.get('/milestones', (req, res) => {
     });
 });
 
-router.get('/milestones/search/:timeline_id/:searchText', (req, res) => {  
+router.get('/search/:timeline_id/:searchText', (req, res) => {  
   let {searchText,timeline_id} = req.params;
   console.log("searchText:",searchText)
   searchText=searchText.toLowerCase();
@@ -106,7 +106,7 @@ router.get('/milestones/search/:timeline_id/:searchText', (req, res) => {
 
 //for milestone-edit save form
 //-------have to  implement deleting the previous image in the upload folder
-router.post('/milestones/update',  upload.fields([
+router.post('/update',  upload.fields([
   { name: 'image1' },
   { name: 'image2' },
   { name: 'image3' },
@@ -178,7 +178,7 @@ router.post('/milestones/update',  upload.fields([
   }
 });
 
-router.delete('/milestones/delete/:timeline_id/:id', (req, res) => {  
+router.delete('/delete/:timeline_id/:id', (req, res) => {  
   console.log("router delete");
   db.query(`DELETE FROM milestones WHERE id = $1 and timeline_id=$2;`,[req.params.id,req.params.timeline_id])
     .then(() => {
@@ -192,7 +192,7 @@ router.delete('/milestones/delete/:timeline_id/:id', (req, res) => {
 });
 
 //to delete milestone individual image 
-router.delete('/milestones/delete-image/:milestone_id/:ColName', async (req, res) => {
+router.delete('/delete-image/:milestone_id/:ColName', async (req, res) => {
   const { milestone_id, ColName } = req.params;
   const { imageName } = req.body;
   //let image = imageName.split("/");
@@ -220,7 +220,7 @@ router.delete('/milestones/delete-image/:milestone_id/:ColName', async (req, res
 });
 
 //to search by date
-router.get('/milestones/search/:timeline_id/:fromDate/:toDate', (req, res) => {  
+router.get('/search/:timeline_id/:fromDate/:toDate', (req, res) => {  
   let {timeline_id,fromDate,toDate} = req.params;
 
   db.query(`SELECT id as milestone_id,timeline_id, title as milestone_title, date as milestone_date, image1,image2,image3,image4 FROM milestones

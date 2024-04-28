@@ -181,11 +181,6 @@ const useApplicationData = () => {
     }
 
   const handleSelectedTimeline = (id) => {
-    /* Old code for handleSelectedTimeline. needed to change it so that newly created timeline opens up without refreshing (state.timelines was interferring): */
-    // const selectedTimelineResult = state.timelines.find(timeline => timeline.id === id)
-    // console.log("selectedTimelineResult: ", selectedTimelineResult);
-    // dispatch({ type: ACTIONS.SELECT_TIMELINE, result: selectedTimelineResult }); 
-    
     fetch('/api/timelines')
       .then(res => res.json())
       .then(data => {

@@ -13,18 +13,8 @@ const db = require('../db/connection.js');
 //                      routes                        //
 ////////////////////////////////////////////////////////
 
-router.get('/users', (req, res) => {  
-  db.query(`SELECT * FROM users;`)
-    .then(({ rows: users }) => {
-      res.json(users);
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).send('Server Error');
-    });
-});
 
-router.get('/followings', (req, res) => {  
+router.get('/', (req, res) => {  
   db.query(`SELECT * FROM followings;`)
     .then(({ rows: followings }) => {
       res.json(followings);
@@ -36,7 +26,7 @@ router.get('/followings', (req, res) => {
 });
 
 
-router.get('/followings/:userid', (req, res) => {  
+router.get('/:userid', (req, res) => {  
   const user1Id = req.params.userid;
   db.query(`SELECT * FROM followings WHERE user1_id = $1`, [user1Id])
     .then(({ rows: followings }) => {
@@ -49,7 +39,7 @@ router.get('/followings/:userid', (req, res) => {
 });
 
 
-router.post('/followings/:userid', (req, res) => {
+router.post('/:userid', (req, res) => {
   const user1Id = req.body.user1Id; 
   const user2Id = req.body.user2Id; 
 
@@ -67,7 +57,7 @@ router.post('/followings/:userid', (req, res) => {
 });
 
 
-router.delete('/followings/:userid', (req, res) => {
+router.delete('/:userid', (req, res) => {
   const user1Id = req.body.user1Id;
   const user2Id = req.body.user2Id; 
 

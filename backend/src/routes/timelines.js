@@ -24,7 +24,7 @@ const upload = multer({ storage: storage });
 //                      routes                        //
 ////////////////////////////////////////////////////////
 
-router.post('/timelines', upload.single('coverimage'), (req, res) => {
+router.post('/', upload.single('coverimage'), (req, res) => {
   const { title } = req.body;
   const { description } = req.body;
   const image = req.file.filename;
@@ -51,7 +51,7 @@ router.post('/timelines', upload.single('coverimage'), (req, res) => {
 });
 
 
-router.get('/timelines', (req, res) => {
+router.get('/', (req, res) => {
   db.query(`
     SELECT timelines.*, users.username
     FROM timelines
@@ -70,7 +70,7 @@ router.get('/timelines', (req, res) => {
     });
 });
 
-router.get('/timelines/milestones/:id', (req, res) => {  
+router.get('/milestones/:id', (req, res) => {  
   db.query(`SELECT timelines.*,milestones.id as milestone_id,milestones.title as milestone_title, milestones.date as milestone_date,
   diary_entry,image1,image2,image3,image4 
   FROM timelines JOIN milestones ON milestones.timeline_id = timelines.id
@@ -97,7 +97,7 @@ router.get('/timelines/milestones/:id', (req, res) => {
     });
 });
 
-router.get('/timelines/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const userId = req.params.id;
 
   db.query(`
@@ -120,8 +120,8 @@ router.get('/timelines/:id', (req, res) => {
 });
 
 
-router.get('/timelines/favourites/:id', (req, res) => {
-  const userId = req.params.id;
+router.get('/favourites/:userid', (req, res) => {
+  const userId = req.params.userid;
 
   db.query(`
     SELECT timeline_id
@@ -138,7 +138,7 @@ router.get('/timelines/favourites/:id', (req, res) => {
 });
 
 
-router.post('/timelines/favourites/:id', (req, res) => {
+router.post('/favourites/:id', (req, res) => {
   const userId = req.body.userId
   const timelineId = req.body.timelineId; // Assuming the timelineId is sent in the request body
 
@@ -156,7 +156,7 @@ router.post('/timelines/favourites/:id', (req, res) => {
 });
 
 
-router.delete('/timelines/favourites/:id', (req, res) => {
+router.delete('/favourites/:id', (req, res) => {
   const userId = req.body.userId
   const timelineId = req.body.timelineId; // Assuming the timelineId is sent in the request body
 
@@ -175,7 +175,7 @@ router.delete('/timelines/favourites/:id', (req, res) => {
 
 //for timeline-edit save form
 //-------have to  implement deleting the previous image in the upload folder
-router.post('/timelines/update', upload.single('image'), (req, res) => {
+router.post('/update', upload.single('image'), (req, res) => {
   const { title, description, timeline_id } = req.body;
   let image;
   if (req.file) { 
@@ -218,7 +218,7 @@ router.post('/timelines/update', upload.single('image'), (req, res) => {
     });
 });
 
-router.delete('/timelines/delete/:id', (req, res) => {  
+router.delete('/delete/:id', (req, res) => {  
   const user_id = 1 //hardcoded for now
   console.log("router post");
   db.query(`DELETE FROM timelines WHERE id = $1 and user_id=$2;`,[req.params.id,user_id])

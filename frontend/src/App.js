@@ -20,7 +20,6 @@ function App() {
     searchKeyword, getClickedMilestone, handleDeleteTimeline, handleDeleteMilestone, handleFollowedUsers, handleFollowingPage, renderFollowedUsers, renderFavourites } = useApplicationData();
   
   // UserAuth + Rendering Followings and Favourites of logged in user: 
-      // (however: needs initial refresh to see following and favourites. idk how to fix)
   const [userId, setUserId] = useState(null); 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
@@ -51,13 +50,13 @@ function App() {
           isLoggedIn={isLoggedIn} 
           setIsLoggedIn={setIsLoggedIn} 
           getTimelinesOf1User={getTimelinesOf1User} 
-          userId={userId} // Passing userId as a prop to NavBar
-          setUserId={setUserId} // Passing setUserId as a prop to NavBar
+          userId={userId}
+          setUserId={setUserId}
           newTimelineToggle={newTimelineToggle}
           handleFollowingPage={handleFollowingPage}
         />
 
-        <Routes> {/* Use Routes instead of Switch */}
+        <Routes>
           <Route path="/" element={<HomePage
             isLoggedIn={isLoggedIn} 
             timelineToggle={timelineToggle} 
@@ -67,8 +66,7 @@ function App() {
             getMilestonesByTimeline={getMilestonesByTimeline}
             getTimelinesOf1User={getTimelinesOf1User} 
             handleFollowedUsers={handleFollowedUsers}
-            userId={userId}
-            />} 
+            userId={userId} />} 
           />
 
           <Route path="/following" element={<HomePage
@@ -80,8 +78,7 @@ function App() {
             getMilestonesByTimeline={getMilestonesByTimeline}
             getTimelinesOf1User={getTimelinesOf1User} 
             handleFollowedUsers={handleFollowedUsers}
-            userId={userId}
-            />} 
+            userId={userId} />} 
           />
           
           <Route path="/timelines/:id" element={<MyTimelines 
@@ -93,7 +90,7 @@ function App() {
             getMilestonesByTimeline={getMilestonesByTimeline}
             getTimelinesOf1User={getTimelinesOf1User}
             handleFollowedUsers={handleFollowedUsers} 
-            userId={userId}/>} 
+            userId={userId} />} 
           />
 
           <Route path="/favourites" element={<FavouritesPage
@@ -122,23 +119,41 @@ function App() {
             handleDeleteMilestone={handleDeleteMilestone}
             handleSearchByDate={handleSearchByDate}
             userId={userId}
-            handleDeleteTimeline={handleDeleteTimeline}
-          />
-        }
+            handleDeleteTimeline={handleDeleteTimeline} />}
 
 
-        {milestoneToggle.toggleState && <MilestoneViewModal milestoneToggle={milestoneToggle} state={state} />}
+        {milestoneToggle.toggleState && 
+          <MilestoneViewModal
+            milestoneToggle={milestoneToggle}
+            state={state} />}
 
-        {timelineEditToggle.toggleState && <TimelineEditModal timelineEditToggle={timelineEditToggle}
-        state={state} searchKeyword={searchKeyword} getClickedMilestone={getClickedMilestone}
-        milestoneToggle={milestoneToggle} milestoneEditToggle={milestoneEditToggle} handleDeleteMilestone={handleDeleteMilestone}
-          newMilestoneToggle={newMilestoneToggle} timelineToggle={timelineToggle} handleSelectedTimeline = { handleSelectedTimeline }
-        getMilestonesByTimeline={getMilestonesByTimeline} handleHomePage={handleHomePage} handleSearchByDate={handleSearchByDate}
-        />}
+        {timelineEditToggle.toggleState && 
+          <TimelineEditModal 
+            timelineEditToggle={timelineEditToggle}
+            state={state} searchKeyword={searchKeyword}
+            getClickedMilestone={getClickedMilestone}
+            milestoneToggle={milestoneToggle}
+            milestoneEditToggle={milestoneEditToggle}
+            handleDeleteMilestone={handleDeleteMilestone}
+            newMilestoneToggle={newMilestoneToggle}
+            timelineToggle={timelineToggle}
+            handleSelectedTimeline={handleSelectedTimeline}
+            getMilestonesByTimeline={getMilestonesByTimeline}
+            handleHomePage={handleHomePage}
+            handleSearchByDate={handleSearchByDate} />}
               
-        {milestoneEditToggle.toggleState && <MilestoneEditModal milestoneEditToggle={milestoneEditToggle} timelineEditToggle={timelineEditToggle} state={state} handleSelectedTimeline={handleSelectedTimeline} getMilestonesByTimeline={getMilestonesByTimeline} />}
+        {milestoneEditToggle.toggleState && 
+          <MilestoneEditModal
+            milestoneEditToggle={milestoneEditToggle}
+            timelineEditToggle={timelineEditToggle}
+            state={state}
+            handleSelectedTimeline={handleSelectedTimeline}
+            getMilestonesByTimeline={getMilestonesByTimeline} />}
 
-        {newTimelineToggle.toggleState && <NewTimelineForm newTimelineToggle={newTimelineToggle} handleHomePage={handleHomePage} />}
+        {newTimelineToggle.toggleState && 
+          <NewTimelineForm
+            newTimelineToggle={newTimelineToggle}
+            handleHomePage={handleHomePage} />}
         
       </div>
     </Router>  

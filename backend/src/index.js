@@ -31,14 +31,14 @@ app.use(express.urlencoded({ extended: true }));
 //                      routing                       //
 ////////////////////////////////////////////////////////
 
-const usersRoutes = require('./routes/users');
+const followingsRoutes = require('./routes/followings');
 const milestonesRoutes = require('./routes/milestones');
 const timelinesRoutes = require('./routes/timelines');
 const loginRoutes = require('./routes/login'); // Import the login route
 
-app.use('/api', usersRoutes);
-app.use('/api', milestonesRoutes);
-app.use('/api', timelinesRoutes);
+app.use('/api/followings', followingsRoutes);
+app.use('/api/milestones', milestonesRoutes);
+app.use('/api/timelines', timelinesRoutes);
 app.use('/login', loginRoutes); // Use the login route with the express app
 
 
