@@ -4,22 +4,6 @@
 
 The Milestones app offers users a digital scrapbook experience, allowing them to document and celebrate significant moments in their lives.
 
-## Features
-
-- (MVP ✅) As a user, I want to be able to Register into MileStone with basic information such as username, email, and password.
-- (MVP ✅) As a user, I want to be able to log into MileStone with a username and password.
-- (MVP ✅) As a user, I want to be able to navigate to different tabs in the nav-bar.
-- (MVP ✅) As a user, I want to be able to view timelines on the homepage loaded from the API.
-- (MVP ✅) As a user, I want to be able to create a timeline with title, description, cover-image and also edit or delete it.
-- (MVP ✅) As a user, I want to be able to create a milestone with title, date, diary-entry, images(max of 4) and also edit or delete it.
-- (MVP ✅) As a user, I want to be able to like a timeline and see the liked timeline in the Favourites tab.
-- (MVP ✅) As a user, I want to be able to follow a user and see the followed user's timelines in the Following tab.
-- (MVP ✅) As a user, I want to be able to see all timelines I created in the My Timelines tab.
-- (MVP ✅) As a user, I want to be able to see all timelines of specific user by clicking on the username.
-- (MVP ✅) As a user, I want to be able to view a larger version of the milestone image by clicking on it.
-- STRETCH: As a user, I want to be able to edit or delete each individual milestone image.
-- STRETCH: As a user, I want to be able to search for a specific milestone within timeline by entering keywords and dates.
-
 ## Getting Started
 
 1. Clone this repository.
@@ -55,10 +39,25 @@ npm start
 
 ![./Screenshots/Milestone_Edit_Page.png](https://github.com/sudhaarani/Milestone/blob/master/Screenshots/Milestone_Edit_Page.png)
 
-## Dependencies
+## Whats inside:
 
-- React
-- Create React App
+- Tech Stack: Node.js, Express, React, Bootstrap
+- Database: PostgreSQL
+- Planning Docs, Wireframes, and DB Diagram can be found contained in "Project-Planning" directory
+
+## Frontend Dependencies
+
+- react(^18.2.0)
+- react-dom(18.2.0)
+- react-router-dom(^6.22.3)
 - Webpack
 - Babel
-- Express
+
+## Backend Dependencies
+
+- cors(^2.8.5)
+- express(^4.19.2)
+- fs(0.0.1)
+- morgan(^1.10.0)
+- multer(^1.4.5-lts.1)
+- pg(^8.11.5)
