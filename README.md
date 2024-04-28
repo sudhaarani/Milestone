@@ -1,75 +1,64 @@
-# Getting Started with Create React App
+# LHL Final Project - Neeha, Dhaarani, and Rico
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MileStone App
 
-## Available Scripts
+The Milestones app offers users a digital scrapbook experience, allowing them to document and celebrate significant moments in their lives.
 
-In the project directory, you can run:
+## Features
 
-STEPS
-1. npm install in both backend and frontend
-2. npm start in both backend and frontend
-3. in backend npm run reset
+- (MVP ✅) As a user, I want to be able to Register into MileStone with basic information such as username, email, and password.
+- (MVP ✅) As a user, I want to be able to log into MileStone with a username and password.
+- (MVP ✅) As a user, I want to be able to navigate to different tabs in the nav-bar.
+- (MVP ✅) As a user, I want to be able to view timelines on the homepage loaded from the API.
+- (MVP ✅) As a user, I want to be able to create a timeline with title, description, cover-image and also edit or delete it.
+- (MVP ✅) As a user, I want to be able to create a milestone with title, date, diary-entry, images(max of 4) and also edit or delete it.
+- (MVP ✅) As a user, I want to be able to like a timeline and see the liked timeline in the Favourites tab.
+- (MVP ✅) As a user, I want to be able to follow a user and see the followed user's timelines in the Following tab.
+- (MVP ✅) As a user, I want to be able to see all timelines I created in the My Timelines tab.
+- (MVP ✅) As a user, I want to be able to see all timelines of specific user by clicking on the username.
+- (MVP ✅) As a user, I want to be able to view a larger version of the milestone image by clicking on it.
+- STRETCH: As a user, I want to be able to edit or delete each individual milestone image.
+- STRETCH: As a user, I want to be able to search for a specific milestone within timeline by entering keywords and dates.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone this repository.
+2. Install dependencies with `npm install` in each respective `/frontend` and `/backend`.
+3. Start the Webpack Development Server[Frontend] by
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```sh
+cd frontend
+npm start
+```
 
-### `npm test`
+4. Setup Backend by reading `backend/readme` file.
+5. Start the Backend Server by
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+cd backend
+npm start
+```
 
-### `npm run build`
+6. Go to <http://localhost:3000/> in your browser.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Final Product
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![./Screenshots/HomePage.png](https://github.com/sudhaarani/photolabs-starter/blob/main/frontend/screenshots/Homepage.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![./Screenshots/Timeline_View_Page.png](https://github.com/sudhaarani/photolabs-starter/blob/main/frontend/screenshots/Modal_1.png)
 
-### `npm run eject`
+![./Screenshots/Edit_Timeline_Page1.png](https://github.com/sudhaarani/photolabs-starter/blob/main/frontend/screenshots/Modal_2.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![./Screenshots/Edit_Timeline_Page2.png]
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![./Screenshots/Create_Milestone_Page.png]
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![./Screenshots/Milestone_Edit_Page.png]
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Dependencies
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- React
+- Create React App
+- Webpack
+- Babel
+- Express
