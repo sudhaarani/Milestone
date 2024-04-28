@@ -43,17 +43,17 @@ npm start
 
 ## Final Product
 
-![./Screenshots/HomePage.png](https://github.com/sudhaarani/photolabs-starter/blob/main/frontend/screenshots/Homepage.png)
+![./Screenshots/HomePage.png](https://github.com/sudhaarani/Milestone/blob/master/Screenshots/HomePage.png)
 
-![./Screenshots/Timeline_View_Page.png](https://github.com/sudhaarani/photolabs-starter/blob/main/frontend/screenshots/Modal_1.png)
+![./Screenshots/Timeline_View_Page.png](https://github.com/sudhaarani/Milestone/blob/master/Screenshots/Timeline_View_Page.png)
 
-![./Screenshots/Edit_Timeline_Page1.png](https://github.com/sudhaarani/photolabs-starter/blob/main/frontend/screenshots/Modal_2.png)
+![./Screenshots/Edit_Timeline_Page1.png](https://github.com/sudhaarani/Milestone/blob/master/Screenshots/Edit_Timeline_Page1.png)
 
-![./Screenshots/Edit_Timeline_Page2.png]
+![./Screenshots/Edit_Timeline_Page2.png](https://github.com/sudhaarani/Milestone/blob/master/Screenshots/Edit_Timeline_Page2.png)
 
-![./Screenshots/Create_Milestone_Page.png]
+![./Screenshots/Create_Milestone_Page.png](https://github.com/sudhaarani/Milestone/blob/master/Screenshots/Create_Milestone_Page.png)
 
-![./Screenshots/Milestone_Edit_Page.png]
+![./Screenshots/Milestone_Edit_Page.png](https://github.com/sudhaarani/Milestone/blob/master/Screenshots/Milestone_Edit_Page.png)
 
 ## Dependencies
 
