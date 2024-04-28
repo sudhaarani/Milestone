@@ -2,7 +2,7 @@
 
 # MileStone App
 
-The Milestones app offers users a digital scrapbook experience, allowing them to document and celebrate significant moments in their lives.
+Milestones is a web application designed to provide users with a digital scrapbook experience, enabling them to document and commemorate important moments in their lives. Through intuitive user interfaces and robust backend functionalities, Milestones empowers users to create, edit, and share their personal timelines, filled with memorable events and milestones.
 
 ## Getting Started
 
